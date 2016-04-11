@@ -9,8 +9,12 @@ div.left{
     width:600px;
 }
 div.dashed {border-style: dashed;
-height: 80px;
+    height: 80px;
     width:80px;
     font-size: 10px;
     margin: 20px;
+    float:right;
+    position:absolute;
+    top:25px;
+    left:120px;
 }
