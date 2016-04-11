@@ -59,3 +59,16 @@ div.dashed {
 #leftbody{
     border-right: 1px solid #ccc;
 }
+
+
+div.questionDiv{
+    border-style: solid;
+    border-width: 1px;
+    padding: 5px;
+}
+
+p.questionAuthor{
+    font-weight: bold;
+}
+
+
