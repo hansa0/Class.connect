@@ -1,3 +1,7 @@
+replyClick = function() {
+    console.log("REPLY BUTTON CLICKED")
+};
+
 $(document).ready(function() {
 
     mainDiv = document.getElementById("rightbody");
@@ -18,6 +22,8 @@ $(document).ready(function() {
         var button = document.createElement("button");        // Create a <button> element
         var buttonText = document.createTextNode("Reply");       // Create a text node
         button.appendChild(buttonText);
+        button.onclick=function(){replyClick()};
+
         qDiv.appendChild(button)   
 
         mainDiv.appendChild(qDiv)
