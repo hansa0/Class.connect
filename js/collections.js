@@ -32,7 +32,7 @@ var questions = [
     },
     {
       author: "Van",
-      question: "How do I say hello in spanish",
+      question: "How do I say hello in spanish?",
       hasReply: false,
       reply: null
     },
