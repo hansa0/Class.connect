@@ -1,4 +1,26 @@
+/*universal (navbar, body, footer)*/
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+.row.content {
+    height: 450px
+}
+.sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
+}
+#mainbody{
+    display: flex;
+}
+footer {
+    background-color: #555;
+    color: white;
+    padding: 15px;
+}
 
+/*calendar view*/
 
 #calendar {
     margin: 5em;
@@ -27,4 +49,13 @@ div.dashed {
     position: absolute;
     top: 25px;
     left: 120px;
+}
+
+/*Daily view*/
+#rightbody{
+    border-left: 1px solid #ccc;
+}
+
+#leftbody{
+    border-right: 1px solid #ccc;
 }
