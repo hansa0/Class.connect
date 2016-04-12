@@ -1,19 +1,32 @@
 $(document).ready(function() {
-    $("#add").click(function(){
-    console.log("new");
-    var newDiv = document.createElement('div');
-    newDiv.style.border = "solid";
-    newDiv.style.height="80px";
-    newDiv.style.width="80px";
-    newDiv.style.margin="20px";
-    newDiv.style.position="absolute";
-    newDiv.style.top="130px";
-    newDiv.style.left="120px";
-    document.getElementById("left").appendChild(newDiv);
+   var cellstoFill=["1", "2", "3", "4", "5"]
+var nextFreeCell=0;
+$("#addVerb").click(function(){
     
-    $(newDiv).attr('id', 'Nouns');
-    $(newDiv).text("Nouns");
+    document.getElementById("upload").style.display="inline";
+    
+
   });
+  
+$("#add").click(function(){
+    console.log("newwww");
+
+    var cell= cellstoFill[nextFreeCell]
+    document.getElementById(cell).innerHTML="Nouns";
+    document.getElementById(cell).style.border="solid";
+    nextFreeCell+=1;
+    
+
+  });
+    
+$("#edit").click(function(){
+
+    var minuses=document.getElementsByClassName("glyphicon glyphicon-minus");
+    console.log(minuses);
+    for (i in )
+
+  });
+
 });
 
 
