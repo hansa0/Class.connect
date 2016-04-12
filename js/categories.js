@@ -34,15 +34,34 @@ $("#add").click(function(){
     
 
   });
-    
-$("#edit").click(function(){
 
+    var isEditing=false;
+$("#edit").click(function(){
+    isEditing=!isEditing; //toggles
+    
+    var editButton=document.getElementById("edit");
     var minuses=document.getElementsByClassName("glyphicon glyphicon-minus");
-    console.log(minuses);
-    for (i=0; i<minuses.length; i++){
+
+
+    if (isEditing){
+        editButton.className="btn btn-success";
+    editButton.textContent="Editing";
+        for (i=0; i<minuses.length; i++){
         console.log(minuses[i]);
         minuses[i].style.display="inline";
     }
+    }
+    else{
+        editButton.className="btn btn-primary";
+        editButton.textContent="Edit";
+        for (i=0; i<minuses.length; i++){
+        console.log(minuses[i]);
+        minuses[i].style.display="none";
+    }
+    }
+    
+    
+    
 
   });
 
