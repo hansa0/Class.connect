@@ -24,6 +24,12 @@ footer {
     margin: 5em;
 }
 
+.fc-day:hover{
+    background: #b3b3b3;
+}
+
+
+/* */
 div.solid {
     border-style: solid;
     height: 80px;
