@@ -6,6 +6,10 @@
 * 
 */
 
+
+var selected_day;
+
+
 var assignments = [
   {
     assignment_name: "Assignment 1",
