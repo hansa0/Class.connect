@@ -50,6 +50,7 @@ $(document).ready(function() {
 
     // opens the assignment/handout for the selected file
     eventClick: function(calEvent, jsEvent, view) {
+      window.location.href='http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf';
       console.log('clicked event');
       console.log(calEvent);
     },
