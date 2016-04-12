@@ -85,13 +85,6 @@ p.questionAuthor{
     display: none
 }
 
-<<<<<<< HEAD
-table.topicTable td { width:180px }
 
-=======
-td {
-    padding:15px;
-    width:100px;
-    height=100px;
-}
->>>>>>> bf2155f5fa1bb4050c3dff3cc6ad0fd5eab8d5d3
+table.topicTable td { width:180px; }
+

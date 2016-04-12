@@ -12,8 +12,9 @@ $(document).ready(function() {
     for (var i = 0; i < handouts.length; i++){
         var d1 = document.getElementById(handouts[i].topic);
         console.log(handouts[i].topic);
-        d1.insertAdjacentHTML('afterend', '<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span>'+ handouts[i].title+'</p>');     
+        d1.insertAdjacentHTML('afterend', '<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');     
     }
+
 
 
     $("#addVerb").click(function() {
@@ -37,16 +38,17 @@ $(document).ready(function() {
       };
     }
 
-      
     $("#add").click(function() {
         var input = $("#newTopic").val();
-        console.log(input);
+
         var cell= cellstoFill[nextFreeCell]
         document.getElementById(cell).innerHTML=input;
-        document.getElementById(cell).style.border="solid";
-        nextFreeCell+=1;
         
-      });
+        document.getElementById(cell).style.border="solid";
+        document.getElementById(cell).style.height="150px";
+        nextFreeCell+=1;
+    });
+          
 
     var isEditing = false;
     $("#edit").click(function(){
