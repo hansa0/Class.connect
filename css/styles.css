@@ -24,8 +24,12 @@ footer {
     margin: 5em;
 }
 
-.fc-day:hover{
+.fc-day:hover {
     background: #b3b3b3;
+}
+
+.fc-event:hover {
+    color: #b3b3b3;
 }
 
 
@@ -81,7 +85,7 @@ p.questionAuthor{
     display: none
 }
 
-td{
+td {
     padding:15px;
     width:100px;
     height=100px;
