@@ -24,6 +24,16 @@ footer {
     margin: 5em;
 }
 
+.fc-day:hover {
+    background: #b3b3b3;
+}
+
+.fc-event:hover {
+    color: #b3b3b3;
+}
+
+
+/* */
 div.solid {
     border-style: solid;
     height: 80px;
@@ -75,5 +85,13 @@ p.questionAuthor{
     display: none
 }
 
+<<<<<<< HEAD
 table.topicTable td { width:180px }
 
+=======
+td {
+    padding:15px;
+    width:100px;
+    height=100px;
+}
+>>>>>>> bf2155f5fa1bb4050c3dff3cc6ad0fd5eab8d5d3
