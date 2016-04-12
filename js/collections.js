@@ -29,36 +29,21 @@ var assignments = [
 
 var handouts = [
   {
-    handout_name: 'Handout about verbs',
+    title: 'ER Verbs',
     topic: 'Verbs',
     file: 'N/A',
     text: 'Some description',
     relevant_day: '2016-04-20'
   },
   {
-    handout_name: 'Handout about nouns',
-    topic: 'Nouns',
+    title: 'IR Verbs',
+    topic: 'Verbs',
     file: 'N/A',
     text: 'Some description',
     relevant_day: '2016-04-18'
   }
 ];
 
-var handouts=[
-    {
-      topic: "Verbs",
-      title: "ER Verbs",
-    
-    },
-    
-    {
-      topic: "Verbs",
-      title: "IR Verbs",
-    
-    },
-    
-    
-]
 
 var questions = [
     {

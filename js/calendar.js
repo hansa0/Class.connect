@@ -21,7 +21,7 @@ $(document).ready(function() {
   for (var i = 0; i < handouts.length; i++) {
     handout = handouts[i];
     handout_event = {
-      title: handout.handout_name,
+      title: handout.title,
       start: handout.relevant_day
     };
     all_materials.push(handout_event);
