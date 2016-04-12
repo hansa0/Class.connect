@@ -1,6 +1,28 @@
 replyClick = function(e) {
     console.log("REPLY BUTTON CLICKED", e)
-    $('<div id="replyDiv"><input id="reply" class="input" type="text" name="input" value=""></div>').insertAfter(e.target.parentNode)
+    // $('rightbody').append('<textarea id="TypeHere"> Type some text here.</textarea>' );
+    var textAreaHtml = '<div id="replyDiv"><textarea id="'+ e.target.parentNode.id+"_reply"+ '"">Type some text here.</textarea>';
+    textAreaHtml = textAreaHtml + '<button type="button" id="'+ e.target.parentNode.id+'_submit' + '">Submit</button></div>';
+    $(textAreaHtml).insertAfter(e.target.parentNode)
+    var btn_id =e.target.parentNode.id+'_submit'; 
+    var submit_button = document.getElementById(btn_id);
+    submit_button.onclick=function(){replySubmit(event)};
+
+
+    // $('body').append('<script type="application/x-javascript">tinymce.init({selector:"#TypeHere"});</script>');
+    initializeTinymce();
+};
+
+initializeTinymce = function() {
+    tinymce.init({
+    toolbar: "undo redo | link image | styleselect | bold italic | bullist numlist outdent indent",
+    selector : "textarea"
+    });
+    tinymce.execCommand("mceAddControl", false, "");
+};
+
+replySubmit = function(e) {
+    console.log ("HADHFAHDSFHAS", e);
 };
 
 $(document).ready(function() {
