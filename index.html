@@ -10,14 +10,56 @@ Van Tran, and Hansa Srinivasan
 
   <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
   <link rel='stylesheet' href='css/styles.css' />
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src='lib/jquery.min.js'></script>
+  <script src='lib/moment.min.js'></script>
+  <script src='fullcalendar/fullcalendar.js'></script>
 </head>
 
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Class.connect</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Materials</a></li>
+                    <li><a href="#">Assignments</a></li>
+                    <li><a href="#">Calendar</a></li>
+                    <li><a href="#">Questions</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<div id='calendar'></div>
+    <div class="container-fluid text-center">
+        <div class="row content">
+            <div class="col-sm-1 sidenav">
+            </div>
+            <div class="col-sm-10 text-left" id="mainbody">
+                <div id='calendar'></div>
+            </div>
+            <div class="col-sm-1 sidenav">
+            </div>
+        </div>
 
-<script src='lib/jquery.min.js'></script>
-<script src='lib/moment.min.js'></script>
-<script src='lib/moment.min.js'></script>
-<script src='fullcalendar/fullcalendar.js'></script>
-<script src='js/collections.js'></script>
-<script src='js/main.js'></script>
+        <footer class="container-fluid text-center">
+            <p>Footer Text</p>
+        </footer>
+
+        <script src='js/collections.js'></script>
+        <script src='js/calendar.js'></script>
+</body>
