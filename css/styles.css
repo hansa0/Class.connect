@@ -51,10 +51,7 @@ div.dashed {
     left: 120px;
 }
 
-td{
-    padding:15px;
-    width:100px;
-}
+
 /*Daily view*/
 #rightbody{
     border-left: 1px solid #ccc;
@@ -81,4 +78,15 @@ p.questionAuthor{
     font-weight: bold;
 }
 
+
+/* left side */
+#minus{
+    display: none
+}
+
+td{
+    padding:15px;
+    width:100px;
+    height=100px;
+}
 
