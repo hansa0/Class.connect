@@ -71,6 +71,12 @@ div.questionDiv{
     padding: 5px;
 }
 
+#replyDiv{
+    border-style: solid;
+    border-width: 2px;
+    padding: 5px;
+}
+
 p.questionAuthor{
     font-weight: bold;
 }
