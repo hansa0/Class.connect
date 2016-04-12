@@ -5,7 +5,8 @@ $(document).ready(function() {
  
     for (var i = 0; i < assignments.length; i++){
         var d1 = document.getElementById('Assignments');
-        d1.insertAdjacentHTML('afterend', '<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span>'+ assignments[i].assignment_name+'</p>');
+        d1.insertAdjacentHTML('afterend', '<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + assignments[i].assignment_name+'</a> </p>');
+
     }
     
     for (var i = 0; i < handouts.length; i++){
@@ -38,20 +39,42 @@ function prepareUpload(event) {
 $("#add").click(function() {
     var input = $("#newTopic").val();
     console.log(input);
-    var cell = cellstoFill[nextFreeCell]
-    document.getElementById(cell).innerHTML = input;
-    document.getElementById(cell).style.border = "solid";
-    nextFreeCell += 1;
-});
+<<<<<<< HEAD
+    var cell= cellstoFill[nextFreeCell]
+    document.getElementById(cell).innerHTML=input;
+    document.getElementById(cell).style.border="solid";
+    nextFreeCell+=1;
     
-$("#edit").click(function(){
 
-    var minuses = document.getElementsByClassName("glyphicon glyphicon-minus");
-    console.log(minuses);
-    for (i=0; i < minuses.length; i++){
+  });
+
+    var isEditing=false;
+$("#edit").click(function(){
+    isEditing=!isEditing; //toggles
+    
+    var editButton=document.getElementById("edit");
+    var minuses=document.getElementsByClassName("glyphicon glyphicon-minus");
+
+
+    if (isEditing){
+        editButton.className="btn btn-success";
+    editButton.textContent="Editing";
+        for (i=0; i<minuses.length; i++){
         console.log(minuses[i]);
         minuses[i].style.display = "inline";
     }
+    }
+    else{
+        editButton.className="btn btn-primary";
+        editButton.textContent="Edit";
+        for (i=0; i<minuses.length; i++){
+        console.log(minuses[i]);
+        minuses[i].style.display="none";
+    }
+    }
+    
+    
+    
 
   });
 
