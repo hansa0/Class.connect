@@ -22,11 +22,12 @@ $("#addVerb").click(function() {
   
 $("#add").click(function() {
     var input = $("#newTopic").val();
-    console.log(input);
-<<<<<<< HEAD
+
     var cell= cellstoFill[nextFreeCell]
     document.getElementById(cell).innerHTML=input;
+    
     document.getElementById(cell).style.border="solid";
+    document.getElementById(cell).style.height="150px";
     nextFreeCell+=1;
     
 
