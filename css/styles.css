@@ -8,10 +8,12 @@
     background-color: #f1f1f1;
     height: 100%;
 }
+
 #mainbody{
     display: flex;
     overflow: auto;
 }
+
 footer {
     background-color: #555;
     color: white;
@@ -33,11 +35,21 @@ footer {
 }
 
 
+/* Daily view -- general */
+.header-day {
+    margin: 10px;
+    background: #b3b3b3;
+}
+
 /* Daily view -- Left-hand-side */
+#leftbody {
+    padding-left: 3em;
+}
+
 .topic-container {
     border-style: solid;
     border-width: 1px;
-    margin: 5px;
+    margin: 1em;
     padding: 10px;
 }
 
@@ -45,12 +57,12 @@ footer {
     border-style: dashed;
 }
 
-/*.btn-default {
-    margin: 5px;
-    margin-bottom: 1em;
+#edit-btn {
+    float: right;
+    margin-right: 5em;
 }
-*/
-#minus 
+
+#minus {
     display: none
 }
 

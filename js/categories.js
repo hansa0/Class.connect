@@ -3,6 +3,9 @@ var add_materials_btn = '<button class="btn btn-default btn-add-materials" type=
 
 $(document).ready(function() {
 
+    var day_to_display = "April 20th";
+    $("#selected-day").html(day_to_display);
+
     // display topics with materials
     displayAllTopics();
 
@@ -26,13 +29,16 @@ $(document).ready(function() {
 
     // adds new topic
     $(".btn-add-topic").on("click", function() {
-        console.log('here');
+        console.log('clicked add new topic');
+
         var new_topic_name = $("#newTopic").val();
-        console.log(new_topic_name);
+        
+        // if no typed name, don't add
         if (new_topic_name == "") {
             return;
         }
 
+        // recreate divs to place new topic div in correct place
         $('#topics').empty();
         displayAllTopics();
         displayAssignments();
@@ -50,32 +56,29 @@ $(document).ready(function() {
           
 
     var isEditing = false;
-    $("#edit").click(function(){
-        isEditing=!isEditing; //toggles
+    $("#edit-btn").click(function() {
+        isEditing = !isEditing; //toggles
         
-        var editButton=document.getElementById("edit");
-        var minuses=document.getElementsByClassName("glyphicon glyphicon-minus");
-
+        var editButton = document.getElementById("edit-btn");
+        var minuses = document.getElementsByClassName("glyphicon glyphicon-minus");
 
         if (isEditing) {
             editButton.className="btn btn-success";
             editButton.textContent="Editing";
-            for (i=0; i<minuses.length; i++){
+            for (i = 0; i < minuses.length; i++){
                 console.log(minuses[i]);
                 minuses[i].style.display = "inline";
             }
         }
         else {
-            editButton.className="btn btn-primary";
-            editButton.textContent="Edit";
-            for (i=0; i<minuses.length; i++){
+            editButton.className = "btn btn-primary";
+            editButton.textContent = "Edit";
+            for (i = 0; i < minuses.length; i++){
                 console.log(minuses[i]);
-                minuses[i].style.display="none";
+                minuses[i].style.display = "none";
             }
         }
-
     });
-
 });
 
 var displayAllTopics = function() {
