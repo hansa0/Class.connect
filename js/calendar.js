@@ -2,11 +2,9 @@
 
 
 $(document).ready(function() {
-  // page is now ready
 
-  // initialize the calendar
+  // create events for assignments in calendar
   // assignments is initialized in js/collections.js
-
   all_materials = []
   for (var i = 0; i < assignments.length; i++) {
 
@@ -17,7 +15,17 @@ $(document).ready(function() {
     }
     all_materials.push(assignment_event);
   };
-  console.log(all_materials);
+  
+  // add events for handouts in calendar
+  // handouts is initialized in js/collections.js
+  for (var i = 0; i < handouts.length; i++) {
+    handout = handouts[i];
+    handout_event = {
+      title: handout.title,
+      start: handout.relevant_day
+    };
+    all_materials.push(handout_event);
+  };
 
   
   $('#calendar').fullCalendar({
