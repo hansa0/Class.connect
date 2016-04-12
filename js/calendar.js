@@ -24,6 +24,7 @@ $(document).ready(function() {
     // put your options and callbacks here
     // weekends: false,
     
+    fixedWeekCount: false,
 
     // includes all materials as events
     events: all_materials, 
