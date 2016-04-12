@@ -88,11 +88,12 @@ var displayAllTopics = function() {
         var topic_div = document.createElement('div');
         topic_div.classList.add("col-md-5");
         topic_div.classList.add("topic-container");
-        $(topic_div).append('<h4>' + topic.name + '</h4>');
-
+        $(topic_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span>' + topic.name + '</h4>');
+        
         // add materials for that topic
         var topic_materials = document.createElement('div');
         topic_materials.classList.add('topic-material');
+        
         for (var i = 0; i < handouts.length; i++) {
             if ($.inArray(handouts[i], topic.handouts)) {
                 $(topic_materials).append('<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');
@@ -109,7 +110,7 @@ var displayAssignments = function() {
     var assignment_div = document.createElement('div');
     assignment_div.classList.add("col-md-5");
     assignment_div.classList.add("topic-container");
-    $(assignment_div).append('<h4>Assignments</h4');    
+    $(assignment_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> Assignments</h4');    
 
     var assignment_materials = document.createElement('div');
     for (var i = 0; i < assignments.length; i++){
