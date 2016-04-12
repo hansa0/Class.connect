@@ -15,9 +15,24 @@ $(document).ready(function() {
     }
    
 $("#addVerb").click(function() {
-    document.getElementById("upload").style.display="inline";
+    var upload = document.getElementById("upload");
+    upload.click();
+    console.log(document.getElementById("upload").value);
+// <input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple />
+// <a href="" onclick="document.getElementById('upload').click(); return false">Upload</a>    
 });
     
+// http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
+$('input[type=file]').on('change', prepareUpload);
+
+// Grab the files and set them to our variable
+function prepareUpload(event) {
+  files = event.target.files;
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
+    console.log(file);  
+  };
+}
 
   
 $("#add").click(function() {
