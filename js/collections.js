@@ -44,6 +44,22 @@ var handouts = [
   }
 ];
 
+var handouts=[
+    {
+      topic: "Verbs",
+      title: "ER Verbs",
+    
+    },
+    
+    {
+      topic: "Verbs",
+      title: "IR Verbs",
+    
+    },
+    
+    
+]
+
 var questions = [
     {
       author: "Danielle",

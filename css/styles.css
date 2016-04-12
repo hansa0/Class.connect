@@ -3,9 +3,6 @@
     margin-bottom: 0;
     border-radius: 0;
 }
-.row.content {
-    height: 450px
-}
 .sidenav {
     padding-top: 20px;
     background-color: #f1f1f1;
@@ -13,6 +10,7 @@
 }
 #mainbody{
     display: flex;
+    overflow: auto;
 }
 footer {
     background-color: #555;
@@ -51,10 +49,7 @@ div.dashed {
     left: 120px;
 }
 
-td{
-    padding:15px;
-    width:100px;
-}
+
 /*Daily view*/
 #rightbody{
     border-left: 1px solid #ccc;
@@ -71,14 +66,17 @@ div.questionDiv{
     padding: 5px;
 }
 
-#replyDiv{
-    border-style: solid;
-    border-width: 2px;
-    padding: 5px;
-}
-
 p.questionAuthor{
     font-weight: bold;
 }
 
+/* left side */
+#minus{
+    display: none
+}
 
+td{
+    padding:15px;
+    width:100px;
+    height=100px;
+}
