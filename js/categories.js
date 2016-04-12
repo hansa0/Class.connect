@@ -25,10 +25,10 @@ $("#addVerb").click(function(){
 
   
 $("#add").click(function(){
-    console.log("newwww");
-
+    var input = $("#newTopic").val();
+    console.log(input);
     var cell= cellstoFill[nextFreeCell]
-    document.getElementById(cell).innerHTML="Nouns";
+    document.getElementById(cell).innerHTML=input;
     document.getElementById(cell).style.border="solid";
     nextFreeCell+=1;
     
