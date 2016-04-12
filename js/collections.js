@@ -71,3 +71,14 @@ var questions = [
     }
 ];
 
+var topics = [
+  {
+    name: 'Verbs',
+    handouts: ['ER Verbs', 'IR Verbs']
+  },
+  {
+    name: 'Assignments',
+    handouts: ['ER Verbs', 'IR Verbs']
+  }
+
+]

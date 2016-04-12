@@ -1,4 +1,4 @@
-/*universal (navbar, body, footer)*/
+/* universal (navbar, body, footer) */
 .navbar {
     margin-bottom: 0;
     border-radius: 0;
@@ -33,8 +33,28 @@ footer {
 }
 
 
-/* */
-div.solid {
+/* Daily view -- Left-hand-side */
+.topic-container {
+    border-style: solid;
+    border-width: 1px;
+    margin: 5px;
+    padding: 10px;
+}
+
+.topic-add {
+    border-style: dashed;
+}
+
+/*.btn-default {
+    margin: 5px;
+    margin-bottom: 1em;
+}
+*/
+#minus 
+    display: none
+}
+
+/*div.solid {
     border-style: solid;
     height: 80px;
     width: 80px;
@@ -57,10 +77,13 @@ div.dashed {
     position: absolute;
     top: 25px;
     left: 120px;
-}
+}*/
 
+/*
+table.topicTable td { width:180px; }
+*/
 
-/*Daily view*/
+/* Daily view -- Right-hand-side */
 #rightbody{
     border-left: 1px solid #ccc;
 }
@@ -85,11 +108,5 @@ p.questionAuthor{
     font-weight: bold;
 }
 
-/* left side */
-#minus{
-    display: none
-}
 
-
-table.topicTable td { width:180px; }
 

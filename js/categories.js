@@ -1,52 +1,51 @@
 
+var add_materials_btn = '<button class="btn btn-default btn-add-materials" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
+
 $(document).ready(function() {
-    var cellstoFill = ["1", "2", "3", "4", "5"]
-    var nextFreeCell = 0;
- 
-    for (var i = 0; i < assignments.length; i++){
-        var d1 = document.getElementById('Assignments');
-        d1.insertAdjacentHTML('afterend', '<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + assignments[i].assignment_name+'</a> </p>');
 
-    }
+    // display topics with materials
+    displayAllTopics();
+
+    // display assignments
+    displayAssignments();
+
+    // display add topic box
+    displayAddNewTopic();
+
     
-    for (var i = 0; i < handouts.length; i++){
-        var d1 = document.getElementById(handouts[i].topic);
-        console.log(handouts[i].topic);
-        d1.insertAdjacentHTML('afterend', '<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');     
-    }
-
-
-
-    $("#addVerb").click(function() {
-        console.log('clicked add verb');
-        var upload = document.getElementById("upload");
-        upload.click();
-        console.log(document.getElementById("upload").value);
-    // <input type="file" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple />
-    // <a href="" onclick="document.getElementById('upload').click(); return false">Upload</a>    
-    });
-
-    // http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
+    // fetches file on file upload selection
+    // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
     $('input[type=file]').on('change', prepareUpload);
 
-    // Grab the files and set them to our variable
-    function prepareUpload(event) {
-      files = event.target.files;
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        console.log(file);  
-      };
-    }
+    // opens file upload window on clicking file upload
+    $(".btn-add-materials").click(function() {
+        console.log('clicked add materials');
+        var upload = document.getElementById("upload");
+        upload.click();
+    });
 
-    $("#add").click(function() {
-        var input = $("#newTopic").val();
+    // adds new topic
+    $(".btn-add-topic").on("click", function() {
+        console.log('here');
+        var new_topic_name = $("#newTopic").val();
+        console.log(new_topic_name);
+        if (new_topic_name == "") {
+            return;
+        }
 
-        var cell= cellstoFill[nextFreeCell]
-        document.getElementById(cell).innerHTML=input;
-        
-        document.getElementById(cell).style.border="solid";
-        document.getElementById(cell).style.height="150px";
-        nextFreeCell+=1;
+        $('#topics').empty();
+        displayAllTopics();
+        displayAssignments();
+
+        // add new topic
+        var new_topic_div = document.createElement('div');
+        new_topic_div.classList.add('col-md-5');
+        new_topic_div.classList.add('topic-container');
+        $(new_topic_div).append("<h4>" + new_topic_name + "</h4>");
+        $(new_topic_div).append(add_materials_btn);
+        $('#topics').append(new_topic_div);
+
+        displayAddNewTopic();
     });
           
 
@@ -58,7 +57,7 @@ $(document).ready(function() {
         var minuses=document.getElementsByClassName("glyphicon glyphicon-minus");
 
 
-        if (isEditing){
+        if (isEditing) {
             editButton.className="btn btn-success";
             editButton.textContent="Editing";
             for (i=0; i<minuses.length; i++){
@@ -78,3 +77,67 @@ $(document).ready(function() {
     });
 
 });
+
+var displayAllTopics = function() {
+    for (var i = 0; i < topics.length; i++) {
+        // create a div for each topic    
+        var topic = topics[i];
+        var topic_div = document.createElement('div');
+        topic_div.classList.add("col-md-5");
+        topic_div.classList.add("topic-container");
+        $(topic_div).append('<h4>' + topic.name + '</h4>');
+
+        // add materials for that topic
+        var topic_materials = document.createElement('div');
+        topic_materials.classList.add('topic-material');
+        for (var i = 0; i < handouts.length; i++) {
+            if ($.inArray(handouts[i], topic.handouts)) {
+                $(topic_materials).append('<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');
+            };
+        };
+        $(topic_materials).append(add_materials_btn);
+
+        $(topic_div).append(topic_materials);
+        $('#topics').append(topic_div);
+    };
+};
+
+var displayAssignments = function() {
+    var assignment_div = document.createElement('div');
+    assignment_div.classList.add("col-md-5");
+    assignment_div.classList.add("topic-container");
+    $(assignment_div).append('<h4>Assignments</h4');    
+
+    var assignment_materials = document.createElement('div');
+    for (var i = 0; i < assignments.length; i++){
+        $(assignment_materials).append('<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + assignments[i].assignment_name+'</a> </p>');
+    };
+
+    $(assignment_materials).append(add_materials_btn);
+    $(assignment_div).append(assignment_materials);
+    $('#topics').append(assignment_div);
+};
+
+
+var displayAddNewTopic = function() {
+    var add_topic_div = document.createElement('div');
+    add_topic_div.classList.add('col-md-5');
+    add_topic_div.classList.add('topic-container');
+    add_topic_div.classList.add('topic-add');
+    $(add_topic_div).append('<input type="text" class="form-control" placeholder="Add a topic..." id="newTopic">');
+    $(add_topic_div).append('<button class="btn btn-default btn-add-topic" type="button">Add</button>');
+
+    $('#topics').append(add_topic_div);    
+};
+
+
+// grab the files and set them to our variable
+function prepareUpload(event) {
+  files = event.target.files;
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
+    console.log(file);  
+  };
+};
+
+

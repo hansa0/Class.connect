@@ -50,55 +50,20 @@
   
 <div class="container-fluid text-center">    
   <div class="row content">
-    <div class="col-sm-1 sidenav">
-    </div>
+    <div class="col-sm-1 sidenav"></div>
     <div class="col-sm-10 text-left" id="mainbody"> 
+    
     <div class="col-sm-6 text-center" id="leftbody">
-    <div id="left">
-        <button type="button" class="btn btn-primary " style="float:right" id="edit">Edit</button>
-
-        <table class="topicTable" style="border-spacing: 10px; border-collapse: separate;">
-<tbody>
-      <tr>
-        <td style="border:solid; width:100px"><h4 id="Verbs">Verbs </h4>
-            <p> <span class="glyphicon glyphicon-plus" aria-hidden="true" id="addVerb"></span> </p>
-          
-           <input type="file" style="display:none" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple />
-
-                
-          </td>
-        <td  style="border:solid" > <h4 id="Assignments">Assignments </h4>
-            
-            
-            <p> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </p>
-          </td>
-        <td  style="border:dashed"> 
-          <div class="input-group">
-      <input type="text" class="form-control" placeholder="Add a topic..." id="newTopic">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" id="add">Add</button>
-      </span>
-    </div>
-          </td>
-      </tr>
-      <tr >
-        <td  style="height:100px" ><h4 id="1"></h4></td>
-        <td   style="height:100px" ><h4 id="2"></h4></td>
-        <td  style="height:100px" ><h4 id="3"></h4></td>
-      </tr>
-    <tr>
-        <td   style="height:100px"><h4 id="4"></h4></td>
-        <td   style="height:100px" ><h4 id="5"></h4></td>
-        <td  style="height:100px" ><h4 id="6"></h4></td>
-      </tr>
-    </tbody>
-</table>
-        
-      
-        
+    <!-- <div id="left"> -->
+        <div class="row">
+          <button type="button" class="btn btn-primary " style="float:right" id="edit">Edit</button>
+        </div>
+        <div class="row" id="topics">
+          <input type="file" style="display:none" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple />
+        </div>
         
       </div>
-    </div>
+    <!-- </div> -->
     <div class="col-sm-6 text-center" id="rightbody">
       <h3>Questions</h3>
       </div>
