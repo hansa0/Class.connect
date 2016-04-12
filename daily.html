@@ -11,9 +11,9 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="js/collections.js"></script>  
->>>>>>> 2828d19eb6d3fadb39d2128de5f7c4694be7ee55
 <script src="js/main.js"></script>
 <script src="js/questionsDaily.js"></script>
+    <script src="js/categories.js"></script>
 </head>
 <body>
 
@@ -49,11 +49,48 @@
     <div class="col-sm-10 text-left" id="mainbody"> 
     <div class="col-sm-6 text-center" id="leftbody">
     <div id="left">
-      <button style="position:absolute; left:200px">Edit</button>
-      <div class="solid">Verbs</div>
-      <div class="solid">Assignments</div>
-      <div class="dashed">Add topic</div>
-      <button id="add">+</button>
+        <button type="button" class="btn btn-primary" style="float:right">Edit</button>
+
+        <table class="table" style="border-spacing: 10px; border-collapse: separate;">
+<tbody>
+      <tr>
+        <td height="100" style="border:solid; width:100px"><h4>Verbs </h4>
+            <p> <span class="glyphicon glyphicon-plus" aria-hidden="true" id="addVerb"></span> </p>
+          
+     <input type="file" style="display:none" id="upload">
+
+          
+          </td>
+        <td height="100" style="border:solid"> <h4>Assignments </h4>
+            
+            <p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red"></span> go.pdf</p>
+            <p> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </p>
+          </td>
+        <td height="100" style="border:dashed"> 
+          <div class="input-group">
+      <input type="text" class="form-control" placeholder="Add a topic...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="add">Go!</button>
+      </span>
+    </div>
+          </td>
+      </tr>
+      <tr id="secondRow">
+        <td height="100" id="1"></td>
+        <td height="100" id="2"></td>
+        <td height="100" id="3"></td>
+      </tr>
+    <tr>
+        <td height="100" id="4"></td>
+        <td height="100" id="5"></td>
+        <td height="100" id="6"></td>
+      </tr>
+    </tbody>
+</table>
+        
+      
+        
+        
       </div>
     </div>
     <div class="col-sm-6 text-center" id="rightbody">

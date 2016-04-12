@@ -51,6 +51,10 @@ div.dashed {
     left: 120px;
 }
 
+td{
+    padding:15px;
+    width:100px;
+}
 /*Daily view*/
 #rightbody{
     border-left: 1px solid #ccc;

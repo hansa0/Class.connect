@@ -14,7 +14,26 @@ $(document).ready(function() {
     }
     all_materials.push(assignment_event);
   };
+var cellstoFill=["1", "2", "3", "4", "5"]
+var nextFreeCell=0;
+$("#addVerb").click(function(){
+    
+    document.getElementById("upload").style.display="inline";
+    
 
+  });
+  
+$("#add").click(function(){
+    console.log("newwww");
+
+    var cell= cellstoFill[nextFreeCell]
+    document.getElementById(cell).innerHTML="Nouns";
+    document.getElementById(cell).style.border="solid";
+    nextFreeCell+=1;
+    
+
+  });
+    
   $('#calendar').fullCalendar({
       // put your options and callbacks here
       // weekends: false,
@@ -24,20 +43,3 @@ $(document).ready(function() {
 
 
 
-$(function() {
-  $("#add").click(function(){
-    console.log("new");
-    var newDiv = document.createElement('div');
-    newDiv.style.border = "solid";
-    newDiv.style.height="80px";
-    newDiv.style.width="80px";
-    newDiv.style.margin="20px";
-    newDiv.style.position="absolute";
-    newDiv.style.top="130px";
-    newDiv.style.left="120px";
-    document.getElementById("left").appendChild(newDiv);
-    
-    $(newDiv).attr('id', 'Nouns');
-    $(newDiv).text("Nouns");
-  });
-});
