@@ -8,7 +8,9 @@
 
 // always formatted 'yyyy-mm-dd'
 // for example '2016-04-20'
-var selected_day;
+var selected_day 
+
+var default_day = '2016-04-20';
 
 var assignments = [
   {
@@ -49,18 +51,21 @@ var questions = [
     {
       author: "Danielle",
       question: "How do I conjugate llevar?",
+      date: default_day,
       hasReply: false,
       reply : null
     },
     {
       author: "Van",
       question: "How do I say hello in spanish?",
+      date: default_day,
       hasReply: false,
       reply: null
     },
     {
       author: "Katrine",
       question: "What is the best spanish book to read?",
+      date: default_day,
       hasReply: false,
       reply: null
     }

@@ -36,7 +36,8 @@ replySubmit = function(e) {
 
     // console.log("TEXT AREA SAYS: ", text);
 
-    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+    e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+    // e.target.parentNode.removeChild(e.target.parentNode);
 
 
 };
