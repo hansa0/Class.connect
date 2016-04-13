@@ -133,4 +133,11 @@ glyphicon.glyphicon-minus.assignment{
     display: none
 }
 
+glyphicon.glyphicon-minus.folder{
+    display: none
+}
+
+.folder{
+    display: none
+}
 

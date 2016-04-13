@@ -183,8 +183,8 @@ var addTopic = function() {
     // add new topic
     var new_topic_div = document.createElement('div');
     new_topic_div.classList.add('col-md-5');
-    new_topic_div.classList.add('topic-container');
-    $(new_topic_div).append("<h4>" + new_topic_name + "</h4>");
+    new_topic_div.classList.add('topic-container'); 
+    $(new_topic_div).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red"></span>' + new_topic_name + "</h4>");
     $(new_topic_div).append(add_materials_btn);
     $('#topics').append(new_topic_div);
 
