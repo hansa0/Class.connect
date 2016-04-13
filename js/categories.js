@@ -59,6 +59,11 @@ $(document).ready(function() {
         $(this).closest('.col-md-5').remove();
     });
     
+    $("#minusAssignmentTopic").on("click", function() {
+        console.log("deleting assignment square");
+        $(this).closest('.col-md-5').remove();
+    });
+    
     $("#minusHandout").on("click", function() {
         console.log("handout");
     });
