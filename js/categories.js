@@ -1,5 +1,6 @@
 
-var add_materials_btn = '<button class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>'
+var add_materials_btn = '<button class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
+var add_assignments_btn = '<button id="add-assignment-btn" class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
 
 
 $(document).ready(function() {
@@ -115,6 +116,7 @@ var displayAssignments = function() {
     var assignment_div = document.createElement('div');
     assignment_div.classList.add("col-md-5");
     assignment_div.classList.add("topic-container");
+    assignment_div.classList.add("assignments-container");
     $(assignment_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusAssignmentTopic"></span> Assignments</h4');    
 
     var assignment_materials = document.createElement('div');
@@ -122,7 +124,7 @@ var displayAssignments = function() {
         $(assignment_materials).append('<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + assignments[i].assignment_name+'</a> </p>');
     };
 
-    $(assignment_materials).append(add_materials_btn);
+    $(assignment_materials).append(add_assignments_btn);
     $(assignment_div).append(assignment_materials);
     $('#topics').append(assignment_div);
 };
@@ -184,7 +186,7 @@ var addTopic = function() {
     var new_topic_div = document.createElement('div');
     new_topic_div.classList.add('col-md-5');
     new_topic_div.classList.add('topic-container'); 
-    $(new_topic_div).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red"></span>' + new_topic_name + "</h4>");
+    $(new_topic_div).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red; display: none;"></span>' + new_topic_name + "</h4>");
     $(new_topic_div).append(add_materials_btn);
     $('#topics').append(new_topic_div);
 
@@ -195,5 +197,8 @@ var addMaterials = function() {
     console.log('clicks add materials');
     var upload = document.getElementById("upload");
     upload.click();
+
+    var new_assignment = '<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> </p>';
+    $(new_assignment).insertBefore('#add-assignment-btn')
 };
 

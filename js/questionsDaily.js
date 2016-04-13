@@ -47,6 +47,7 @@ replySubmit = function(e) {
 
     e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
     // e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+    alert("You answered the question!");
 
 
 };
