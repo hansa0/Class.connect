@@ -22,7 +22,7 @@ $(document).ready(function() {
 
     // opens file upload window on clicking file upload
     $(".btn-add-materials").click(function() {
-        console.log('clicked add materials');
+        //console.log('clicked add materials');
         var upload = document.getElementById("upload");
         upload.click();
     });
@@ -53,11 +53,20 @@ $(document).ready(function() {
 
         displayAddNewTopic();
     });
-          
-
+    
+    $("#minusTopic").on("click", function() {
+        console.log("deleting topic");
+        $(this).closest('.col-md-5').remove();
+    });
+    
+    $("#minusHandout").on("click", function() {
+        console.log("handout");
+    });
+    
     var isEditing = false;
     $("#edit-btn").click(function() {
         isEditing = !isEditing; //toggles
+        
         
         var editButton = document.getElementById("edit-btn");
         var minuses = document.getElementsByClassName("glyphicon glyphicon-minus");
@@ -66,7 +75,7 @@ $(document).ready(function() {
             editButton.className="btn btn-success";
             editButton.textContent="Editing";
             for (i = 0; i < minuses.length; i++){
-                console.log(minuses[i]);
+                //console.log(minuses[i]);
                 minuses[i].style.display = "inline";
             }
         }
@@ -74,12 +83,14 @@ $(document).ready(function() {
             editButton.className = "btn btn-primary";
             editButton.textContent = "Edit";
             for (i = 0; i < minuses.length; i++){
-                console.log(minuses[i]);
+                //console.log(minuses[i]);
                 minuses[i].style.display = "none";
             }
         }
     });
 });
+
+
 
 var displayAllTopics = function() {
     for (var i = 0; i < topics.length; i++) {
@@ -88,7 +99,7 @@ var displayAllTopics = function() {
         var topic_div = document.createElement('div');
         topic_div.classList.add("col-md-5");
         topic_div.classList.add("topic-container");
-        $(topic_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span>' + topic.name + '</h4>');
+        $(topic_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusTopic"></span>' + topic.name + '</h4>');
         
         // add materials for that topic
         var topic_materials = document.createElement('div');
@@ -96,7 +107,7 @@ var displayAllTopics = function() {
         
         for (var i = 0; i < handouts.length; i++) {
             if ($.inArray(handouts[i], topic.handouts)) {
-                $(topic_materials).append('<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');
+                $(topic_materials).append('<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusHandout"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');
             };
         };
         $(topic_materials).append(add_materials_btn);
@@ -110,11 +121,11 @@ var displayAssignments = function() {
     var assignment_div = document.createElement('div');
     assignment_div.classList.add("col-md-5");
     assignment_div.classList.add("topic-container");
-    $(assignment_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> Assignments</h4');    
+    $(assignment_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusAssignmentTopic"></span> Assignments</h4');    
 
     var assignment_materials = document.createElement('div');
     for (var i = 0; i < assignments.length; i++){
-        $(assignment_materials).append('<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minus"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + assignments[i].assignment_name+'</a> </p>');
+        $(assignment_materials).append('<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + assignments[i].assignment_name+'</a> </p>');
     };
 
     $(assignment_materials).append(add_materials_btn);
