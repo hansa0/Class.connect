@@ -141,6 +141,7 @@ function prepareUpload(event) {
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
     console.log(file);  
+    // TODO: add new material assignment here and add to topic
   };
 };
 
