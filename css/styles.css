@@ -129,5 +129,8 @@ p.questionAuthor{
     font-weight: bold;
 }
 
+glyphicon.glyphicon-minus.assignment{
+    display: none
+}
 
 

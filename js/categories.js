@@ -45,13 +45,13 @@ $(document).ready(function() {
         $(this).closest('.col-md-5').remove();
     });
     
-    $(".handout").on("click", function() {
+    $(".singleAssignment").on("click", function() {
         console.log("individual assignment deleting");
         $(this).closest('p').remove();
         
     });
     
-    $("#minusHandout").on("click", function() {
+    $(".handout").on("click", function() {
         console.log("handout deleting");
         $(this).closest('p').remove();
         
@@ -119,7 +119,7 @@ var displayAssignments = function() {
 
     var assignment_materials = document.createElement('div');
     for (var i = 0; i < assignments.length; i++){
-        $(assignment_materials).append('<p><span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + assignments[i].assignment_name+'</a> </p>');
+        $(assignment_materials).append('<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + assignments[i].assignment_name+'</a> </p>');
     };
 
     $(assignment_materials).append(add_materials_btn);
