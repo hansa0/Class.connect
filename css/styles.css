@@ -22,10 +22,16 @@ footer {
     padding: 15px;
 }
 
+body {
+    background-color: #eee !important;
+}
+
 .list-container {
     width: 60%;
     margin-left: auto;
     margin-right: auto;
+    background-color: #fff;
+    padding: 50px;
 }
 
 /* calendar view */
@@ -38,6 +44,7 @@ footer {
     border-color: #b3b3b3;*/
     margin: 2em 10em 10em 10em;
     padding: 2em;
+    background-color: #fff;
 }
 
 #calendar {
@@ -60,9 +67,10 @@ footer {
 }
 
 .daily-container {
-    border-style: solid;
-    border-width: 1px;
+ /*   border-style: solid;
+    border-width: 1px;*/
     padding: 2em;
+    background-color: #fff;
 }
 
 .header-underline {
@@ -74,14 +82,17 @@ footer {
 /* Daily view -- Left-hand-side */
 
 .topic-container {
-    border-style: solid;
-    border-width: 1px;
+/*    border-style: solid;
+    border-width: 1px;*/
     margin: 1em;
     padding: 10px;
+    background-color: #e8eaf6;
+
 }
 
 .topic-add {
     border-style: dashed;
+    border-width: 1px;
 }
 
 .btn-add-topic {
@@ -108,10 +119,11 @@ footer {
 
 /* Daily view -- Right-hand-side*/
 div.questionDiv{
-    border-style: solid;
-    border-width: 1px;
+    /*border-style: solid;
+    border-width: 1px;*/
     padding: 1em;
     margin-bottom: 2em;
+    background-color: #e8eaf6;
 }
 
 
