@@ -60,9 +60,9 @@ replySubmit = function(e) {
     questions[question_index].reply = text;
 
     if (questions[question_index].hasReply) {
-        var reply_text_id = "#" + e.target.parentNode.parentNode.id + '_replyText'
-        var t = "Reply: " + text
-        $(reply_text_id).html(t)
+        // var reply_text_id = "#" + e.target.parentNode.parentNode.id + '_replyText'
+        // var t = "Reply: " + text
+        // $(reply_text_id).html(t)
     } else {
         questions[question_index].hasReply = true;
         // console.log("questions: ", questions)
