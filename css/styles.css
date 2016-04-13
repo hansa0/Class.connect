@@ -92,9 +92,16 @@ footer {
     display: none
 }
 
+#minusTopic, #minusAssignmentTopic, #minusAssignment {
+    display: none
+}
+
+#minusHandout {
+    display: none
+}
+
+
 /* Daily view -- Right-hand-side*/
-
-
 div.questionDiv{
     border-style: solid;
     border-width: 1px;
