@@ -80,5 +80,7 @@ var topics = [
     name: 'Assignments',
     handouts: ['ER Verbs', 'IR Verbs']
   }
+];
 
-]
+
+

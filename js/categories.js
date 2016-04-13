@@ -1,9 +1,16 @@
 
-var add_materials_btn = '<button class="btn btn-default btn-add-materials" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
+var add_materials_btn = '<button class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>'
+
 
 $(document).ready(function() {
 
     var day_to_display = "April 20th";
+
+    // var add_materials_btn = document.createElement('button');
+    // add_materials_btn.classList = ['btn', 'btn-default', 'btn-add-materials'];
+    // $(add_materials_btn).append('<span class="glyphicon glyphicon-plus" aria-hidden="true"</span>');
+    // = '<button class="btn btn-default btn-add-materials" type="button"></button>';
+
     $("#selected-day").html(day_to_display);
 
     // display topics with materials
@@ -21,17 +28,12 @@ $(document).ready(function() {
     $('input[type=file]').on('change', prepareUpload);
 
     // opens file upload window on clicking file upload
-    $(".btn-add-materials").click(function() {
-        //console.log('clicked add materials');
-        var upload = document.getElementById("upload");
-        upload.click();
-    });
-
-    // adds new topic
-    // $(".btn-add-topic").on("click", function() {
-    //     console.log('clicked add new topic');
-
+    // $(".btn-add-materials").click(function() {
+    //     //console.log('clicked add materials');
+    //     var upload = document.getElementById("upload");
+    //     upload.click();
     // });
+
     
     $("#minusTopic").on("click", function() {
         console.log("deleting topic");
@@ -152,10 +154,11 @@ var addTopic = function() {
     }
 
     // add new topic to list
-    // var new_topic_obj = {
-    //     'name': new_topic_name
-    //     // 'handouts': []
-    // };
+    var new_topic_obj = {
+        name: new_topic_name,
+        handouts: []
+    };
+    console.log(new_topic_obj);
     // topics.push(new_topic_obj);
     // console.log(topics);
 
@@ -173,5 +176,11 @@ var addTopic = function() {
     $('#topics').append(new_topic_div);
 
     displayAddNewTopic();
+};
+
+var addMaterials = function() {
+    console.log('clicks add materials');
+    var upload = document.getElementById("upload");
+    upload.click();
 };
 
