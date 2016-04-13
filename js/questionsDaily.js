@@ -63,7 +63,7 @@ getQuestionIndex = function(q) {
 
 $(document).ready(function() {
 
-    mainDiv = document.getElementById("questions");
+    mainDiv = document.getElementById("daily-questions");
     for (var i=0; i < questions.length; i++ ){
         var qDiv = document.createElement("div");
         qDiv.id = "q" + i;

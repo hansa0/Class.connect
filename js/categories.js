@@ -1,9 +1,16 @@
 
-var add_materials_btn = '<button class="btn btn-default btn-add-materials" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
+var add_materials_btn = '<button class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>'
+
 
 $(document).ready(function() {
 
     var day_to_display = "April 20th";
+
+    // var add_materials_btn = document.createElement('button');
+    // add_materials_btn.classList = ['btn', 'btn-default', 'btn-add-materials'];
+    // $(add_materials_btn).append('<span class="glyphicon glyphicon-plus" aria-hidden="true"</span>');
+    // = '<button class="btn btn-default btn-add-materials" type="button"></button>';
+
     $("#selected-day").html(day_to_display);
 
     // display topics with materials
@@ -21,38 +28,12 @@ $(document).ready(function() {
     $('input[type=file]').on('change', prepareUpload);
 
     // opens file upload window on clicking file upload
-    $(".btn-add-materials").click(function() {
-        //console.log('clicked add materials');
-        var upload = document.getElementById("upload");
-        upload.click();
-    });
+    // $(".btn-add-materials").click(function() {
+    //     //console.log('clicked add materials');
+    //     var upload = document.getElementById("upload");
+    //     upload.click();
+    // });
 
-    // adds new topic
-    $(".btn-add-topic").on("click", function() {
-        console.log('clicked add new topic');
-
-        var new_topic_name = $("#newTopic").val();
-        
-        // if no typed name, don't add
-        if (new_topic_name == "") {
-            return;
-        }
-
-        // recreate divs to place new topic div in correct place
-        $('#topics').empty();
-        displayAllTopics();
-        displayAssignments();
-
-        // add new topic
-        var new_topic_div = document.createElement('div');
-        new_topic_div.classList.add('col-md-5');
-        new_topic_div.classList.add('topic-container');
-        $(new_topic_div).append("<h4>" + new_topic_name + "</h4>");
-        $(new_topic_div).append(add_materials_btn);
-        $('#topics').append(new_topic_div);
-
-        displayAddNewTopic();
-    });
     
     $(".folder").on("click", function() {
         console.log("deleting topic");
@@ -153,14 +134,21 @@ var displayAddNewTopic = function() {
     add_topic_div.classList.add('topic-container');
     add_topic_div.classList.add('topic-add');
     $(add_topic_div).append('<input type="text" class="form-control" placeholder="Add a topic..." id="newTopic">');
-    $(add_topic_div).append('<button class="btn btn-default btn-add-topic" type="button">Add</button>');
+    
+    var add_topic_btn = document.createElement('button');
+    add_topic_btn.classList.add('btn');
+    add_topic_btn.classList.add('btn-default');
+    add_topic_btn.classList.add('btn-add-topic');
+    $(add_topic_btn).append("Add");
+    add_topic_btn.onclick = addTopic;
+    $(add_topic_div).append(add_topic_btn);
 
     $('#topics').append(add_topic_div);    
 };
 
 
 // grab the files and set them to our variable
-function prepareUpload(event) {
+var prepareUpload = function(event) {
   files = event.target.files;
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
@@ -169,4 +157,43 @@ function prepareUpload(event) {
   };
 };
 
+var addTopic = function() {
+    console.log('adding topic');
+    var new_topic_name = $("#newTopic").val();
+    
+    // if no typed name, don't add
+    if (new_topic_name == "") {
+        return;
+    }
+
+    // add new topic to list
+    var new_topic_obj = {
+        name: new_topic_name,
+        handouts: []
+    };
+    console.log(new_topic_obj);
+    // topics.push(new_topic_obj);
+    // console.log(topics);
+
+    // recreate divs to place new topic div in correct place
+    $('#topics').empty();
+    displayAllTopics();
+    displayAssignments();
+
+    // add new topic
+    var new_topic_div = document.createElement('div');
+    new_topic_div.classList.add('col-md-5');
+    new_topic_div.classList.add('topic-container');
+    $(new_topic_div).append("<h4>" + new_topic_name + "</h4>");
+    $(new_topic_div).append(add_materials_btn);
+    $('#topics').append(new_topic_div);
+
+    displayAddNewTopic();
+};
+
+var addMaterials = function() {
+    console.log('clicks add materials');
+    var upload = document.getElementById("upload");
+    upload.click();
+};
 
