@@ -1,9 +1,22 @@
 g = 0;
+
 replyClick = function(e) {
-    g = g + 1;
+    g = g+1;
+
+    var question_id = e.target.parentNode.id + "_question"
+    // console.log("question_id ", question_id)
+    var question = document.getElementById(question_id).firstChild.nodeValue;
+    // console.log("QUestion: ", question)
+    var question_index = getQuestionIndex(question)
+
     console.log("REPLY BUTTON CLICKED", e)
+
     var sp = ' onFocus="this.value=\'\'; this.onfocus=null;" ';
-    var textAreaHtml = '<div class="replyDiv"><textarea id="'+ e.target.parentNode.id+"_reply"+g + '"'+sp+ ' ></textarea>';
+    if (questions[question_index].hasReply) {
+        sp = '';
+    }
+
+    var textAreaHtml = '<div class="replyDiv"><textarea id="'+ e.target.parentNode.id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
     textAreaHtml = textAreaHtml + '<button type="button" id="'+ e.target.parentNode.id+'_submit' + '">Submit</button></div>';
     // $(textAreaHtml).insertAfter(e.target.parentNode)
     $(e.target.parentNode).append(textAreaHtml)
@@ -11,10 +24,20 @@ replyClick = function(e) {
     var submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){replySubmit(event)};
 
-    id = "#"+e.target.parentNode.id+"_reply"+g
-    initializeTinymce(id);
     $(e.target).hide();
     console.log(e.target.id)
+    
+    
+    if (questions[question_index].hasReply) {
+        console.log("HAS A FUCKING REPLY HANSA BREATHE GODDMANIT")
+        var textarea_id = "#"+e.target.parentNode.id+"_reply"+ g
+        console.log(textarea_id)
+        $(textarea_id).text(questions[question_index].reply)
+    }
+
+
+    id = "#"+e.target.parentNode.id+"_reply"+g
+    initializeTinymce(id);
 };
 
 initializeTinymce = function() {
@@ -35,13 +58,27 @@ replySubmit = function(e) {
     // console.log("QUestion: ", question)
     var question_index = getQuestionIndex(question)
     questions[question_index].reply = text;
-    questions[question_index].hasReply = true;
-    // console.log("questions: ", questions)
 
-    // console.log("TEXT AREA SAYS: ", text);
+    if (questions[question_index].hasReply) {
+        var reply_text_id = "#" + e.target.parentNode.parentNode.id + '_replyText'
+        var t = "Reply: " + text
+        $(reply_text_id).html(t)
+    } else {
+        questions[question_index].hasReply = true;
+        // console.log("questions: ", questions)
 
-    e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
-    // e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+        var reply_html = '<p id="'+ e.target.parentNode.parentNode.id + '_replyText' +'" class="replyText">'+text+'</p>'
+        $(reply_html).insertAfter(document.getElementById(question_id))
+    }
+
+    var replybtn_id = "#"+e.target.parentNode.parentNode.id + "_replybtn"
+    $(replybtn_id).show();
+    $(replybtn_id).text('Edit reply');
+
+    console.log("TEXT AREA SAYS: ", text);
+
+    // e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
 
 
 };
@@ -58,7 +95,7 @@ getQuestionIndex = function(q) {
 
 $(document).ready(function() {
 
-    mainDiv = document.getElementById("rightbody");
+    mainDiv = document.getElementById("mainbody");
     for (var i=0; i < questions.length; i++ ){
         var qDiv = document.createElement("div");
         qDiv.id = "q" + i;
@@ -77,12 +114,11 @@ $(document).ready(function() {
         qDiv.appendChild(p_question)
 
         var button = document.createElement("button");        // Create a <button> element
-        var buttonText = document.createTextNode("Reply");       // Create a text node
         button.id = qDiv.id + "_replybtn";
-        button.appendChild(buttonText);
         button.onclick=function(){replyClick(event)};
 
-        qDiv.appendChild(button)   
+        qDiv.appendChild(button) 
+        $(button).text('Reply');
 
         mainDiv.appendChild(qDiv)
     };
