@@ -68,18 +68,28 @@ $(document).ready(function() {
         var qDiv = document.createElement("div");
         qDiv.id = "q" + i;
         qDiv.className = "questionDiv";
-        var author = document.createTextNode(questions[i].author);
-        var p_author = document.createElement("p")
-        p_author.appendChild(author)
-        p_author.className = "questionAuthor"
-        qDiv.appendChild(p_author)
 
-        var p_question = document.createElement("p")
+        var p_question = document.createElement("h4")
         var question = document.createTextNode(questions[i].question);
+
         p_question.appendChild(question)
         p_question.id = qDiv.id + "_question";
-        p_question.className = "questionText"
-        qDiv.appendChild(p_question)
+        p_question.className = "questionText";
+        qDiv.appendChild(p_question);
+
+        var author = document.createTextNode(questions[i].author);
+        var p_author = document.createElement("p");
+        p_author.appendChild(author);
+        p_author.className = "questionAuthor";
+        qDiv.appendChild(p_author);
+
+
+        var description = document.createElement("p");
+        var question_description = questions[i].question_description;
+        $(description).append(question_description);
+        $(qDiv).append(description);
+        // qDiv.appendChild(description)
+
 
         var button = document.createElement("button");        // Create a <button> element
         var buttonText = document.createTextNode("Reply");       // Create a text node
