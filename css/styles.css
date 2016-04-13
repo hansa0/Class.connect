@@ -81,6 +81,11 @@ body {
 
 /* Daily view -- Left-hand-side */
 
+#topics {
+    margin: 0 auto;
+    float: none;
+}
+
 .topic-container {
 /*    border-style: solid;
     border-width: 1px;*/
@@ -138,7 +143,11 @@ div.replyDiv{
 }
 
 p.questionAuthor{
-    font-weight: bold;
+    font-style: italic;
+}
+
+.questionText {
+    margin-bottom: 5px;
 }
 
 glyphicon.glyphicon-minus.assignment{
