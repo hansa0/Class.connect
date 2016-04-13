@@ -28,31 +28,10 @@ $(document).ready(function() {
     });
 
     // adds new topic
-    $(".btn-add-topic").on("click", function() {
-        console.log('clicked add new topic');
+    // $(".btn-add-topic").on("click", function() {
+    //     console.log('clicked add new topic');
 
-        var new_topic_name = $("#newTopic").val();
-        
-        // if no typed name, don't add
-        if (new_topic_name == "") {
-            return;
-        }
-
-        // recreate divs to place new topic div in correct place
-        $('#topics').empty();
-        displayAllTopics();
-        displayAssignments();
-
-        // add new topic
-        var new_topic_div = document.createElement('div');
-        new_topic_div.classList.add('col-md-5');
-        new_topic_div.classList.add('topic-container');
-        $(new_topic_div).append("<h4>" + new_topic_name + "</h4>");
-        $(new_topic_div).append(add_materials_btn);
-        $('#topics').append(new_topic_div);
-
-        displayAddNewTopic();
-    });
+    // });
     
     $("#minusTopic").on("click", function() {
         console.log("deleting topic");
@@ -140,14 +119,21 @@ var displayAddNewTopic = function() {
     add_topic_div.classList.add('topic-container');
     add_topic_div.classList.add('topic-add');
     $(add_topic_div).append('<input type="text" class="form-control" placeholder="Add a topic..." id="newTopic">');
-    $(add_topic_div).append('<button class="btn btn-default btn-add-topic" type="button">Add</button>');
+    
+    var add_topic_btn = document.createElement('button');
+    add_topic_btn.classList.add('btn');
+    add_topic_btn.classList.add('btn-default');
+    add_topic_btn.classList.add('btn-add-topic');
+    $(add_topic_btn).append("Add");
+    add_topic_btn.onclick = addTopic;
+    $(add_topic_div).append(add_topic_btn);
 
     $('#topics').append(add_topic_div);    
 };
 
 
 // grab the files and set them to our variable
-function prepareUpload(event) {
+var prepareUpload = function(event) {
   files = event.target.files;
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
@@ -156,4 +142,36 @@ function prepareUpload(event) {
   };
 };
 
+var addTopic = function() {
+    console.log('adding topic');
+    var new_topic_name = $("#newTopic").val();
+    
+    // if no typed name, don't add
+    if (new_topic_name == "") {
+        return;
+    }
+
+    // add new topic to list
+    // var new_topic_obj = {
+    //     'name': new_topic_name
+    //     // 'handouts': []
+    // };
+    // topics.push(new_topic_obj);
+    // console.log(topics);
+
+    // recreate divs to place new topic div in correct place
+    $('#topics').empty();
+    displayAllTopics();
+    displayAssignments();
+
+    // add new topic
+    var new_topic_div = document.createElement('div');
+    new_topic_div.classList.add('col-md-5');
+    new_topic_div.classList.add('topic-container');
+    $(new_topic_div).append("<h4>" + new_topic_name + "</h4>");
+    $(new_topic_div).append(add_materials_btn);
+    $('#topics').append(new_topic_div);
+
+    displayAddNewTopic();
+};
 
