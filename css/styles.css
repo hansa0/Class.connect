@@ -3,6 +3,8 @@
     margin-bottom: 0;
     border-radius: 0;
 }
+
+
 .sidenav {
     padding-top: 20px;
     background-color: #f1f1f1;
@@ -22,8 +24,18 @@ footer {
 
 /*calendar view*/
 
+#calendar-div {
+    margin-left: auto;
+    margin-right: auto;
+    /*border: solid;
+    border-width: 1px;
+    border-color: #b3b3b3;*/
+    margin: 2em 10em 10em 10em;
+    padding: 2em;
+}
+
 #calendar {
-    margin: 5em;
+    
 }
 
 .fc-day:hover {
@@ -38,7 +50,7 @@ footer {
 /* Daily view -- general */
 .header-day {
     margin: 10px;
-    background: #b3b3b3;
+    /*background: #b3b3b3;*/
 }
 
 /* Daily view -- Left-hand-side */
@@ -115,15 +127,19 @@ table.topicTable td { width:180px; }
 div.questionDiv{
     border-style: solid;
     border-width: 1px;
-    padding: 5px;
+    padding: 1em;
+    margin-bottom: 2em;
 }
 
 
-
 div.replyDiv{
-    border-style: solid;
-    border-width: 1px;
+    /*border-style: solid;*/
+    /*border-width: 1px;*/
     padding: 5px;
+}
+
+.submit-btn {
+    margin-top: 10px;
 }
 
 p.questionAuthor{

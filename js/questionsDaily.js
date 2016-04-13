@@ -1,10 +1,13 @@
+
 g = 0;
+
+//
 replyClick = function(e) {
     g = g + 1;
     console.log("REPLY BUTTON CLICKED", e)
     var sp = ' onFocus="this.value=\'\'; this.onfocus=null;" ';
     var textAreaHtml = '<div class="replyDiv"><textarea id="'+ e.target.parentNode.id+"_reply"+g + '"'+sp+ ' ></textarea>';
-    textAreaHtml = textAreaHtml + '<button type="button" id="'+ e.target.parentNode.id+'_submit' + '">Submit</button></div>';
+    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ e.target.parentNode.id+'_submit' + '">Submit</button></div>';
     // $(textAreaHtml).insertAfter(e.target.parentNode)
     $(e.target.parentNode).append(textAreaHtml)
     var btn_id =e.target.parentNode.id+'_submit'; 
@@ -17,6 +20,7 @@ replyClick = function(e) {
     console.log(e.target.id)
 };
 
+// 
 initializeTinymce = function() {
     tinymce.init({
     toolbar: "undo redo | link image | styleselect | bold italic | bullist numlist outdent indent",
@@ -25,6 +29,7 @@ initializeTinymce = function() {
     tinymce.execCommand("mceAddControl", false, "");
 };
 
+// 
 replySubmit = function(e) {
     // console.log ("HADHFAHDSFHAS", e);
     var textarea_id = e.target.parentNode.childNodes[1].id;
@@ -78,6 +83,8 @@ $(document).ready(function() {
 
         var button = document.createElement("button");        // Create a <button> element
         var buttonText = document.createTextNode("Reply");       // Create a text node
+        button.classList.add('btn');
+        button.classList.add('btn-default');
         button.id = qDiv.id + "_replybtn";
         button.appendChild(buttonText);
         button.onclick=function(){replyClick(event)};
