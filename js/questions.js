@@ -17,7 +17,7 @@ replyClick = function(e) {
     }
 
     var textAreaHtml = '<div class="replyDiv"><textarea id="'+ e.target.parentNode.id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
-    textAreaHtml = textAreaHtml + '<button type="button" id="'+ e.target.parentNode.id+'_submit' + '">Submit</button></div>';
+    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ e.target.parentNode.id+'_submit' + '">Submit</button></div>';
     // $(textAreaHtml).insertAfter(e.target.parentNode)
     $(e.target.parentNode).append(textAreaHtml)
     var btn_id =e.target.parentNode.id+'_submit'; 
@@ -115,6 +115,8 @@ $(document).ready(function() {
 
         var button = document.createElement("button");        // Create a <button> element
         button.id = qDiv.id + "_replybtn";
+        button.classList.add('btn');
+        button.classList.add('btn-default');
         button.onclick=function(){replyClick(event)};
 
         qDiv.appendChild(button) 
