@@ -110,6 +110,7 @@ body {
 #edit-btn {
     float: right;
     margin-right: 5em;
+    margin-top: 20px;
 }
 
 #minus {
