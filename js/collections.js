@@ -51,6 +51,7 @@ var questions = [
     {
       author: "Danielle",
       question: "How do I conjugate llevar?",
+      question_description: "Please help.",
       date: default_day,
       hasReply: false,
       reply : null
@@ -58,6 +59,7 @@ var questions = [
     {
       author: "Van",
       question: "How do I say hello in spanish?",
+      question_description: "Please help.",
       date: default_day,
       hasReply: false,
       reply: null
@@ -65,6 +67,7 @@ var questions = [
     {
       author: "Katrine",
       question: "What is the best spanish book to read?",
+      question_description: "Please help.",
       date: default_day,
       hasReply: false,
       reply: null
