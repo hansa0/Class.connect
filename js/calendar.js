@@ -45,7 +45,12 @@ $(document).ready(function() {
     dayClick: function(date, jsEvent, view) {
       selected_day = date.format();
       var current_url = location.href;
-      location.href = current_url.replace("index", "daily");
+
+      if ( current_url.indexOf('index') == -1 ) {
+        location.href = current_url + "/daily.html";
+      } else {
+        location.href = current_url.replace("index", "daily");
+      };
     },
 
     // opens the assignment/handout for the selected file
