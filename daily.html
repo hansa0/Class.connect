@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link href="http://code.jquery.com/ui/1.10.4/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
+  <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet">
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -68,11 +68,17 @@
       
       <div class="daily-container">
         <div class="row">
-          <h3 class="text-center">Materials</h3>
-          <hr class="header-underline">
+          <div style="float: left;">
+            <h3 class="text-center" style="margin-left: 250px;">Materials</h3> 
+          </div>
+          <div style="float: right;">
+          <button type="button" class="btn btn-primary" id="edit-btn">Edit</button>
+          </div>
+
         </div>
         <div class="row">
-          <button type="button" class="btn btn-primary" id="edit-btn">Edit</button>
+            <hr class="header-underline">
+
         </div>
         <div class="row" id="topics">
         </div>
