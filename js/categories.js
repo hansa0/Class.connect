@@ -1,6 +1,7 @@
-var add_materials_btn = '<button class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
-var add_assignments_btn = '<button id="add-assignment-btn" class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
+// var add_materials_btn = '<button class="btn btn-default btn-add-materials" onclick="addMaterials(event)"></button>';
 
+var add_assignments_btn = '<button id="add-assignment-btn" class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
+var new_file_name;
 
 $(document).ready(function() {
 
@@ -118,10 +119,32 @@ var displayAllTopics = function() {
                 $(topic_materials).append('<p><span class="glyphicon glyphicon-minus handout" aria-hidden="true" style="color:red" id="minusHandout"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');
             };
         };
+
+        var add_materials_btn = document.createElement('button');
+        add_materials_btn.id = "id_btn_" + topic.name;
+        add_materials_btn.classList.add("btn");
+        add_materials_btn.classList.add("btn-default");
+        add_materials_btn.classList.add("btn-add-materials");
+
+        add_materials_btn.onclick = function(event) {
+            addMaterials(event);
+        }
+        $(add_materials_btn).append('<span class="glyphicon glyphicon-plus" aria-hidden="true"</span>');
+
+
         $(topic_materials).append(add_materials_btn);
         $(topic_body).append(topic_materials);
         $(topic_div).append(topic_body);
+        
+        var input = document.createElement('input');
+        input.type = "file";
+        input.className = "materials-input";
+        input.id = "id_input_" + topic.name;
+
+        $(topic_div).append(input);
+        // <input type="file" style="display:none" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" 
         $('#topics').append(topic_div);
+
     };
 };
 
@@ -177,13 +200,34 @@ var displayAddNewTopic = function() {
 
 // grab the files and set them to our variable
 var prepareUpload = function(event) {
+  console.log(event.target);
+  var topic_name = event.target.id.split("_")[2];
+
+  console.log(topic_name);
+  var button_id = "id_btn_" + topic_name;
+
+  console.log(button_id);
+
   files = event.target.files;
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
+    
     console.log(file);
+    new_file_name = file.name;
+    console.log(new_file_name);
+    
+    var new_assignment = '<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> </p>';
+
+    // TODO: always assign
+
+    $(new_assignment).insertBefore($('#'+button_id));
+    $.notify("Added new file", "success");    
+    // return file.name;
     // TODO: add new material assignment here and add to topic
   };
 };
+
+
 
 var addTopic = function() {
     console.log('adding topic');
@@ -220,13 +264,18 @@ var addTopic = function() {
     displayAddNewTopic();
 };
 
-var addMaterials = function() {
-    console.log('clicks add materials');
-    var upload = document.getElementById("upload");
-    upload.click();
+var addMaterials = function(e) {
+    var btn_id = e.target.parentNode.id;
+    // console.log(btn_id);
+    var topic_name = btn_id.split("_")[2];
+    // console.log(btn_id.split("_")[1]);
+    console.log("id_input_" + topic_name)
+    var upload = document.getElementById("id_input_" + topic_name);
+    $(upload).click();
+    
+    // var new_assignment = '<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> </p>';
 
-    var new_assignment = '<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> </p>';
-    $(new_assignment).insertBefore('#add-assignment-btn')
-    $.notify("Added new file", "success");
+    // $(new_assignment).insertBefore(btn_id);
+    // $.notify("Added new file", "success");
 };
 

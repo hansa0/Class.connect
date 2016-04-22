@@ -102,8 +102,8 @@ var topics = [
     handouts: ['ER Verbs', 'IR Verbs']
   },
   {
-    name: 'Assignments',
-    handouts: ['ER Verbs', 'IR Verbs']
+    name: 'Nouns',
+    handouts: ['nouns 1', 'nouns 2']
   }
 ];
 
