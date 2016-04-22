@@ -163,6 +163,10 @@ div.replyDiv{
     margin-right:10px;
 }
 
+.btn-default {
+    margin-right: 10px;
+}
+
 p.questionAuthor{
     font-style: italic;
 }
