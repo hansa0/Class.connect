@@ -30,6 +30,7 @@ replyClick = function(e) {
     
     
     if (questions[question_index].hasReply) {
+        console.log("FUCK MY FUCKING LIFE")
         var textarea_id = "#"+e.target.parentNode.id+"_reply"+ g
         console.log(textarea_id)
         $(textarea_id).text(questions[question_index].reply)
@@ -59,19 +60,22 @@ replySubmit = function(e) {
     var question = document.getElementById(question_id).firstChild.nodeValue;
     // console.log("QUestion: ", question)
     var question_index = getQuestionIndex(question)
+
     questions[question_index].reply = text;
+    questions[question_index].hasReply = true;
 
-    if (questions[question_index].hasReply) {
-        // var reply_text_id = "#" + e.target.parentNode.parentNode.id + '_replyText'
-        // var t = "Reply: " + text
-        // $(reply_text_id).html(t)
-    } else {
-        questions[question_index].hasReply = true;
-        // console.log("questions: ", questions)
+    // var reply_text_id = "#" + e.target.parentNode.parentNode.id + '_replyText'
+    // var t = "Reply: " + text
+    // $(reply_text_id).html(t)
+    var reply_text_id = "#" + e.target.parentNode.parentNode.id + '_replyText';
+     $(reply_text_id).remove();
+     $("#reply_divider").remove();
 
-        var reply_html = '<hr style ="border-top: 1px solid #D6DBDF " > <p id="'+ e.target.parentNode.parentNode.id + '_replyText' +'" class="replyText">'+text+'</p>'
-        $(reply_html).insertAfter(document.getElementById(description_id))
-    }
+    var reply_html = ' <hr id="reply_divider" style ="border-top: 1px solid #D6DBDF " ><p id="'+ e.target.parentNode.parentNode.id + '_replyText' +'" class="replyText">Reply: '+'</p>'
+    // console.log("REPLY HTML: ", reply_html)
+    $(reply_html).insertAfter(document.getElementById(description_id))
+    $(reply_text_id).append(text)
+
 
     var replybtn_id = "#"+e.target.parentNode.parentNode.id + "_replybtn"
     $(replybtn_id).show();
