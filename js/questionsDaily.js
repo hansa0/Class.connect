@@ -8,7 +8,9 @@ replyClick = function(e) {
     console.log("REPLY BUTTON CLICKED", e)
     var sp = ' onFocus="this.value=\'\'; this.onfocus=null;" ';
 
-    var question_id = e.target.parentNode.id + "_question"
+    // console.log(e.target);
+    // console.log(e.target.parentNode.parentNode.parentNode);
+    var question_id = e.target.parentNode.parentNode.parentNode.id + "_question"
     // console.log("question_id ", question_id)
     var question = document.getElementById(question_id).firstChild.nodeValue;
     // console.log("QUestion: ", question)
@@ -69,14 +71,14 @@ initializeTinymce = function() {
 
 saveButtonAction = function(e){
     console.log("Save button pressed");
-
+    console.log(e.target.parentNode.parentNode.parentNode.parentNode);
 
     var textarea_id = e.target.parentNode.childNodes[1].id;
     var text = tinymce.get(textarea_id).getContent();
 
     if (text.length > 0) {
-        var question_id = e.target.parentNode.parentNode.id + "_question"
-        var description_id = e.target.parentNode.parentNode.id + "_description"
+        var question_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+        var description_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_description"
         // console.log("question_id ", question_id)
         var question = document.getElementById(question_id).firstChild.nodeValue;
         // console.log("QUestion: ", question)
@@ -97,7 +99,7 @@ saveButtonAction = function(e){
         $.notify("draft saved", "success");
     }
 
-    var replybtn_id = "#"+e.target.parentNode.parentNode.id + "_replybtn"
+    var replybtn_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_replybtn"
     $(replybtn_id).show();
     hideDescription(e);
 
@@ -110,7 +112,7 @@ saveButtonAction = function(e){
 cancelButtonAction = function(e) {
     console.log("Cancel button pressed")
 
-    var replybtn_id = "#"+e.target.parentNode.parentNode.id + "_replybtn"
+    var replybtn_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_replybtn"
     $(replybtn_id).show();
     hideDescription(e);
 
@@ -122,23 +124,25 @@ cancelButtonAction = function(e) {
 hideDescription = function(e) {
     //handle hide show stuff
     console.log(e.target.parentNode.parentNode)
-    var question_id = "#"+e.target.parentNode.parentNode.id + "_question"
+    var question_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
     var question = $(question_id).text();
     var question_index = getQuestionIndex(question)
-    var p_id =  "#"+ e.target.parentNode.parentNode.id + "_description";
+    var p_id =  "#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_description";
     $(p_id).text(questions[question_index].question_description.substring(0, max_question_len) + "...");
 
-    $("#"+ e.target.parentNode.parentNode.id + "_showbtn").show()
-    $("#"+ e.target.parentNode.parentNode.id + "_hidebtn").hide()
+    $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_showbtn").show()
+    $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_hidebtn").hide()
 };
 
 //
 replySubmit = function(e) {
     // console.log ("HADHFAHDSFHAS", e);
+    console.log(e.target.parentNode.parentNode.parentNode.parentNode);
     var textarea_id = e.target.parentNode.childNodes[1].id;
     var text = tinymce.get(textarea_id).getContent();
-    var question_id = e.target.parentNode.parentNode.id + "_question"
-    // console.log("question_id ", question_id)
+    var question_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+    console.log("question_id ", question_id)
+    console.log(document.getElementById(question_id));
     var question = document.getElementById(question_id).firstChild.nodeValue;
     // console.log("QUestion: ", question)
     var question_index = getQuestionIndex(question)
@@ -209,21 +213,33 @@ $(document).ready(function() {
     for (var i=0; i < questions.length; i++ ){
         var qDiv = document.createElement("div");
         qDiv.id = "q" + i;
-        qDiv.className = "questionDiv";
+        qDiv.classList.add("questionDiv");
+        qDiv.classList.add("panel");
+        qDiv.classList.add("panel-primary");
 
+        var question_header = document.createElement("div");
+        question_header.className = "panel-heading";
         var p_question = document.createElement("h4")
         var question = document.createTextNode(questions[i].question);
-
         p_question.appendChild(question)
+
+
         p_question.id = qDiv.id + "_question";
         p_question.className = "questionText";
-        qDiv.appendChild(p_question);
 
         var author = document.createTextNode(questions[i].author);
         var p_author = document.createElement("p");
         p_author.appendChild(author);
         p_author.className = "questionAuthor";
-        qDiv.appendChild(p_author);
+        
+
+        $(question_header).append(p_question);
+        // question_header.appendChild(p_author);
+        $(qDiv).append(question_header);
+        // qDiv.appendChild(p_question);
+
+        var question_body = document.createElement("div");
+        question_body.className = "panel-body";
 
         var more_to_show = false;
 
@@ -234,9 +250,23 @@ $(document).ready(function() {
             question_description = question_description.substring(0, max_question_len) + "...";
             more_to_show = true;
         }
-        $(description).append(question_description);
-        $(qDiv).append(description);
-        // qDiv.appendChild(description)
+        $(question_body).append(question_description);
+        $(qDiv).append(question_body);
+
+        var bottom_reply_div = document.createElement("ul");
+        bottom_reply_div.className = "list-group";
+
+        var bottom_line = document.createElement("li");
+        bottom_line.className = "list-group-item";
+        $(bottom_reply_div).append(bottom_line);
+
+ // <ul class="list-group">
+ //    <li class="list-group-item">Cras justo odio</li>
+ //    <li class="list-group-item">Dapibus ac facilisis in</li>
+ //    <li class="list-group-item">Morbi leo risus</li>
+ //    <li class="list-group-item">Porta ac consectetur ac</li>
+ //    <li class="list-group-item">Vestibulum at eros</li>
+ //  </ul>
 
 
         var button = document.createElement("button");        // Create a <button> element
@@ -246,7 +276,9 @@ $(document).ready(function() {
         button.id = qDiv.id + "_replybtn";
         button.appendChild(buttonText);
         button.onclick=function(){replyClick(event)};
-        qDiv.appendChild(button)
+        bottom_line.appendChild(button);
+
+        $(qDiv).append(bottom_reply_div);
 
         if (more_to_show){
             var show_btn = document.createElement("button");        // Create a <button> element
