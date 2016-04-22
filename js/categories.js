@@ -92,23 +92,18 @@ var displayAllTopics = function() {
     console.log(topics);
     console.log(topics.length);
     for (var i = 0; i < topics.length; i++) {
-        console.log(i);
         // create a div for each topic
         var topic = topics[i];
-        console.log(topic);
-        
         var topic_div = document.createElement('div');
         topic_div.classList.add("col-md-5");
         topic_div.classList.add("topic-container");
         topic_div.classList.add("panel");
         topic_div.classList.add("panel-primary");
 
-        console.log('yo');
         var topic_header = document.createElement('div');
         topic_header.className = "panel-heading";
         $(topic_header).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red" id="minusTopic"></span>' + topic.name + '</h4>');
         $(topic_div).append(topic_header)
-
         
         // add materials for that topic
         var topic_body = document.createElement('div');
@@ -123,10 +118,7 @@ var displayAllTopics = function() {
                 $(topic_materials).append('<p><span class="glyphicon glyphicon-minus handout" aria-hidden="true" style="color:red" id="minusHandout"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');
             };
         };
-        console.log('here');
-        console.log(topic_materials);
         $(topic_materials).append(add_materials_btn);
-
         $(topic_body).append(topic_materials);
         $(topic_div).append(topic_body);
         $('#topics').append(topic_div);
