@@ -1,4 +1,3 @@
-
 g = 0;
 
 max_question_len = 150;
@@ -23,15 +22,15 @@ replyClick = function(e) {
 
     // $(textAreaHtml).insertAfter(e.target.parentNode)
     $(e.target.parentNode).append(textAreaHtml)
-    var btn_id =e.target.parentNode.id+'_submit'; 
+    var btn_id =e.target.parentNode.id+'_submit';
     var submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){replySubmit(event)};
 
-    btn_id =e.target.parentNode.id+'_save'; 
+    btn_id =e.target.parentNode.id+'_save';
     submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){saveButtonAction(event)};
 
-    btn_id =e.target.parentNode.id+'_cancel'; 
+    btn_id =e.target.parentNode.id+'_cancel';
     submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){cancelButtonAction(event)};
 
@@ -59,7 +58,7 @@ replyClick = function(e) {
 
 };
 
-// 
+//
 initializeTinymce = function() {
     tinymce.init({
     toolbar: "undo redo | link image | styleselect | bold italic | bullist numlist outdent indent",
@@ -69,7 +68,7 @@ initializeTinymce = function() {
 };
 
 saveButtonAction = function(e){
-    console.log("Save button pressed")
+    console.log("Save button pressed");
 
 
     var textarea_id = e.target.parentNode.childNodes[1].id;
@@ -95,6 +94,7 @@ saveButtonAction = function(e){
         // console.log("REPLY HTML: ", reply_html)
         $(reply_html).insertAfter(document.getElementById(description_id))
         $(reply_text_id).append(text)
+        $.notify("draft saved", "success");
     }
 
     var replybtn_id = "#"+e.target.parentNode.parentNode.id + "_replybtn"
@@ -132,7 +132,7 @@ hideDescription = function(e) {
     $("#"+ e.target.parentNode.parentNode.id + "_hidebtn").hide()
 };
 
-// 
+//
 replySubmit = function(e) {
     // console.log ("HADHFAHDSFHAS", e);
     var textarea_id = e.target.parentNode.childNodes[1].id;
@@ -154,9 +154,7 @@ replySubmit = function(e) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>");
     }
     // e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-    alert("You answered the question!");
-
-
+    $.notify("Question successfully answered", "success");
 };
 
 getQuestionIndex = function(q) {
@@ -247,7 +245,7 @@ $(document).ready(function() {
         button.id = qDiv.id + "_replybtn";
         button.appendChild(buttonText);
         button.onclick=function(){replyClick(event)};
-        qDiv.appendChild(button)   
+        qDiv.appendChild(button)
 
         if (more_to_show){
             var show_btn = document.createElement("button");        // Create a <button> element
@@ -257,7 +255,7 @@ $(document).ready(function() {
             show_btn.id = qDiv.id + "_showbtn";
             show_btn.appendChild(buttonText);
             show_btn.onclick=function(){showButtonAction(event)};
-            qDiv.appendChild(show_btn) 
+            qDiv.appendChild(show_btn)
 
             var hide_btn = document.createElement("button");        // Create a <button> element
             buttonText = document.createTextNode("Hide");       // Create a text node
