@@ -89,26 +89,46 @@ $(document).ready(function() {
 
 
 var displayAllTopics = function() {
+    console.log(topics);
+    console.log(topics.length);
     for (var i = 0; i < topics.length; i++) {
+        console.log(i);
         // create a div for each topic
         var topic = topics[i];
+        console.log(topic);
+        
         var topic_div = document.createElement('div');
         topic_div.classList.add("col-md-5");
         topic_div.classList.add("topic-container");
-        $(topic_div).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red" id="minusTopic"></span>' + topic.name + '</h4>');
+        topic_div.classList.add("panel");
+        topic_div.classList.add("panel-primary");
 
+        console.log('yo');
+        var topic_header = document.createElement('div');
+        topic_header.className = "panel-heading";
+        $(topic_header).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red" id="minusTopic"></span>' + topic.name + '</h4>');
+        $(topic_div).append(topic_header)
+
+        
         // add materials for that topic
+        var topic_body = document.createElement('div');
+        topic_body.className = "panel-body";
+
         var topic_materials = document.createElement('div');
         topic_materials.classList.add('topic-material');
 
-        for (var i = 0; i < handouts.length; i++) {
+        var handouts = topic.handouts;
+        for (var j = 0; j < handouts.length; j++) {
             if ($.inArray(handouts[i], topic.handouts)) {
                 $(topic_materials).append('<p><span class="glyphicon glyphicon-minus handout" aria-hidden="true" style="color:red" id="minusHandout"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');
             };
         };
+        console.log('here');
+        console.log(topic_materials);
         $(topic_materials).append(add_materials_btn);
 
-        $(topic_div).append(topic_materials);
+        $(topic_body).append(topic_materials);
+        $(topic_div).append(topic_body);
         $('#topics').append(topic_div);
     };
 };
@@ -118,7 +138,17 @@ var displayAssignments = function() {
     assignment_div.classList.add("col-md-5");
     assignment_div.classList.add("topic-container");
     assignment_div.classList.add("assignments-container");
-    $(assignment_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusAssignmentTopic"></span> Assignments</h4');
+    assignment_div.classList.add("panel");
+    assignment_div.classList.add("panel-primary");
+
+    var assignment_header = document.createElement('div');
+    assignment_header.className = "panel-heading";
+    $(assignment_header).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusAssignmentTopic"></span> Assignments</h4');
+
+    $(assignment_div).append(assignment_header);
+
+    var assignment_body = document.createElement('div');
+    assignment_body.className = "panel-body";
 
     var assignment_materials = document.createElement('div');
     for (var i = 0; i < assignments.length; i++){
@@ -126,7 +156,9 @@ var displayAssignments = function() {
     };
 
     $(assignment_materials).append(add_assignments_btn);
-    $(assignment_div).append(assignment_materials);
+    $(assignment_body).append(assignment_materials);
+
+    $(assignment_div).append(assignment_body);
     $('#topics').append(assignment_div);
 };
 
@@ -136,6 +168,7 @@ var displayAddNewTopic = function() {
     add_topic_div.classList.add('col-md-5');
     add_topic_div.classList.add('topic-container');
     add_topic_div.classList.add('topic-add');
+    add_topic_div.classList.add('panel');
     $(add_topic_div).append('<input type="text" class="form-control" placeholder="Add a topic..." id="newTopic">');
 
     var add_topic_btn = document.createElement('button');
@@ -175,8 +208,8 @@ var addTopic = function() {
         name: new_topic_name,
         handouts: []
     };
-    console.log(new_topic_obj);
-    // topics.push(new_topic_obj);
+    // console.log(new_topic_obj);
+    topics.push(new_topic_obj);
     // console.log(topics);
 
     // recreate divs to place new topic div in correct place
@@ -185,12 +218,12 @@ var addTopic = function() {
     displayAssignments();
 
     // add new topic
-    var new_topic_div = document.createElement('div');
-    new_topic_div.classList.add('col-md-5');
-    new_topic_div.classList.add('topic-container');
-    $(new_topic_div).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red; display: none;"></span>' + new_topic_name + "</h4>");
-    $(new_topic_div).append(add_materials_btn);
-    $('#topics').append(new_topic_div);
+    // var new_topic_div = document.createElement('div');
+    // new_topic_div.classList.add('col-md-5');
+    // new_topic_div.classList.add('topic-container');
+    // $(new_topic_div).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red; display: none;"></span>' + new_topic_name + "</h4>");
+    // $(new_topic_div).append(add_materials_btn);
+    // $('#topics').append(new_topic_div);
 
     displayAddNewTopic();
 };
