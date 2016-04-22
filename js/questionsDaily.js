@@ -158,6 +158,7 @@ replySubmit = function(e) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>");
     }
     // e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+
     $.notify("Question successfully answered", "success");
 };
 
@@ -302,6 +303,12 @@ $(document).ready(function() {
 
         mainDiv.appendChild(qDiv)
 
-        if (more_to_show) { $("#"+hide_btn.id).hide();}
-    };
+        if (more_to_show) { $("#"+hide_btn.id).hide(); }
+
+        $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
+        for (var j=0; j<questions[i].topic_tags.length; j++) {
+            console.log(j)
+            $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
+        }
+    }
 });
