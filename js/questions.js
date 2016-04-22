@@ -14,15 +14,16 @@ replyClick = function(e) {
     var sp = ' onFocus="this.value=\'\'; this.onfocus=null;" ';
     if (questions[question_index].hasReply) {
         sp = '';
-    }
+    } 
 
-    var textAreaHtml = '<div class="replyDiv"><textarea id="'+ e.target.parentNode.id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
+    var textAreaHtml = '<div class="replyDiv"><textarea id="'+ e.target.parentNode.id+"_reply"+g + '"'+sp+ ' ></textarea>';
     textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ e.target.parentNode.id+'_submit' + '">Submit</button></div>';
     // $(textAreaHtml).insertAfter(e.target.parentNode)
     $(e.target.parentNode).append(textAreaHtml)
     var btn_id =e.target.parentNode.id+'_submit'; 
     var submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){replySubmit(event)};
+
 
     $(e.target).hide();
     console.log(e.target.id)
@@ -46,6 +47,7 @@ initializeTinymce = function() {
     });
     tinymce.execCommand("mceAddControl", false, "");
 };
+
 
 replySubmit = function(e) {
     // console.log ("HADHFAHDSFHAS", e);

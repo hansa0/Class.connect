@@ -71,6 +71,14 @@ var questions = [
       date: default_day,
       hasReply: false,
       reply: null
+    },
+    {
+      author: "Hansa",
+      question: "Confusion over 'if' statements",
+      question_description: "Si clauses indicate possibilities, which may or may not become reality. They refer to the present, past, and future. These conditional sentences have two parts: the condition, or si clause, and the main or result clause which indicates what will happen if the condition of the si clause is met.",
+      date: default_day,
+      hasReply: false,
+      reply: null
     }
 ];
 
