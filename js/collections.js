@@ -54,15 +54,18 @@ var questions = [
       question_description: "Please help.",
       date: default_day,
       hasReply: false,
-      reply : null
+      reply : null,
+      topic_tags: ["Verbs"]
     },
     {
       author: "Van",
       question: "How do I say hello in spanish?",
-      question_description: "Please help.",
+      question_description: "Lorem ipsum dolor sit amet, zril melius epicuri mel an, impedit commune cum cu, falli delenit liberavisse pri at. Ad menandri rationibus comprehensam quo, eam no nulla dolore mnesarchum. Ea tibique torquatos est, case consul cu sed. Vidit sonet efficiantur eu usu, ex mei brute aperiam, ea has propriae mediocritatem. Pri ea stet meis. Dolores antiopam ea ius, qui ei novum iudicabit, his eu propriae dissentias. Mei ei graeci singulis.",
       date: default_day,
       hasReply: false,
-      reply: null
+      reply: null,
+      topic_tags: ["Verbs"]
+
     },
     {
       author: "Katrine",
@@ -70,15 +73,26 @@ var questions = [
       question_description: "Please help.",
       date: default_day,
       hasReply: false,
-      reply: null
+      reply: null,
+      topic_tags: ["Books", "Literature"]
     },
     {
       author: "Hansa",
-      question: "Confusion over 'if' statements",
+      question: "Confusion over verb conjugations for 'if' statements",
       question_description: "Si clauses indicate possibilities, which may or may not become reality. They refer to the present, past, and future. These conditional sentences have two parts: the condition, or si clause, and the main or result clause which indicates what will happen if the condition of the si clause is met.",
       date: default_day,
       hasReply: false,
-      reply: null
+      reply: null,
+      topic_tags: ["Verbs"]
+    },
+    {
+      author: "Roberto",
+      question: "Como te llamas",
+      question_description: "Lorem ipsum dolor sit amet, zril melius epicuri mel an.",
+      date: default_day,
+      hasReply: false,
+      reply: null,
+      topic_tags: ["Verbs", "Nouns"]
     }
 ];
 
