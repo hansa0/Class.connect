@@ -80,6 +80,10 @@ body {
     font-weight: bold;
 }
 
+#selected-day {
+    margin-right: 10px;
+}
+
 .header-day {
     margin: 10px;
     /*background: #b3b3b3;*/
