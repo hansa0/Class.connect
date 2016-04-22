@@ -1,4 +1,3 @@
-
 var add_materials_btn = '<button class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
 var add_assignments_btn = '<button id="add-assignment-btn" class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
 
@@ -23,7 +22,7 @@ $(document).ready(function() {
     // display add topic box
     displayAddNewTopic();
 
-    
+
     // fetches file on file upload selection
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
     $('input[type=file]').on('change', prepareUpload);
@@ -35,34 +34,36 @@ $(document).ready(function() {
     //     upload.click();
     // });
 
-    
+
     $(".folder").on("click", function() {
         console.log("deleting topic");
         $(this).closest('.col-md-5').remove();
+        $.notify("Successfully deleted topic", "success");
     });
-    
+
     $("#minusAssignmentTopic").on("click", function() {
         console.log("deleting assignment square");
         $(this).closest('.col-md-5').remove();
+        $.notify("Successfully deleted topic", "success");
     });
-    
+
     $(".singleAssignment").on("click", function() {
         console.log("individual assignment deleting");
         $(this).closest('p').remove();
-        
+        $.notify("Successfully removed file", "success");
     });
-    
+
     $(".handout").on("click", function() {
         console.log("handout deleting");
         $(this).closest('p').remove();
-        
+        $.notify("Successfully removed file", "success");
     });
-    
+
     var isEditing = false;
     $("#edit-btn").click(function() {
         isEditing = !isEditing; //toggles
-        
-        
+
+
         var editButton = document.getElementById("edit-btn");
         var minuses = document.getElementsByClassName("glyphicon glyphicon-minus");
 
@@ -89,17 +90,17 @@ $(document).ready(function() {
 
 var displayAllTopics = function() {
     for (var i = 0; i < topics.length; i++) {
-        // create a div for each topic    
+        // create a div for each topic
         var topic = topics[i];
         var topic_div = document.createElement('div');
         topic_div.classList.add("col-md-5");
         topic_div.classList.add("topic-container");
         $(topic_div).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red" id="minusTopic"></span>' + topic.name + '</h4>');
-        
+
         // add materials for that topic
         var topic_materials = document.createElement('div');
         topic_materials.classList.add('topic-material');
-        
+
         for (var i = 0; i < handouts.length; i++) {
             if ($.inArray(handouts[i], topic.handouts)) {
                 $(topic_materials).append('<p><span class="glyphicon glyphicon-minus handout" aria-hidden="true" style="color:red" id="minusHandout"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> </p>');
@@ -117,7 +118,7 @@ var displayAssignments = function() {
     assignment_div.classList.add("col-md-5");
     assignment_div.classList.add("topic-container");
     assignment_div.classList.add("assignments-container");
-    $(assignment_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusAssignmentTopic"></span> Assignments</h4');    
+    $(assignment_div).append('<h4> <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:red" id="minusAssignmentTopic"></span> Assignments</h4');
 
     var assignment_materials = document.createElement('div');
     for (var i = 0; i < assignments.length; i++){
@@ -136,7 +137,7 @@ var displayAddNewTopic = function() {
     add_topic_div.classList.add('topic-container');
     add_topic_div.classList.add('topic-add');
     $(add_topic_div).append('<input type="text" class="form-control" placeholder="Add a topic..." id="newTopic">');
-    
+
     var add_topic_btn = document.createElement('button');
     add_topic_btn.classList.add('btn');
     add_topic_btn.classList.add('btn-default');
@@ -145,7 +146,7 @@ var displayAddNewTopic = function() {
     add_topic_btn.onclick = addTopic;
     $(add_topic_div).append(add_topic_btn);
 
-    $('#topics').append(add_topic_div);    
+    $('#topics').append(add_topic_div);
 };
 
 
@@ -154,7 +155,7 @@ var prepareUpload = function(event) {
   files = event.target.files;
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
-    console.log(file);  
+    console.log(file);
     // TODO: add new material assignment here and add to topic
   };
 };
@@ -162,7 +163,8 @@ var prepareUpload = function(event) {
 var addTopic = function() {
     console.log('adding topic');
     var new_topic_name = $("#newTopic").val();
-    
+    $.notify("Topic \"" + new_topic_name + "\" added", "success");
+
     // if no typed name, don't add
     if (new_topic_name == "") {
         return;
@@ -185,7 +187,7 @@ var addTopic = function() {
     // add new topic
     var new_topic_div = document.createElement('div');
     new_topic_div.classList.add('col-md-5');
-    new_topic_div.classList.add('topic-container'); 
+    new_topic_div.classList.add('topic-container');
     $(new_topic_div).append('<h4> <span class="glyphicon glyphicon-minus folder" aria-hidden="true" style="color:red; display: none;"></span>' + new_topic_name + "</h4>");
     $(new_topic_div).append(add_materials_btn);
     $('#topics').append(new_topic_div);
@@ -200,5 +202,6 @@ var addMaterials = function() {
 
     var new_assignment = '<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> </p>';
     $(new_assignment).insertBefore('#add-assignment-btn')
+    $.notify("Added new file", "success");
 };
 
