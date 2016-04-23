@@ -48,10 +48,12 @@ body {
 
 .fc-day:hover {
     background: #b3b3b3;
+    cursor: pointer;
 }
 
 .fc-event:hover {
     color: #b3b3b3;
+    cursor: pointer;
 }
 
 
@@ -115,6 +117,10 @@ body {
 #topics {
     margin: 0 auto;
     float: none;
+    overflow: auto;
+    height: 550px;
+
+
 }
 
 .topic-container {
@@ -169,11 +175,18 @@ div.questionDiv{
     /*background-color: #e8eaf6;*/
 }
 
+.list-group-item {
+    margin-top: 1em;
+}
 
 div.replyDiv{
     /*border-style: solid;*/
     /*border-width: 1px;*/
     padding: 5px;
+}
+
+.btn-show, .btn-hide {
+    margin-left: 1em;
 }
 
 .submit-btn {
@@ -206,6 +219,7 @@ h4 > span {
     display: none;
 }
 
+
 h4 > span:hover { 
     display: inline;
 }
@@ -226,4 +240,5 @@ h4 > span:hover {
     font-size: 8pt;
 
 }
+
 

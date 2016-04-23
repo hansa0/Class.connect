@@ -252,22 +252,39 @@ $(document).ready(function() {
         }
         $(question_body).append(question_description);
         $(qDiv).append(question_body);
+        
+
+        if (more_to_show){
+            var show_btn = document.createElement("button");        // Create a <button> element
+            buttonText = document.createTextNode("Show more");       // Create a text node
+            show_btn.classList.add('btn');
+            show_btn.classList.add('btn-default');
+            show_btn.classList.add('btn-show');
+            show_btn.id = qDiv.id + "_showbtn";
+            show_btn.appendChild(buttonText);
+            show_btn.onclick=function(){showButtonAction(event)};
+            qDiv.appendChild(show_btn)
+
+            var hide_btn = document.createElement("button");        // Create a <button> element
+            buttonText = document.createTextNode("Hide");       // Create a text node
+            hide_btn.classList.add('btn');
+            hide_btn.classList.add('btn-default');
+            hide_btn.classList.add('btn-hide');
+            hide_btn.id = qDiv.id + "_hidebtn";
+            hide_btn.appendChild(buttonText);
+            hide_btn.onclick=function(){hideButtonAction(event)};
+            qDiv.appendChild(hide_btn)
+        }
+
 
         var bottom_reply_div = document.createElement("ul");
         bottom_reply_div.className = "list-group";
+        
 
         var bottom_line = document.createElement("li");
         bottom_line.className = "list-group-item";
         $(bottom_reply_div).append(bottom_line);
-
- // <ul class="list-group">
- //    <li class="list-group-item">Cras justo odio</li>
- //    <li class="list-group-item">Dapibus ac facilisis in</li>
- //    <li class="list-group-item">Morbi leo risus</li>
- //    <li class="list-group-item">Porta ac consectetur ac</li>
- //    <li class="list-group-item">Vestibulum at eros</li>
- //  </ul>
-
+        $(qDiv).append(bottom_reply_div);
 
         var button = document.createElement("button");        // Create a <button> element
         var buttonText = document.createTextNode("Reply");       // Create a text node
@@ -278,37 +295,17 @@ $(document).ready(function() {
         button.onclick=function(){replyClick(event)};
         bottom_line.appendChild(button);
 
-        $(qDiv).append(bottom_reply_div);
 
-        if (more_to_show){
-            var show_btn = document.createElement("button");        // Create a <button> element
-            buttonText = document.createTextNode("Show more");       // Create a text node
-            show_btn.classList.add('btn');
-            show_btn.classList.add('btn-default');
-            show_btn.id = qDiv.id + "_showbtn";
-            show_btn.appendChild(buttonText);
-            show_btn.onclick=function(){showButtonAction(event)};
-            qDiv.appendChild(show_btn)
-
-            var hide_btn = document.createElement("button");        // Create a <button> element
-            buttonText = document.createTextNode("Hide");       // Create a text node
-            hide_btn.classList.add('btn');
-            hide_btn.classList.add('btn-default');
-            hide_btn.id = qDiv.id + "_hidebtn";
-            hide_btn.appendChild(buttonText);
-            hide_btn.onclick=function(){hideButtonAction(event)};
-            qDiv.appendChild(hide_btn)
-        }
 
 
         mainDiv.appendChild(qDiv)
 
         if (more_to_show) { $("#"+hide_btn.id).hide(); }
 
-        $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
-        for (var j=0; j<questions[i].topic_tags.length; j++) {
-            console.log(j)
-            $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
-        }
+        // $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
+        // for (var j=0; j<questions[i].topic_tags.length; j++) {
+        //     console.log(j)
+        //     $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
+        // }
     }
 });
