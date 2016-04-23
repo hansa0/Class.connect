@@ -48,10 +48,12 @@ body {
 
 .fc-day:hover {
     background: #b3b3b3;
+    cursor: pointer;
 }
 
 .fc-event:hover {
     color: #b3b3b3;
+    cursor: pointer;
 }
 
 
@@ -220,9 +222,25 @@ glyphicon.glyphicon-minus.folder{
     display: none
 }
 
-.folder{
-    display: none
+
+h4 > span { 
+    display: none;
 }
 
-.
+
+h4 > span:hover { 
+    display: inline;
+}
+
+
+a > span { 
+    display: none;
+}
+
+
+a > span:hover { 
+    display: inline;
+}
+
+
 
