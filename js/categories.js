@@ -4,6 +4,8 @@ var add_assignments_btn = '<button id="add-assignment-btn" class="btn btn-defaul
 var new_file_name;
 
 $(document).ready(function() {
+    
+
 
     var day_to_display = "April 20th";
 
@@ -85,6 +87,15 @@ $(document).ready(function() {
             }
         }
     });
+    
+    //press enter to add a new topic
+    document.getElementById('newTopic').onkeydown = function(e){
+   if(e.keyCode == 13){
+       
+     console.log("enter");
+       addTopic();
+   }
+};
 });
 
 
