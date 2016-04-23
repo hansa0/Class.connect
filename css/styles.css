@@ -201,10 +201,14 @@ glyphicon.glyphicon-minus.folder{
     display: none
 }
 
-.folder{
-    display: none
+
+h4 > span { 
+    display: none;
 }
 
+h4 > span:hover { 
+    display: inline;
+}
 
 
 .tag {
