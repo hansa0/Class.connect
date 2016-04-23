@@ -224,6 +224,15 @@ h4 > span:hover {
     display: inline;
 }
 
+a > span { 
+    display: none;
+}
+
+
+a > span:hover { 
+    display: inline;
+}
+
 
 .tag {
     margin-top: 10px;

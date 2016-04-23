@@ -50,7 +50,7 @@ $(document).ready(function() {
         $.notify("Successfully deleted topic", "success");
     });
     
-    //delete x shows up on hover
+    //delete x for a header shows up on hover
     $('.panel-heading').hover(function(){  
         if (isEditing){
         $(this).children('h4').children('span').css({'display' : 'inline' });   
@@ -58,14 +58,31 @@ $(document).ready(function() {
         
     });
     
-    //delete x leaves after hover leaving
+    //delete x for a header leaves after hover leaving
     $('.panel-heading').mouseleave(function(){
         if (isEditing){
         $(this).children('h4').children('span').css({'display' : 'none' });
         }
     
     });
+     
+    //delete doc shows up on hover
+     $('.doc').hover(function(){  
+        if (isEditing){
+        $(this).children('span').css({'display' : 'inline' });   
+        }
         
+    });
+    
+    //delete x for a doc leaves after hover leaving
+    $('.doc').mouseleave(function(){
+        if (isEditing){
+        $(this).children('span').css({'display' : 'none' });
+        }
+    
+    });
+    
+    
     $(".singleAssignment").on("click", function() {
         console.log("individual assignment deleting");
         $(this).closest('p').remove();
@@ -137,7 +154,7 @@ var displayAllTopics = function() {
         var handouts = topic.handouts;
         for (var j = 0; j < handouts.length; j++) {
             if ($.inArray(handouts[i], topic.handouts)) {
-                $(topic_materials).append('<p><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red" id="minusHandout"></span> </a> </p>');
+                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red" id="minusHandout"></span> </p>');
             };
         };
 
@@ -188,7 +205,7 @@ var displayAssignments = function() {
 
     var assignment_materials = document.createElement('div');
     for (var i = 0; i < assignments.length; i++){
-        $(assignment_materials).append('<p> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf"> ' + assignments[i].assignment_name+'<span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span></a> </p>');
+        $(assignment_materials).append('<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf"> ' + assignments[i].assignment_name+'</a><span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> </p>');
     };
 
     $(assignment_materials).append(add_assignments_btn);
@@ -237,7 +254,7 @@ var prepareUpload = function(event) {
     new_file_name = file.name;
     console.log(new_file_name);
     
-    var new_assignment = '<p> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> <span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> </p>';
+    var new_assignment = '<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> <span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> </p>';
 
     // for (var j = 0; j < topics.length; j++) {
     //   if (topics[j].name == topic_name) {
