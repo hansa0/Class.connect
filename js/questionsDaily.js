@@ -305,10 +305,10 @@ $(document).ready(function() {
 
         if (more_to_show) { $("#"+hide_btn.id).hide(); }
 
-        $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
-        for (var j=0; j<questions[i].topic_tags.length; j++) {
-            console.log(j)
-            $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
-        }
+        // $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
+        // for (var j=0; j<questions[i].topic_tags.length; j++) {
+        //     console.log(j)
+        //     $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
+        // }
     }
 });
