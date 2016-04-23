@@ -229,6 +229,11 @@ var prepareUpload = function(event) {
     
     var new_assignment = '<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> </p>';
 
+    // for (var j = 0; j < topics.length; j++) {
+    //   if (topics[j].name == topic_name) {
+    //     topics[j].handouts.push(new_assignment);
+    //   }
+    // };
     // TODO: always assign
 
     $(new_assignment).insertBefore($('#'+button_id));
