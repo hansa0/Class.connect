@@ -8,51 +8,53 @@ replyClick = function(e) {
     console.log("REPLY BUTTON CLICKED", e)
     var sp = ' onFocus="this.value=\'\'; this.onfocus=null;" ';
 
+    var qDiv_id = e.target.parentNode.parentNode.parentNode.id;
+
     // console.log(e.target);
     // console.log(e.target.parentNode.parentNode.parentNode);
-    var question_id = e.target.parentNode.parentNode.parentNode.id + "_question"
+    var question_id = qDiv_id + "_question"
     // console.log("question_id ", question_id)
     var question = document.getElementById(question_id).firstChild.nodeValue;
     // console.log("QUestion: ", question)
     var question_index = getQuestionIndex(question)
 
-   var textAreaHtml = '<div class="replyDiv"><textarea id="'+ e.target.parentNode.id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
-    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ e.target.parentNode.id+'_submit' + '">Submit</button>';
-    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ e.target.parentNode.id+'_save' + '">Save</button>';
-   textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ e.target.parentNode.id+'_cancel' + '">Cancel</button></div>';
+   var textAreaHtml = '<div class="replyDiv"><textarea id="'+ qDiv_id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
+    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_submit' + '">Submit</button>';
+    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_save' + '">Save</button>';
+   textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_cancel' + '">Cancel</button></div>';
 
 
     // $(textAreaHtml).insertAfter(e.target.parentNode)
     $(e.target.parentNode).append(textAreaHtml)
-    var btn_id =e.target.parentNode.id+'_submit';
+    var btn_id =qDiv_id+'_submit';
     var submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){replySubmit(event)};
 
-    btn_id =e.target.parentNode.id+'_save';
+    btn_id =qDiv_id+'_save';
     submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){saveButtonAction(event)};
 
-    btn_id =e.target.parentNode.id+'_cancel';
+    btn_id =qDiv_id+'_cancel';
     submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){cancelButtonAction(event)};
 
 
     //show full question and hide show and hide buttons
-    var p_id =  "#"+ e.target.parentNode.id + "_description";
+    var p_id =  "#"+ qDiv_id + "_description";
     $(p_id).text(questions[question_index].question_description);
-    $("#"+ e.target.parentNode.id + "_hidebtn").hide()
-    $("#"+ e.target.parentNode.id + "_showbtn").hide()
+    $("#"+ qDiv_id + "_hidebtn").hide()
+    $("#"+ qDiv_id + "_showbtn").hide()
 
 
 
     if (questions[question_index].hasReply) {
-        var textarea_id = "#"+e.target.parentNode.id+"_reply"+ g
+        var textarea_id = "#"+ qDiv_id +"_reply"+ g
         console.log(textarea_id)
         $(textarea_id).text(questions[question_index].reply)
     }
 
 
-    id = "#"+e.target.parentNode.id+"_reply"+g
+    id = "#"+ qDiv_id +"_reply"+g
     initializeTinymce(id);
     $(e.target).hide();
     console.log(e.target.id)
@@ -134,9 +136,20 @@ hideDescription = function(e) {
     $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_hidebtn").hide()
 };
 
+showDescription = function(e) {
+    console.log("Show button pressed")
+    var question_id = "#"+e.target.parentNode.id + "_question"
+    var question = $(question_id).text();
+    var question_index = getQuestionIndex(question)
+
+    var p_id =  "#"+ e.target.parentNode.id + "_description";
+    $(p_id).text(questions[question_index].question_description);
+    $("#"+ e.target.parentNode.id + "_showbtn").hide();
+    $("#"+ e.target.parentNode.id + "_hidebtn").show()
+};
 //
 replySubmit = function(e) {
-    // console.log ("HADHFAHDSFHAS", e);
+    console.log ("HADHFAHDSFHAS", e);
     console.log(e.target.parentNode.parentNode.parentNode.parentNode);
     var textarea_id = e.target.parentNode.childNodes[1].id;
     var text = tinymce.get(textarea_id).getContent();
@@ -219,6 +232,7 @@ $(document).ready(function() {
 
         var question_header = document.createElement("div");
         question_header.className = "panel-heading";
+        question_header.id = qDiv.id + "_panel-heading";
         var p_question = document.createElement("h4")
         var question = document.createTextNode(questions[i].question);
         p_question.appendChild(question)
@@ -227,6 +241,13 @@ $(document).ready(function() {
         p_question.id = qDiv.id + "_question";
         p_question.className = "questionText";
 
+        var carrot_icon_span = document.createElement("span");
+        // carrot_icon_span.classList.add("ui-icon");
+        // carrot_icon_span.classList.add("ui-icon-carat-1-e");
+        carrot_icon_span.className="carrot_icon"
+        carrot_icon_span.id = qDiv.id + "_carrot_icon";
+        $(carrot_icon_span).append('<h4>&gt;</h4>')
+
         var author = document.createTextNode(questions[i].author);
         var p_author = document.createElement("p");
         p_author.appendChild(author);
@@ -234,6 +255,7 @@ $(document).ready(function() {
         
 
         $(question_header).append(p_question);
+        $(question_header).append(carrot_icon_span);
         // question_header.appendChild(p_author);
         $(qDiv).append(question_header);
         // qDiv.appendChild(p_question);
@@ -250,7 +272,8 @@ $(document).ready(function() {
             question_description = question_description.substring(0, max_question_len) + "...";
             more_to_show = true;
         }
-        $(question_body).append(question_description);
+        $(description).append(question_description);
+        $(question_body).append(description);
         $(qDiv).append(question_body);
         
 

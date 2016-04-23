@@ -202,6 +202,14 @@ p.questionAuthor{
 
 .questionText {
     margin-bottom: 5px;
+    display: inline;
+}
+
+.carrot_icon {
+    display: inline;
+    float: right;
+    /*add this to stick that guy on the right*/
+    position: relative;
 }
 
 glyphicon.glyphicon-minus.assignment{
@@ -215,4 +223,6 @@ glyphicon.glyphicon-minus.folder{
 .folder{
     display: none
 }
+
+.
 
