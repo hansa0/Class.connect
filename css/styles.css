@@ -48,10 +48,12 @@ body {
 
 .fc-day:hover {
     background: #b3b3b3;
+    cursor: pointer;
 }
 
 .fc-event:hover {
     color: #b3b3b3;
+    cursor: pointer;
 }
 
 
