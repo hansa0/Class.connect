@@ -115,6 +115,10 @@ body {
 #topics {
     margin: 0 auto;
     float: none;
+    overflow: auto;
+    height: 550px;
+
+
 }
 
 .topic-container {
