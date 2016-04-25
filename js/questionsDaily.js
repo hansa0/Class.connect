@@ -20,8 +20,8 @@ replyClick = function(e) {
 
    var textAreaHtml = '<div class="replyDiv"><textarea id="'+ qDiv_id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
     textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_submit' + '">Submit</button>';
-    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_save' + '">Save</button>';
-   textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_cancel' + '">Cancel</button></div>';
+    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_close' + '">Close</button>';
+   // textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_cancel' + '">Cancel</button></div>';
 
 
     // $(textAreaHtml).insertAfter(e.target.parentNode)
@@ -30,13 +30,18 @@ replyClick = function(e) {
     var submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){replySubmit(event)};
 
-    btn_id =qDiv_id+'_save';
-    submit_button = document.getElementById(btn_id);
-    submit_button.onclick=function(){saveButtonAction(event)};
+    // btn_id =qDiv_id+'_save';
+    // submit_button = document.getElementById(btn_id);
+    // submit_button.onclick=function(){saveButtonAction(event)};
 
-    btn_id =qDiv_id+'_cancel';
+    // btn_id =qDiv_id+'_cancel';
+    // submit_button = document.getElementById(btn_id);
+    // submit_button.onclick=function(){cancelButtonAction(event)};
+
+    btn_id =qDiv_id+'_close';
     submit_button = document.getElementById(btn_id);
-    submit_button.onclick=function(){cancelButtonAction(event)};
+    submit_button.onclick=function(){closeButtonAction(event)};
+
 
 
     //show full question and hide show and hide buttons
@@ -70,6 +75,47 @@ initializeTinymce = function() {
     });
     tinymce.execCommand("mceAddControl", false, "");
 };
+
+closeButtonAction = function(e){
+    console.log("Close button pressed");
+    console.log(e.target.parentNode.parentNode.parentNode.parentNode);
+
+    var textarea_id = e.target.parentNode.childNodes[1].id;
+    var text = tinymce.get(textarea_id).getContent();
+
+    if (text.length > 0) {
+        var question_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+        var description_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_description"
+        // console.log("question_id ", question_id)
+        var question = document.getElementById(question_id).firstChild.nodeValue;
+        // console.log("QUestion: ", question)
+        var question_index = getQuestionIndex(question)
+        questions[question_index].reply = text;
+
+
+        var reply_text_id = "#" + e.target.parentNode.parentNode.id + '_replyText';
+         $(reply_text_id).remove();
+         $("#reply_divider").remove();
+
+        console.log(text)
+        questions[question_index].hasReply = true;
+        var reply_html = ' <hr id="reply_divider" style ="border-top: 1px solid #D6DBDF " ><p id="'+ e.target.parentNode.parentNode.id + '_replyText' +'" class="replyText">Saved reply: '+'</p>'
+        // console.log("REPLY HTML: ", reply_html)
+        $(reply_html).insertAfter(document.getElementById(description_id))
+        $(reply_text_id).append(text)
+        $.notify("draft saved", "success");
+    }
+
+    var replybtn_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_replybtn"
+    $(replybtn_id).show();
+    hideDescription(e);
+
+    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+
+
+
+};
+
 
 saveButtonAction = function(e){
     console.log("Save button pressed");
@@ -125,15 +171,17 @@ cancelButtonAction = function(e) {
 
 hideDescription = function(e) {
     //handle hide show stuff
-    console.log(e.target.parentNode.parentNode)
-    var question_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+    // console.log(e.target.parentNode.parentNode)
+    var qDiv_id = e.target.parentNode.parentNode.parentNode.parentNode.id;
+
+    var question_id = "#"+ qDiv_id + "_question"
     var question = $(question_id).text();
     var question_index = getQuestionIndex(question)
-    var p_id =  "#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_description";
+    var p_id =  "#"+ qDiv_id+ "_description";
     $(p_id).text(questions[question_index].question_description.substring(0, max_question_len) + "...");
 
-    $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_showbtn").show()
-    $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_hidebtn").hide()
+    $("#"+ qDiv_id+ "_showbtn").show()
+    $("#"+ qDiv_id + "_hidebtn").hide()
 };
 
 showDescription = function(e) {
@@ -151,9 +199,10 @@ showDescription = function(e) {
 replySubmit = function(e) {
     console.log ("HADHFAHDSFHAS", e);
     console.log(e.target.parentNode.parentNode.parentNode.parentNode);
+    var qDiv = e.target.parentNode.parentNode.parentNode.parentNode;
     var textarea_id = e.target.parentNode.childNodes[1].id;
     var text = tinymce.get(textarea_id).getContent();
-    var question_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+    var question_id = qDiv.id + "_question"
     console.log("question_id ", question_id)
     console.log(document.getElementById(question_id));
     var question = document.getElementById(question_id).firstChild.nodeValue;
@@ -170,7 +219,7 @@ replySubmit = function(e) {
     if (!daily_q_div.hasChildNodes()) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>");
     }
-    // e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+    qDiv.parentNode.removeChild(qDiv);
 
     $.notify("Question successfully answered", "success");
 };
