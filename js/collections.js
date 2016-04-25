@@ -94,11 +94,13 @@ var questions = [
 var topics = [
   {
     name: 'Verbs',
-    handouts: ['ER Verbs', 'IR Verbs']
+    handouts: ['ER Verbs', 'IR Verbs'],
+    id: 1
   },
   {
     name: 'Nouns',
-    handouts: ['nouns 1', 'nouns 2']
+    handouts: ['nouns 1', 'nouns 2'],
+    id: 2
   }
 ];
 
