@@ -166,6 +166,14 @@ body {
     height: 1px;
 }
 
+.materials-topic-name-input {
+    color: black;
+}
+
+.materials-panel-heading {
+    cursor: pointer;
+}
+
 /* Daily view -- Right-hand-side*/
 div.questionDiv{
     /*border-style: solid;

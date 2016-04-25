@@ -6,7 +6,7 @@ var new_file_name;
 $(document).ready(function() {
     
 
-
+    var editing_topic_name = false;
     var day_to_display = "April 20th";
     var isEditing = false;
     // var add_materials_btn = document.createElement('button');
@@ -29,6 +29,52 @@ $(document).ready(function() {
     // fetches file on file upload selection
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
     $('input[type=file]').on('change', prepareUpload);
+
+    $('.materials-panel-heading').click(event, function() {
+        console.log('clicked materials panel heading');
+        var target = event.target;
+
+        if (editing_topic_name) {
+          return;
+        };
+        editing_topic_name = true;
+
+        var old_topic = event.target.textContent;
+        var input = document.createElement('input');
+        input.type = "text";
+        input.className = "materials-topic-name-input";
+        input.value = old_topic;
+
+        // input.id = "id_topic_name_" + topic.name;
+        console.log(target);
+        console.log(target.tagName);
+        if (target.tagName == "H4") {
+          $(target.parentNode).append(input);  
+          target.style.display = "none";
+        } else {
+          $(target).append(input);  
+          var topic_heading = target.getElementsByTagName("H4")[0];
+          console.log(target);
+          topic_heading.style.display = "none";
+        };
+        input.focus();
+    });
+
+    //press enter to add a new topic
+    // $('.materials-panel-heading').keypress(e, function() {
+    //   if(e.keyCode == 13) {
+    //      console.log("enter");
+    //      console.log('change topic name');
+    //   }
+    // });
+
+    $('.materials-panel-heading').keypress(function (e) {
+       if(e.which ==13)
+        console.log($(this).attr('id'));
+    });
+
+
+
 
     // opens file upload window on clicking file upload
     // $(".btn-add-materials").click(function() {
@@ -117,12 +163,12 @@ $(document).ready(function() {
     
     //press enter to add a new topic
     document.getElementById('newTopic').onkeydown = function(e){
-   if(e.keyCode == 13){
-       
-     console.log("enter");
-       addTopic();
-   }
-};
+      if(e.keyCode == 13){
+         
+      console.log("enter");
+        addTopic();
+      }
+    };
 });
 
 
@@ -140,8 +186,11 @@ var displayAllTopics = function() {
         topic_div.classList.add("panel-primary");
 
         var topic_header = document.createElement('div');
-        topic_header.className = "panel-heading";
+
+        topic_header.classList.add("panel-heading");
+        topic_header.classList.add("materials-panel-heading");
         $(topic_header).append('<h4> ' + topic.name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red" id="minusTopic"></span></h4>');
+
         $(topic_div).append(topic_header)
         
         // add materials for that topic
