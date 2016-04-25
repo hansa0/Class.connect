@@ -125,15 +125,17 @@ cancelButtonAction = function(e) {
 
 hideDescription = function(e) {
     //handle hide show stuff
-    console.log(e.target.parentNode.parentNode)
-    var question_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+    // console.log(e.target.parentNode.parentNode)
+    var qDiv_id = e.target.parentNode.parentNode.parentNode.parentNode.id;
+
+    var question_id = "#"+ qDiv_id + "_question"
     var question = $(question_id).text();
     var question_index = getQuestionIndex(question)
-    var p_id =  "#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_description";
+    var p_id =  "#"+ qDiv_id+ "_description";
     $(p_id).text(questions[question_index].question_description.substring(0, max_question_len) + "...");
 
-    $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_showbtn").show()
-    $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_hidebtn").hide()
+    $("#"+ qDiv_id+ "_showbtn").show()
+    $("#"+ qDiv_id + "_hidebtn").hide()
 };
 
 showDescription = function(e) {
@@ -151,9 +153,10 @@ showDescription = function(e) {
 replySubmit = function(e) {
     console.log ("HADHFAHDSFHAS", e);
     console.log(e.target.parentNode.parentNode.parentNode.parentNode);
+    var qDiv = e.target.parentNode.parentNode.parentNode.parentNode;
     var textarea_id = e.target.parentNode.childNodes[1].id;
     var text = tinymce.get(textarea_id).getContent();
-    var question_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+    var question_id = qDiv.id + "_question"
     console.log("question_id ", question_id)
     console.log(document.getElementById(question_id));
     var question = document.getElementById(question_id).firstChild.nodeValue;
