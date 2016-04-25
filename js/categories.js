@@ -71,7 +71,7 @@ $(document).ready(function() {
             // change visual look
             var parent = e.target.parentNode;
             var topic_id = parent.id;
-            var new_html = '<h4> ' + new_topic_name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red" id="minusTopic"></span></h4>'
+            var new_html = '<h4> ' + new_topic_name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>';
             $(parent).html(new_html);
 
             for (i = 0; i++; i < topics.length) {
