@@ -250,5 +250,7 @@ a > span:hover {
     display: inline;
 }
 
-
+.selectable {
+    cursor:pointer;
+}
 

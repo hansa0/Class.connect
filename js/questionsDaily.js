@@ -287,7 +287,8 @@ $(document).ready(function() {
         qDiv_array[qDiv.id] = false;
 
         var question_header = document.createElement("div");
-        question_header.className = "panel-heading";
+        question_header.classList.add("panel-heading");
+        question_header.classList.add("selectable");
         question_header.id = qDiv.id + "_panel-heading";
         var p_question = document.createElement("h4")
         var question = document.createTextNode(questions[i].question);
@@ -301,7 +302,7 @@ $(document).ready(function() {
         // carrot_icon_span.classList.add("ui-icon-carat-1-e");
         carrot_icon_span.className="carrot_icon"
         carrot_icon_span.id = qDiv.id + "_carrot_icon";
-        $(carrot_icon_span).append('<h4>&gt;</h4>')
+        $(carrot_icon_span).append('&gt;')
 
         var author = document.createTextNode(questions[i].author);
         var p_author = document.createElement("p");
@@ -333,27 +334,27 @@ $(document).ready(function() {
         $(qDiv).append(question_body);
         
 
-        if (more_to_show){
-            var show_btn = document.createElement("button");        // Create a <button> element
-            buttonText = document.createTextNode("Show more");       // Create a text node
-            show_btn.classList.add('btn');
-            show_btn.classList.add('btn-default');
-            show_btn.classList.add('btn-show');
-            show_btn.id = qDiv.id + "_showbtn";
-            show_btn.appendChild(buttonText);
-            show_btn.onclick=function(){showButtonAction(event)};
-            qDiv.appendChild(show_btn)
+        // if (more_to_show){
+        //     var show_btn = document.createElement("button");        // Create a <button> element
+        //     buttonText = document.createTextNode("Show more");       // Create a text node
+        //     show_btn.classList.add('btn');
+        //     show_btn.classList.add('btn-default');
+        //     show_btn.classList.add('btn-show');
+        //     show_btn.id = qDiv.id + "_showbtn";
+        //     show_btn.appendChild(buttonText);
+        //     show_btn.onclick=function(){showButtonAction(event)};
+        //     qDiv.appendChild(show_btn)
 
-            var hide_btn = document.createElement("button");        // Create a <button> element
-            buttonText = document.createTextNode("Hide");       // Create a text node
-            hide_btn.classList.add('btn');
-            hide_btn.classList.add('btn-default');
-            hide_btn.classList.add('btn-hide');
-            hide_btn.id = qDiv.id + "_hidebtn";
-            hide_btn.appendChild(buttonText);
-            hide_btn.onclick=function(){hideButtonAction(event)};
-            qDiv.appendChild(hide_btn)
-        }
+        //     var hide_btn = document.createElement("button");        // Create a <button> element
+        //     buttonText = document.createTextNode("Hide");       // Create a text node
+        //     hide_btn.classList.add('btn');
+        //     hide_btn.classList.add('btn-default');
+        //     hide_btn.classList.add('btn-hide');
+        //     hide_btn.id = qDiv.id + "_hidebtn";
+        //     hide_btn.appendChild(buttonText);
+        //     hide_btn.onclick=function(){hideButtonAction(event)};
+        //     qDiv.appendChild(hide_btn)
+        // }
 
 
         var bottom_reply_div = document.createElement("ul");
@@ -380,7 +381,7 @@ $(document).ready(function() {
         $("#"+question_header.id).click({param1: qDiv.id}, showQuestion);
 
 
-        if (more_to_show) { $("#"+hide_btn.id).hide(); }
+        // if (more_to_show) { $("#"+hide_btn.id).hide(); }
 
         // $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
         // for (var j=0; j<questions[i].topic_tags.length; j++) {
@@ -398,10 +399,12 @@ function showQuestion(event){
         var question = $(question_id).text();
         var question_index = getQuestionIndex(question)
         var p_id =  "#"+ qDiv_id+ "_description";
-        $(p_id).text(questions[question_index].question_description.substring(0, max_question_len) + "...");
-
-        $("#"+ qDiv_id+ "_showbtn").show()
-        $("#"+ qDiv_id + "_hidebtn").hide()
+        if (questions[question_index].question_description.length > max_question_len) {
+            $(p_id).text(questions[question_index].question_description.substring(0, max_question_len) + "...");
+        }
+        $("#"+qDiv_id+"_carrot_icon").text('>');
+        // $("#"+ qDiv_id+ "_showbtn").show()
+        // $("#"+ qDiv_id + "_hidebtn").hide()
         qDiv_array[qDiv_id] = false;
     } else {
         var question_id = "#"+ qDiv_id + "_question"
@@ -411,8 +414,11 @@ function showQuestion(event){
 
         var p_id =  "#"+ qDiv_id + "_description";
         $(p_id).text(questions[question_index].question_description);
-        $("#"+ qDiv_id + "_showbtn").hide();
-        $("#"+ qDiv_id + "_hidebtn").show()
+        if (questions[question_index].question_description.length > max_question_len) {
+            $("#"+qDiv_id+"_carrot_icon").text('v');
+        }
+        // $("#"+ qDiv_id + "_showbtn").hide();
+        // $("#"+ qDiv_id + "_hidebtn").show()
         qDiv_array[qDiv_id] = true;
     }
 };
