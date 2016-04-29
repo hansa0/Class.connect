@@ -129,14 +129,14 @@ var topics = [
         topic: 'Assignments',
         file: 'N/A',
         text: 'Write ten sentences in present tense about your day.',
-        duedate: '2016-04-17'
+        relevant_day: '2016-04-17'
       },
       {
         title: 'Assignment 2',
         topic: 'Assignments',
         file: 'N/A',
         text: 'Complete the homework sheet.',
-        duedate: '2016-04-20'
+        relevant_day: '2016-04-20'
       }  
     ],
     id: 3
