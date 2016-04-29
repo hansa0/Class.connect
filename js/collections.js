@@ -12,39 +12,24 @@ var selected_day
 
 var default_day = '2016-04-20';
 
-var assignments = [
-  {
-    assignment_name: 'Assignment 1',
-    topic: 'Verbs',
-    file: 'N/A',
-    text: 'Write ten sentences in present tense about your day.',
-    duedate: '2016-04-17'
-  },
-  {
-    assignment_name: 'Assignment 2',
-    topic: 'Nouns',
-    file: 'N/A',
-    text: 'Complete the homework sheet.',
-    duedate: '2016-04-20'
-  }
-];
+// var assignments = [
+//   {
+//     assignment_name: 'Assignment 1',
+//     topic: 'Verbs',
+//     file: 'N/A',
+//     text: 'Write ten sentences in present tense about your day.',
+//     duedate: '2016-04-17'
+//   },
+//   {
+//     assignment_name: 'Assignment 2',
+//     topic: 'Nouns',
+//     file: 'N/A',
+//     text: 'Complete the homework sheet.',
+//     duedate: '2016-04-20'
+//   }
+// ];
 
-var handouts = [
-  {
-    title: 'ER Verbs',
-    topic: 'Verbs',
-    file: 'N/A',
-    text: 'Some description',
-    relevant_day: '2016-04-20'
-  },
-  {
-    title: 'IR Verbs',
-    topic: 'Verbs',
-    file: 'N/A',
-    text: 'Some description',
-    relevant_day: '2016-04-18'
-  }
-];
+
 
 
 var questions = [
@@ -91,16 +76,70 @@ var questions = [
     }
 ];
 
+
+
 var topics = [
   {
     name: 'Verbs',
-    handouts: ['ER Verbs', 'IR Verbs'],
+    handouts: [
+      {
+        title: 'ER Verbs',
+        topic: 'Verbs',
+        file: 'N/A',
+        text: 'Some description',
+        relevant_day: '2016-04-20'
+      },
+      {
+        title: 'IR Verbs',
+        topic: 'Verbs',
+        file: 'N/A',
+        text: 'Some description',
+        relevant_day: '2016-04-18'
+      },
+    ],
     id: 1
   },
+  
   {
     name: 'Nouns',
-    handouts: ['nouns 1', 'nouns 2'],
+    handouts: [
+      {
+        title: 'Nouns 1',
+        topic: 'Nouns',
+        file: 'N/A',
+        text: 'Some description',
+        relevant_day: '2016-04-20'
+      },
+      {
+        title: 'Nouns 2',
+        topic: 'Nouns',
+        file: 'N/A',
+        text: 'Some description',
+        relevant_day: '2016-04-18'
+      },
+    ],
     id: 2
+  },
+
+  {
+    name: 'Assignments',
+    handouts: [
+      {
+        title: 'Assignment 1',
+        topic: 'Assignments',
+        file: 'N/A',
+        text: 'Write ten sentences in present tense about your day.',
+        duedate: '2016-04-17'
+      },
+      {
+        title: 'Assignment 2',
+        topic: 'Assignments',
+        file: 'N/A',
+        text: 'Complete the homework sheet.',
+        duedate: '2016-04-20'
+      }  
+    ],
+    id: 3
   }
 ];
 

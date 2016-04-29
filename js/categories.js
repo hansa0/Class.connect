@@ -24,7 +24,7 @@ $(document).ready(function() {
     displayAllTopics();
 
     // display assignments
-    displayAssignments();
+    // displayAssignments();
 
     // display add topic box
     displayAddNewTopic();
@@ -35,7 +35,8 @@ $(document).ready(function() {
     $('input[type=file]').on('change', prepareUpload);
 
     // let users edit topic names by clicking them
-    $('.materials-panel-heading').click(event, function() {
+    $('.materials-panel-heading').on('click', function(event) {
+      console.log('clicked panel heading');
       event.stopPropagation();
       var target = event.target;
 
@@ -195,13 +196,12 @@ var displayAllTopics = function() {
         var topic_materials = document.createElement('div');
         topic_materials.classList.add('topic-material');
 
-        var handouts = topic.handouts;
-        for (var j = 0; j < handouts.length; j++) {
-            if ($.inArray(handouts[i], topic.handouts)) {
-                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right" id="minusHandout"></span> </p>');
-            };
+        // add all handouts for tpoic
+        for (var j = 0; j < topic.handouts.length; j++) {          
+          $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ topic.handouts[j].title +' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right" id="minusHandout"></span> </p>');
         };
 
+        // add button add more materials
         var add_materials_btn = document.createElement('button');
         add_materials_btn.id = "id_btn_" + topic.name;
         add_materials_btn.classList.add("btn");
@@ -218,48 +218,49 @@ var displayAllTopics = function() {
         $(topic_body).append(topic_materials);
         $(topic_div).append(topic_body);
         
+        // add invisible input element for file upload
         var input = document.createElement('input');
         input.type = "file";
         input.className = "materials-input";
         input.id = "id_input_" + topic.name;
-
         $(topic_div).append(input);
-        // <input type="file" style="display:none" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" 
+
         $('#topics').append(topic_div);
 
     };
 };
 
-var displayAssignments = function() {
-    var assignment_div = document.createElement('div');
-    assignment_div.classList.add("col-md-5");
-    assignment_div.classList.add("topic-container");
-    assignment_div.classList.add("assignments-container");
-    assignment_div.classList.add("panel");
-    assignment_div.classList.add("panel-primary");
+// var displayAssignments = function() {
+//     var assignment_div = document.createElement('div');
+//     assignment_div.classList.add("col-md-5");
+//     assignment_div.classList.add("topic-container");
+//     assignment_div.classList.add("assignments-container");
+//     assignment_div.classList.add("panel");
+//     assignment_div.classList.add("panel-primary");
 
-    var assignment_header = document.createElement('div');
-    assignment_header.className = "panel-heading";
-    $(assignment_header).append('<h4>  Assignments <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red; float:right" id="minusAssignmentTopic"></span></h4');
+//     var assignment_header = document.createElement('div');
+//     assignment_header.className = "panel-heading";
+//     $(assignment_header).append('<h4>  Assignments <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red; float:right" id="minusAssignmentTopic"></span></h4');
 
-    $(assignment_div).append(assignment_header);
+//     $(assignment_div).append(assignment_header);
 
-    var assignment_body = document.createElement('div');
-    assignment_body.className = "panel-body";
+//     var assignment_body = document.createElement('div');
+//     assignment_body.className = "panel-body";
 
-    var assignment_materials = document.createElement('div');
-    for (var i = 0; i < assignments.length; i++){
-        $(assignment_materials).append('<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf"> ' + assignments[i].assignment_name+'</a><span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red; float:right" id="minusAssignment"></span> </p>');
-    };
+//     var assignment_materials = document.createElement('div');
+//     for (var i = 0; i < assignments.length; i++){
+//         $(assignment_materials).append('<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf"> ' + assignments[i].assignment_name+'</a><span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red; float:right" id="minusAssignment"></span> </p>');
+//     };
 
-    $(assignment_materials).append(add_assignments_btn);
-    $(assignment_body).append(assignment_materials);
+//     $(assignment_materials).append(add_assignments_btn);
+//     $(assignment_body).append(assignment_materials);
 
-    $(assignment_div).append(assignment_body);
-    $('#topics').append(assignment_div);
-};
+//     $(assignment_div).append(assignment_body);
+//     $('#topics').append(assignment_div);
+// };
 
-//adds the "new topic" square
+
+// adds the "new topic" square
 var displayAddNewTopic = function() {
     var add_topic_div = document.createElement('div');
     add_topic_div.classList.add('col-md-5');
@@ -329,16 +330,17 @@ var addTopic = function() {
     // add new topic to list
     var new_topic_obj = {
         name: new_topic_name,
-        handouts: []
+        handouts: [],
+        id: topics.length + 1
     };
-    // console.log(new_topic_obj);
+    
     topics.push(new_topic_obj);
-    // console.log(topics);
+  
 
     // recreate divs to place new topic div in correct place
     $('#topics').empty();
     displayAllTopics();
-    displayAssignments();
+    // displayAssignments();
 
     // add new topic
     // var new_topic_div = document.createElement('div');
