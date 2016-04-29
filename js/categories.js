@@ -157,7 +157,7 @@ var displayAllTopics = function() {
         var handouts = topic.handouts;
         for (var j = 0; j < handouts.length; j++) {
             if ($.inArray(handouts[i], topic.handouts)) {
-                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right" id="minusHandout"></span> </p>');
+                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>');
             };
         };
 
@@ -257,7 +257,7 @@ var prepareUpload = function(event) {
     new_file_name = file.name;
     console.log(new_file_name);
     
-    var new_assignment = '<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + new_file_name+ '</a> <span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="false" style="color:red; float:right" id="minusAssignment"></span> </p>';
+    var new_assignment = '<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + new_file_name+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none"></span> </p>';
 
     // for (var j = 0; j < topics.length; j++) {
     //   if (topics[j].name == topic_name) {
@@ -318,10 +318,5 @@ var addMaterials = function(e) {
     console.log("id_input_" + topic_name)
     var upload = document.getElementById("id_input_" + topic_name);
     $(upload).click();
-    
-    // var new_assignment = '<p><span class="glyphicon glyphicon-minus singleAssignment" aria-hidden="true" style="color:red" id="minusAssignment"></span> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">new file</a> </p>';
-
-    // $(new_assignment).insertBefore(btn_id);
-    // $.notify("Added new file", "success");
 };
 
