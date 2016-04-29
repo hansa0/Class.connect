@@ -6,7 +6,7 @@ var new_file_name;
 $(document).ready(function() {
     
 
-
+    var editing_topic_name = false;
     var day_to_display = "April 20th";
     var isEditing = false;
     // var add_materials_btn = document.createElement('button');
@@ -29,6 +29,70 @@ $(document).ready(function() {
     // fetches file on file upload selection
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
     $('input[type=file]').on('change', prepareUpload);
+
+    $('.materials-panel-heading').click(event, function() {
+        console.log('clicked materials panel heading');
+        
+        var target = event.target;
+        if (editing_topic_name) {
+          return;
+        };
+        editing_topic_name = true;
+
+        var old_topic = event.target.textContent;
+        var input = document.createElement('input');
+        input.type = "text";
+        input.className = "materials-topic-name-input";
+        input.value = old_topic;
+
+        if (target.tagName == "H4") {
+          $(target.parentNode).append(input);  
+          target.style.display = "none";
+        } else {
+          $(target).append(input);  
+          var topic_heading = target.getElementsByTagName("H4")[0];
+          topic_heading.style.display = "none";
+        };
+        input.focus();
+    });
+
+    //press enter to add a new topic
+    // $('.materials-panel-heading').keypress(e, function() {
+    //   if(e.keyCode == 13) {
+    //      console.log("enter");
+    //      console.log('change topic name');
+    //   }
+    // });
+
+    $('.materials-panel-heading').keypress(function(e) {
+        if(e.keyCode ==13) {            
+            var new_topic_name = $('.materials-topic-name-input').val();
+
+            // change visual look
+            var parent = e.target.parentNode;
+            var topic_id = parent.id;
+            var new_html = '<h4> ' + new_topic_name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>';
+            $(parent).html(new_html);
+
+            for (i = 0; i++; i < topics.length) {
+                var topic = topics[i];
+                if (topic.id == topic_id) {
+                    topic.name = new_topic_name;
+                }
+            }
+
+            // enable clicking new topic names to edit again
+            editing_topic_name = false;
+        };
+    });
+
+
+// $('#user-guess').keydown(function(e){
+//   if (e.keyCode == 13) {
+//     $('#see_answer_button').click();
+//     return false;
+//   }
+// });
 
     // opens file upload window on clicking file upload
     // $(".btn-add-materials").click(function() {
@@ -120,19 +184,18 @@ $(document).ready(function() {
     
     //press enter to add a new topic
     document.getElementById('newTopic').onkeydown = function(e){
-   if(e.keyCode == 13){
-       
-     console.log("enter");
-       addTopic();
-   }
-};
+      if(e.keyCode == 13){
+         
+      console.log("enter");
+        addTopic();
+      }
+    };
 });
 
 
 
 var displayAllTopics = function() {
-    console.log(topics);
-    console.log(topics.length);
+
     for (var i = 0; i < topics.length; i++) {
         // create a div for each topic
         var topic = topics[i];
@@ -143,7 +206,9 @@ var displayAllTopics = function() {
         topic_div.classList.add("panel-primary");
 
         var topic_header = document.createElement('div');
-        topic_header.className = "panel-heading";
+        topic_header.classList.add("panel-heading");
+        topic_header.classList.add("materials-panel-heading");
+        topic_header.id = "header_" + topic.id;
         $(topic_header).append('<h4> ' + topic.name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>');
         $(topic_div).append(topic_header)
         

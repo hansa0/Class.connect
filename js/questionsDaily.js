@@ -20,8 +20,8 @@ replyClick = function(e) {
 
    var textAreaHtml = '<div class="replyDiv"><textarea id="'+ qDiv_id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
     textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_submit' + '">Submit</button>';
-    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_save' + '">Save</button>';
-   textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_cancel' + '">Cancel</button></div>';
+    textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_close' + '">Close</button>';
+   // textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_cancel' + '">Cancel</button></div>';
 
 
     // $(textAreaHtml).insertAfter(e.target.parentNode)
@@ -30,13 +30,18 @@ replyClick = function(e) {
     var submit_button = document.getElementById(btn_id);
     submit_button.onclick=function(){replySubmit(event)};
 
-    btn_id =qDiv_id+'_save';
-    submit_button = document.getElementById(btn_id);
-    submit_button.onclick=function(){saveButtonAction(event)};
+    // btn_id =qDiv_id+'_save';
+    // submit_button = document.getElementById(btn_id);
+    // submit_button.onclick=function(){saveButtonAction(event)};
 
-    btn_id =qDiv_id+'_cancel';
+    // btn_id =qDiv_id+'_cancel';
+    // submit_button = document.getElementById(btn_id);
+    // submit_button.onclick=function(){cancelButtonAction(event)};
+
+    btn_id =qDiv_id+'_close';
     submit_button = document.getElementById(btn_id);
-    submit_button.onclick=function(){cancelButtonAction(event)};
+    submit_button.onclick=function(){closeButtonAction(event)};
+
 
 
     //show full question and hide show and hide buttons
@@ -70,6 +75,47 @@ initializeTinymce = function() {
     });
     tinymce.execCommand("mceAddControl", false, "");
 };
+
+closeButtonAction = function(e){
+    console.log("Close button pressed");
+    console.log(e.target.parentNode.parentNode.parentNode.parentNode);
+
+    var textarea_id = e.target.parentNode.childNodes[1].id;
+    var text = tinymce.get(textarea_id).getContent();
+
+    if (text.length > 0) {
+        var question_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+        var description_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_description"
+        // console.log("question_id ", question_id)
+        var question = document.getElementById(question_id).firstChild.nodeValue;
+        // console.log("QUestion: ", question)
+        var question_index = getQuestionIndex(question)
+        questions[question_index].reply = text;
+
+
+        var reply_text_id = "#" + e.target.parentNode.parentNode.id + '_replyText';
+         $(reply_text_id).remove();
+         $("#reply_divider").remove();
+
+        console.log(text)
+        questions[question_index].hasReply = true;
+        var reply_html = ' <hr id="reply_divider" style ="border-top: 1px solid #D6DBDF " ><p id="'+ e.target.parentNode.parentNode.id + '_replyText' +'" class="replyText">Saved reply: '+'</p>'
+        // console.log("REPLY HTML: ", reply_html)
+        $(reply_html).insertAfter(document.getElementById(description_id))
+        $(reply_text_id).append(text)
+        $.notify("draft saved", "success");
+    }
+
+    var replybtn_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_replybtn"
+    $(replybtn_id).show();
+    hideDescription(e);
+
+    e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+
+
+
+};
+
 
 saveButtonAction = function(e){
     console.log("Save button pressed");
@@ -125,15 +171,17 @@ cancelButtonAction = function(e) {
 
 hideDescription = function(e) {
     //handle hide show stuff
-    console.log(e.target.parentNode.parentNode)
-    var question_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+    // console.log(e.target.parentNode.parentNode)
+    var qDiv_id = e.target.parentNode.parentNode.parentNode.parentNode.id;
+
+    var question_id = "#"+ qDiv_id + "_question"
     var question = $(question_id).text();
     var question_index = getQuestionIndex(question)
-    var p_id =  "#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_description";
+    var p_id =  "#"+ qDiv_id+ "_description";
     $(p_id).text(questions[question_index].question_description.substring(0, max_question_len) + "...");
 
-    $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_showbtn").show()
-    $("#"+ e.target.parentNode.parentNode.parentNode.parentNode.id + "_hidebtn").hide()
+    $("#"+ qDiv_id+ "_showbtn").show()
+    $("#"+ qDiv_id + "_hidebtn").hide()
 };
 
 showDescription = function(e) {
@@ -147,13 +195,15 @@ showDescription = function(e) {
     $("#"+ e.target.parentNode.id + "_showbtn").hide();
     $("#"+ e.target.parentNode.id + "_hidebtn").show()
 };
+
 //
 replySubmit = function(e) {
     console.log ("HADHFAHDSFHAS", e);
     console.log(e.target.parentNode.parentNode.parentNode.parentNode);
+    var qDiv = e.target.parentNode.parentNode.parentNode.parentNode;
     var textarea_id = e.target.parentNode.childNodes[1].id;
     var text = tinymce.get(textarea_id).getContent();
-    var question_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
+    var question_id = qDiv.id + "_question"
     console.log("question_id ", question_id)
     console.log(document.getElementById(question_id));
     var question = document.getElementById(question_id).firstChild.nodeValue;
@@ -170,7 +220,7 @@ replySubmit = function(e) {
     if (!daily_q_div.hasChildNodes()) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>");
     }
-    // e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+    qDiv.parentNode.removeChild(qDiv);
 
     $.notify("Question successfully answered", "success");
 };
@@ -210,6 +260,7 @@ hideButtonAction = function(e) {
 
 };
 
+var qDiv_array = new Array();
 
 $(document).ready(function() {
 
@@ -223,6 +274,9 @@ $(document).ready(function() {
         // mainDiv.appendChild(p)
     }
 
+    // var qDiv_array = new Array();
+    // myArray["abc"] = 200; myArray["xyz"] = 300;
+
     for (var i=0; i < questions.length; i++ ){
         var qDiv = document.createElement("div");
         qDiv.id = "q" + i;
@@ -230,13 +284,15 @@ $(document).ready(function() {
         qDiv.classList.add("panel");
         qDiv.classList.add("panel-primary");
 
+        qDiv_array[qDiv.id] = false;
+
         var question_header = document.createElement("div");
-        question_header.className = "panel-heading";
+        question_header.classList.add("panel-heading");
+        question_header.classList.add("selectable");
         question_header.id = qDiv.id + "_panel-heading";
         var p_question = document.createElement("h4")
         var question = document.createTextNode(questions[i].question);
         p_question.appendChild(question)
-
 
         p_question.id = qDiv.id + "_question";
         p_question.className = "questionText";
@@ -246,7 +302,7 @@ $(document).ready(function() {
         // carrot_icon_span.classList.add("ui-icon-carat-1-e");
         carrot_icon_span.className="carrot_icon"
         carrot_icon_span.id = qDiv.id + "_carrot_icon";
-        $(carrot_icon_span).append('<h4>&gt;</h4>')
+        $(carrot_icon_span).append('&gt;')
 
         var author = document.createTextNode(questions[i].author);
         var p_author = document.createElement("p");
@@ -258,6 +314,7 @@ $(document).ready(function() {
         $(question_header).append(carrot_icon_span);
         // question_header.appendChild(p_author);
         $(qDiv).append(question_header);
+
         // qDiv.appendChild(p_question);
 
         var question_body = document.createElement("div");
@@ -277,27 +334,27 @@ $(document).ready(function() {
         $(qDiv).append(question_body);
         
 
-        if (more_to_show){
-            var show_btn = document.createElement("button");        // Create a <button> element
-            buttonText = document.createTextNode("Show more");       // Create a text node
-            show_btn.classList.add('btn');
-            show_btn.classList.add('btn-default');
-            show_btn.classList.add('btn-show');
-            show_btn.id = qDiv.id + "_showbtn";
-            show_btn.appendChild(buttonText);
-            show_btn.onclick=function(){showButtonAction(event)};
-            qDiv.appendChild(show_btn)
+        // if (more_to_show){
+        //     var show_btn = document.createElement("button");        // Create a <button> element
+        //     buttonText = document.createTextNode("Show more");       // Create a text node
+        //     show_btn.classList.add('btn');
+        //     show_btn.classList.add('btn-default');
+        //     show_btn.classList.add('btn-show');
+        //     show_btn.id = qDiv.id + "_showbtn";
+        //     show_btn.appendChild(buttonText);
+        //     show_btn.onclick=function(){showButtonAction(event)};
+        //     qDiv.appendChild(show_btn)
 
-            var hide_btn = document.createElement("button");        // Create a <button> element
-            buttonText = document.createTextNode("Hide");       // Create a text node
-            hide_btn.classList.add('btn');
-            hide_btn.classList.add('btn-default');
-            hide_btn.classList.add('btn-hide');
-            hide_btn.id = qDiv.id + "_hidebtn";
-            hide_btn.appendChild(buttonText);
-            hide_btn.onclick=function(){hideButtonAction(event)};
-            qDiv.appendChild(hide_btn)
-        }
+        //     var hide_btn = document.createElement("button");        // Create a <button> element
+        //     buttonText = document.createTextNode("Hide");       // Create a text node
+        //     hide_btn.classList.add('btn');
+        //     hide_btn.classList.add('btn-default');
+        //     hide_btn.classList.add('btn-hide');
+        //     hide_btn.id = qDiv.id + "_hidebtn";
+        //     hide_btn.appendChild(buttonText);
+        //     hide_btn.onclick=function(){hideButtonAction(event)};
+        //     qDiv.appendChild(hide_btn)
+        // }
 
 
         var bottom_reply_div = document.createElement("ul");
@@ -319,11 +376,12 @@ $(document).ready(function() {
         bottom_line.appendChild(button);
 
 
-
-
         mainDiv.appendChild(qDiv)
 
-        if (more_to_show) { $("#"+hide_btn.id).hide(); }
+        $("#"+question_header.id).click({param1: qDiv.id}, showQuestion);
+
+
+        // if (more_to_show) { $("#"+hide_btn.id).hide(); }
 
         // $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
         // for (var j=0; j<questions[i].topic_tags.length; j++) {
@@ -331,4 +389,36 @@ $(document).ready(function() {
         //     $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
         // }
     }
+
 });
+
+function showQuestion(event){
+    var qDiv_id = event.data.param1
+    if (qDiv_array[qDiv_id] == true) {
+        var question_id = "#"+ qDiv_id + "_question"
+        var question = $(question_id).text();
+        var question_index = getQuestionIndex(question)
+        var p_id =  "#"+ qDiv_id+ "_description";
+        if (questions[question_index].question_description.length > max_question_len) {
+            $(p_id).text(questions[question_index].question_description.substring(0, max_question_len) + "...");
+        }
+        $("#"+qDiv_id+"_carrot_icon").text('>');
+        // $("#"+ qDiv_id+ "_showbtn").show()
+        // $("#"+ qDiv_id + "_hidebtn").hide()
+        qDiv_array[qDiv_id] = false;
+    } else {
+        var question_id = "#"+ qDiv_id + "_question"
+        var question = $(question_id).text();
+        var question_index = getQuestionIndex(question)
+        console.log("question text: ", question)
+
+        var p_id =  "#"+ qDiv_id + "_description";
+        $(p_id).text(questions[question_index].question_description);
+        if (questions[question_index].question_description.length > max_question_len) {
+            $("#"+qDiv_id+"_carrot_icon").text('v');
+        }
+        // $("#"+ qDiv_id + "_showbtn").hide();
+        // $("#"+ qDiv_id + "_hidebtn").show()
+        qDiv_array[qDiv_id] = true;
+    }
+};
