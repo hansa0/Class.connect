@@ -3,10 +3,14 @@
 var add_assignments_btn = '<button id="add-assignment-btn" class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
 var new_file_name;
 
+var current_topic_h4_id;
+var current_panel_heading_id;
+var editing_topic_name = false;
+
 $(document).ready(function() {
     
 
-    var editing_topic_name = false;
+    
     var day_to_display = "April 20th";
     var isEditing = false;
     // var add_materials_btn = document.createElement('button');
@@ -20,7 +24,7 @@ $(document).ready(function() {
     displayAllTopics();
 
     // display assignments
-    displayAssignments();
+    // displayAssignments();
 
     // display add topic box
     displayAddNewTopic();
@@ -30,69 +34,41 @@ $(document).ready(function() {
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
     $('input[type=file]').on('change', prepareUpload);
 
-    $('.materials-panel-heading').click(event, function() {
-        console.log('clicked materials panel heading');
-        
-        var target = event.target;
-        if (editing_topic_name) {
+    // let users edit topic names by clicking them
+    $('.materials-panel-heading').on('click', function(event) {
+      console.log('clicked panel heading');
+      event.stopPropagation();
+      var target = event.target;
+
+      if (editing_topic_name) {
+        // do nothing if clicks topic already being edited
+        if (target.tagName == "INPUT") {
           return;
+        }
+        else {
+          // close existing topic
+          closeTopicNameInput(current_topic_h4_id);
         };
-        editing_topic_name = true;
+      };
 
-        var old_topic = event.target.textContent;
-        var input = document.createElement('input');
-        input.type = "text";
-        input.className = "materials-topic-name-input";
-        input.value = old_topic;
-
-        if (target.tagName == "H4") {
-          $(target.parentNode).append(input);  
-          target.style.display = "none";
-        } else {
-          $(target).append(input);  
-          var topic_heading = target.getElementsByTagName("H4")[0];
-          topic_heading.style.display = "none";
-        };
-        input.focus();
+      change_topic_name(event);
     });
 
-    //press enter to add a new topic
-    // $('.materials-panel-heading').keypress(e, function() {
-    //   if(e.keyCode == 13) {
-    //      console.log("enter");
-    //      console.log('change topic name');
-    //   }
-    // });
+    // close topic name input if user clicks anywhere outside of
+    // the input box
+    $(document).click(event, function() {
+      closeTopicNameInput(current_topic_h4_id);
+    });
 
+    // act on enter click when inputing new topic name
     $('.materials-panel-heading').keypress(function(e) {
-        if(e.keyCode ==13) {            
-            var new_topic_name = $('.materials-topic-name-input').val();
-
-            // change visual look
-            var parent = e.target.parentNode;
-            var topic_id = parent.id;
-            var new_html = '<h4> ' + new_topic_name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>';
-            $(parent).html(new_html);
-
-            for (i = 0; i++; i < topics.length) {
-                var topic = topics[i];
-                if (topic.id == topic_id) {
-                    topic.name = new_topic_name;
-                }
-            }
-
-            // enable clicking new topic names to edit again
-            editing_topic_name = false;
-        };
+      if(e.keyCode ==13) {            
+        closeTopicNameInput(current_topic_h4_id);
+        editing_topic_name = false;
+      };
     });
 
 
-// $('#user-guess').keydown(function(e){
-//   if (e.keyCode == 13) {
-//     $('#see_answer_button').click();
-//     return false;
-//   }
-// });
 
     // opens file upload window on clicking file upload
     // $(".btn-add-materials").click(function() {
@@ -209,7 +185,8 @@ var displayAllTopics = function() {
         topic_header.classList.add("panel-heading");
         topic_header.classList.add("materials-panel-heading");
         topic_header.id = "header_" + topic.id;
-        $(topic_header).append('<h4> ' + topic.name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>');
+
+        $(topic_header).append('<h4 id="topic_h4_' + topic.id + '">' + topic.name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>');
         $(topic_div).append(topic_header)
         
         // add materials for that topic
@@ -219,13 +196,20 @@ var displayAllTopics = function() {
         var topic_materials = document.createElement('div');
         topic_materials.classList.add('topic-material');
 
+<<<<<<< HEAD
         var handouts = topic.handouts;
         for (var j = 0; j < handouts.length; j++) {
             if ($.inArray(handouts[i], topic.handouts)) {
                 $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>');
             };
+=======
+        // add all handouts for tpoic
+        for (var j = 0; j < topic.handouts.length; j++) {          
+          $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ topic.handouts[j].title +' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right" id="minusHandout"></span> </p>');
+>>>>>>> f98bcdd6d47315f3818b6c7dcf2a3e34abb7cbfd
         };
 
+        // add button add more materials
         var add_materials_btn = document.createElement('button');
         add_materials_btn.id = "id_btn_" + topic.name;
         add_materials_btn.classList.add("btn");
@@ -242,48 +226,49 @@ var displayAllTopics = function() {
         $(topic_body).append(topic_materials);
         $(topic_div).append(topic_body);
         
+        // add invisible input element for file upload
         var input = document.createElement('input');
         input.type = "file";
         input.className = "materials-input";
         input.id = "id_input_" + topic.name;
-
         $(topic_div).append(input);
-        // <input type="file" style="display:none" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" 
+
         $('#topics').append(topic_div);
 
     };
 };
 
-var displayAssignments = function() {
-    var assignment_div = document.createElement('div');
-    assignment_div.classList.add("col-md-5");
-    assignment_div.classList.add("topic-container");
-    assignment_div.classList.add("assignments-container");
-    assignment_div.classList.add("panel");
-    assignment_div.classList.add("panel-primary");
+// var displayAssignments = function() {
+//     var assignment_div = document.createElement('div');
+//     assignment_div.classList.add("col-md-5");
+//     assignment_div.classList.add("topic-container");
+//     assignment_div.classList.add("assignments-container");
+//     assignment_div.classList.add("panel");
+//     assignment_div.classList.add("panel-primary");
 
-    var assignment_header = document.createElement('div');
-    assignment_header.className = "panel-heading";
-    $(assignment_header).append('<h4>  Assignments <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red; float:right" id="minusAssignmentTopic"></span></h4');
+//     var assignment_header = document.createElement('div');
+//     assignment_header.className = "panel-heading";
+//     $(assignment_header).append('<h4>  Assignments <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red; float:right" id="minusAssignmentTopic"></span></h4');
 
-    $(assignment_div).append(assignment_header);
+//     $(assignment_div).append(assignment_header);
 
-    var assignment_body = document.createElement('div');
-    assignment_body.className = "panel-body";
+//     var assignment_body = document.createElement('div');
+//     assignment_body.className = "panel-body";
 
-    var assignment_materials = document.createElement('div');
-    for (var i = 0; i < assignments.length; i++){
-        $(assignment_materials).append('<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf"> ' + assignments[i].assignment_name+'</a><span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red; float:right" id="minusAssignment"></span> </p>');
-    };
+//     var assignment_materials = document.createElement('div');
+//     for (var i = 0; i < assignments.length; i++){
+//         $(assignment_materials).append('<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf"> ' + assignments[i].assignment_name+'</a><span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red; float:right" id="minusAssignment"></span> </p>');
+//     };
 
-    $(assignment_materials).append(add_assignments_btn);
-    $(assignment_body).append(assignment_materials);
+//     $(assignment_materials).append(add_assignments_btn);
+//     $(assignment_body).append(assignment_materials);
 
-    $(assignment_div).append(assignment_body);
-    $('#topics').append(assignment_div);
-};
+//     $(assignment_div).append(assignment_body);
+//     $('#topics').append(assignment_div);
+// };
 
-//adds the "new topic" square
+
+// adds the "new topic" square
 var displayAddNewTopic = function() {
     var add_topic_div = document.createElement('div');
     add_topic_div.classList.add('col-md-5');
@@ -353,16 +338,17 @@ var addTopic = function() {
     // add new topic to list
     var new_topic_obj = {
         name: new_topic_name,
-        handouts: []
+        handouts: [],
+        id: topics.length + 1
     };
-    // console.log(new_topic_obj);
+    
     topics.push(new_topic_obj);
-    // console.log(topics);
+  
 
     // recreate divs to place new topic div in correct place
     $('#topics').empty();
     displayAllTopics();
-    displayAssignments();
+    // displayAssignments();
 
     // add new topic
     // var new_topic_div = document.createElement('div');
@@ -385,3 +371,66 @@ var addMaterials = function(e) {
     $(upload).click();
 };
 
+// acts on user topic name change
+var change_topic_name = function(event) {
+
+    editing_topic_name = true;
+    
+    var target = event.target;
+    var old_topic = target.textContent;
+    
+    // create input element
+    var input = document.createElement('input');
+    input.type = "text";
+    input.className = "materials-topic-name-input";
+    input.value = old_topic;
+
+    
+    var current_panel_heading;
+    var current_topic_h4;
+    // if selected h4 element inside panel-heading
+    if (target.tagName == "H4") {
+        current_panel_heading = target.parentNode;
+        current_topic_h4 = target;
+    } 
+    // or if selected panel-heading
+    else {
+        current_panel_heading = target;
+        current_topic_h4 = target.getElementsByTagName("H4")[0]; 
+    };
+
+    current_topic_h4_id = current_topic_h4.id;
+    current_panel_heading_id = current_panel_heading.id;
+
+    current_topic_h4.style.display = "none";
+    $(current_panel_heading).append(input);     
+    input.focus();
+};
+
+var closeTopicNameInput = function(topic_id) {
+  // do nothing if no topic name currently being edited
+  if (!editing_topic_name) {
+    return;
+  }
+
+  var new_topic_name = $('.materials-topic-name-input').val();
+
+  // change visual look
+  var parent = $('#' + current_topic_h4_id).parentNode;
+  var topic_h4 = document.getElementById(current_topic_h4_id);
+  
+  // insert html for new h4 tag with the same id but new topic name
+  var new_html = '<h4 id="' + current_topic_h4_id +'"">' + new_topic_name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>';
+  $(topic_h4.parentNode).html(new_html);
+
+  // change topic name in json data structure as well
+  for (i = 0; i++; i < topics.length) {
+      var topic = topics[i];
+      if (topic.id == topic_id) {
+          topic.name = new_topic_name;
+      };
+  };
+
+  // enable clicking new topic names to edit again
+  editing_topic_name = false;
+};

@@ -7,28 +7,27 @@ $(document).ready(function() {
   // create events for assignments in calendar
   // assignments is initialized in js/collections.js
   all_materials = []
-  for (var i = 0; i < assignments.length; i++) {
 
-    assignment = assignments[i];
-    assignment_event = {
-      title: assignment.assignment_name,
-      start: assignment.duedate,
-      color: '#3399ff'
-
-    }
-    all_materials.push(assignment_event);
-  };
   
   // add events for handouts in calendar
   // handouts is initialized in js/collections.js
-  for (var i = 0; i < handouts.length; i++) {
-    handout = handouts[i];
-    handout_event = {
-      title: handout.title,
-      start: handout.relevant_day,
-      color: '#6600ff'
-    };
-    all_materials.push(handout_event);
+  for (var j = 0; j < topics.length; j ++) {
+    var topic = topics[j];
+    for (var i = 0; i < topic.handouts.length; i++) {
+      var handout = topic.handouts[i];
+      var material_event = {
+        title: handout.title,
+        start: handout.relevant_day,
+      };
+
+      if (topic.name == "Assignments") {
+        material_event.color = '#3399ff';
+      }
+      else {
+        material_event.color = '#6600ff';
+      };
+      all_materials.push(material_event);      
+    };    
   };
 
   
