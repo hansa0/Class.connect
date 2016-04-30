@@ -8,7 +8,7 @@ var current_panel_heading_id;
 var editing_topic_name = false;
 
 $(document).ready(function() {
-    
+      
 
     
     var day_to_display = "April 20th";
@@ -91,7 +91,7 @@ $(document).ready(function() {
     });
     
     //delete x for a header shows up on hover
-    $('.panel-heading').hover(function(){  
+    $('body').on("mouseover", ".panel-heading", function(){  
         if (isEditing){
         $(this).children('h4').children('span').css({'display' : 'inline' });   
         }
@@ -99,30 +99,29 @@ $(document).ready(function() {
     });
     
     //delete x for a header leaves after hover leaving
-    $('.panel-heading').mouseleave(function(){
+    $('body').on("mouseleave", ".panel-heading", function(){  
         if (isEditing){
-        $(this).children('h4').children('span').css({'display' : 'none' });
+        $(this).children('h4').children('span').css({'display' : 'none' });   
         }
-    
+        
     });
-     
+    
+   
     //delete doc shows up on hover
-     $('.doc').hover(function(){ 
-         console.log("hoverrrrrr");
+    $('body').on("mouseover", ".doc", function(){
         if (isEditing){
             
           //$(this).css({'background' : '#B3E5FC' })  
         $(this).children('span').css({'display' : 'inline' });   
         }
-        
     });
-    
     //delete x for a doc leaves after hover leaving
-    $('.doc').mouseleave(function(){
+    $('body').on("mouseleave", ".doc", function(){
         if (isEditing){
-        $(this).children('span').css({'display' : 'none' });
+            
+          //$(this).css({'background' : '#B3E5FC' })  
+        $(this).children('span').css({'display' : 'none' });   
         }
-    
     });
     
     
@@ -196,17 +195,12 @@ var displayAllTopics = function() {
         var topic_materials = document.createElement('div');
         topic_materials.classList.add('topic-material');
 
-<<<<<<< HEAD
         var handouts = topic.handouts;
         for (var j = 0; j < handouts.length; j++) {
             if ($.inArray(handouts[i], topic.handouts)) {
-                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[i].title+' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>');
+                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ 'dog  "</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>');
             };
-=======
-        // add all handouts for tpoic
-        for (var j = 0; j < topic.handouts.length; j++) {          
-          $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ topic.handouts[j].title +' </a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right" id="minusHandout"></span> </p>');
->>>>>>> f98bcdd6d47315f3818b6c7dcf2a3e34abb7cbfd
+
         };
 
         // add button add more materials
@@ -237,35 +231,6 @@ var displayAllTopics = function() {
 
     };
 };
-
-// var displayAssignments = function() {
-//     var assignment_div = document.createElement('div');
-//     assignment_div.classList.add("col-md-5");
-//     assignment_div.classList.add("topic-container");
-//     assignment_div.classList.add("assignments-container");
-//     assignment_div.classList.add("panel");
-//     assignment_div.classList.add("panel-primary");
-
-//     var assignment_header = document.createElement('div');
-//     assignment_header.className = "panel-heading";
-//     $(assignment_header).append('<h4>  Assignments <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red; float:right" id="minusAssignmentTopic"></span></h4');
-
-//     $(assignment_div).append(assignment_header);
-
-//     var assignment_body = document.createElement('div');
-//     assignment_body.className = "panel-body";
-
-//     var assignment_materials = document.createElement('div');
-//     for (var i = 0; i < assignments.length; i++){
-//         $(assignment_materials).append('<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf"> ' + assignments[i].assignment_name+'</a><span class="glyphicon glyphicon-remove singleAssignment" aria-hidden="true" style="color:red; float:right" id="minusAssignment"></span> </p>');
-//     };
-
-//     $(assignment_materials).append(add_assignments_btn);
-//     $(assignment_body).append(assignment_materials);
-
-//     $(assignment_div).append(assignment_body);
-//     $('#topics').append(assignment_div);
-// };
 
 
 // adds the "new topic" square
@@ -305,7 +270,7 @@ var prepareUpload = function(event) {
     
     console.log(file);
     new_file_name = file.name;
-    console.log(new_file_name);
+    console.log(new_file_name, "file name");
     
     var new_assignment = '<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + new_file_name+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none"></span> </p>';
 
@@ -317,7 +282,7 @@ var prepareUpload = function(event) {
     // TODO: always assign
 
     $(new_assignment).insertBefore($('#'+button_id));
-    //$.notify("Added new file", "success");    
+    $.notify("Added new file", "success");    
     // return file.name;
     // TODO: add new material assignment here and add to topic
   };
