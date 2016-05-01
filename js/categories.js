@@ -1,6 +1,6 @@
 // var add_materials_btn = '<button class="btn btn-default btn-add-materials" onclick="addMaterials(event)"></button>';
 
-var add_assignments_btn = '<button id="add-assignment-btn" class="btn btn-default btn-add-materials" onclick="addMaterials()"><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
+var add_assignments_btn = '<button id="add-assignment-btn" class="btn btn-default btn-add-materials" ><span class="glyphicon glyphicon-plus" aria-hidden="true"</span></button>';
 var new_file_name;
 
 var current_topic_h4_id;
@@ -9,7 +9,20 @@ var editing_topic_name = false;
 
 $(document).ready(function() {
       
+    $('#topics').on("click", ".btn-add-materials", function(e){
+        console.log("clicking upload");
+        e.stopPropagation();
+        e.preventDefault();
+    
+    var btn_id = e.target.parentNode.id;
+    console.log(btn_id); //has button ID here
+    var topic_name = btn_id.split("_")[2];
+    console.log(btn_id.split("_")[1]);
+    console.log("id_input_" + topic_name)
+    var upload = document.getElementById("id_input_" + topic_name);
+    //TODO: actually add the file here
 
+    });
     
     var day_to_display = "April 20th";
     var isEditing = false;
@@ -33,6 +46,8 @@ $(document).ready(function() {
     // fetches file on file upload selection
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
     $('input[type=file]').on('change', prepareUpload);
+    
+
 
     // let users edit topic names by clicking them, only if NOT in editing mode
     $('.materials-panel-heading').on('click', function(event) {
@@ -72,12 +87,6 @@ $(document).ready(function() {
     });
 
 
-    //remove a topic
-    //$(".folder").on("click", function() {
-    //    console.log("deleting topic");
-    //    $(this).closest('.col-md-5').remove();
-    //    $.notify("Successfully deleted topic", "success");
-   // });
     
     $('#topics').on("click", ".folder", function(e){
         e.stopPropagation();
@@ -107,7 +116,6 @@ $(document).ready(function() {
         
     });
     
-   
     //delete doc icon shows up on hover
     $('body').on("mouseover", ".doc", function(){
         if (isEditing){
@@ -116,6 +124,7 @@ $(document).ready(function() {
         $(this).children('span').css({'display' : 'inline' });   
         }
     });
+    
     //delete x icon for a doc leaves after hover leaving
     $('body').on("mouseleave", ".doc", function(){
         if (isEditing){
@@ -223,9 +232,9 @@ var displayAllTopics = function() {
         add_materials_btn.classList.add("btn-default");
         add_materials_btn.classList.add("btn-add-materials");
 
-        add_materials_btn.onclick = function(event) {
-            addMaterials(event);
-        }
+       // add_materials_btn.onclick = function(event) {
+        //    addMaterials(event);
+       // }
         $(add_materials_btn).append('<span class="glyphicon glyphicon-plus" aria-hidden="true"</span>');
 
 
@@ -286,13 +295,22 @@ var prepareUpload = function(event) {
     console.log(new_file_name, "file name");
     
     var new_assignment = '<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + new_file_name+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none"></span> </p>';
-
-    // for (var j = 0; j < topics.length; j++) {
-    //   if (topics[j].name == topic_name) {
-    //     topics[j].handouts.push(new_assignment);
-    //   }
-    // };
-    // TODO: always assign
+      
+      //create the file to be added the collections array:
+      var newHandoutArray={
+        title: new_file_name,
+        topic: topic_name,
+        file: 'N/A',
+        text: 'Some description',
+        relevant_day: '2016-04-20'
+      }
+      
+      //actually adds it to the collections array:
+    for (var j = 0; j < topics.length; j++) {
+      if (topics[j].name == topic_name) {
+         topics[j].handouts.push(newHandoutArray);
+       }
+     };
 
     $(new_assignment).insertBefore($('#'+button_id));
     $.notify("Added new file", "success");    
@@ -340,13 +358,17 @@ var addTopic = function() {
 };
 
 var addMaterials = function(e) {
-    var btn_id = e.target.parentNode.id;
+    e.stopPropagation();
+    e.preventDefault();
+    console.log($(this).closest('p'));
+    
+    //var btn_id = e.target.parentNode.id;
     // console.log(btn_id);
-    var topic_name = btn_id.split("_")[2];
+    //var topic_name = btn_id.split("_")[2];
     // console.log(btn_id.split("_")[1]);
-    console.log("id_input_" + topic_name)
-    var upload = document.getElementById("id_input_" + topic_name);
-    $(upload).click();
+    //console.log("id_input_" + topic_name)
+    //var upload = document.getElementById("id_input_" + topic_name);
+    //$(upload).click();
 };
 
 // acts on user topic name change
