@@ -82,17 +82,14 @@ $(document).ready(function() {
     $('#topics').on("click", ".folder", function(e){
         e.stopPropagation();
         e.preventDefault();
+        var top=$(this).closest('.col-md-5').children()[0];
+        console.log(top,"topic to remove");
         $(this).closest('.col-md-5').remove();
         $.notify("Successfully deleted topic", "success");
     console.log("remove a topic")});
     
     
 
-    $("#minusAssignmentTopic").on("click", function() {
-        console.log("deleting assignment square");
-        $(this).closest('.col-md-5').remove();
-        $.notify("Successfully deleted topic", "success");
-    });
     
     //delete x for a header shows up on hover
     $('body').on("mouseover", ".panel-heading", function(){  
@@ -102,7 +99,7 @@ $(document).ready(function() {
         
     });
     
-    //delete x for a header leaves after hover leaving
+    //delete x icon for a header leaves after hover leaving
     $('body').on("mouseleave", ".panel-heading", function(){  
         if (isEditing){
         $(this).children('h4').children('span').css({'display' : 'none' });   
@@ -111,7 +108,7 @@ $(document).ready(function() {
     });
     
    
-    //delete doc shows up on hover
+    //delete doc icon shows up on hover
     $('body').on("mouseover", ".doc", function(){
         if (isEditing){
             
@@ -119,7 +116,7 @@ $(document).ready(function() {
         $(this).children('span').css({'display' : 'inline' });   
         }
     });
-    //delete x for a doc leaves after hover leaving
+    //delete x icon for a doc leaves after hover leaving
     $('body').on("mouseleave", ".doc", function(){
         if (isEditing){
             
@@ -128,35 +125,30 @@ $(document).ready(function() {
         }
     });
     
-    
-    $(".singleAssignment").on("click", function() {
-        console.log("individual assignment deleting");
-        $(this).closest('p').remove();
-        $.notify("Successfully removed file", "success");
-    });
-
-    $(".handout").on("click", function() {
-        console.log("handout deleting");
+    //delete a doc on click
+    $('body').on("click", ".doc", function(){
+        if (isEditing){
+            
+          //$(this).css({'background' : '#B3E5FC' })  
         var fileClicked=$(this).closest('p').text().replace(/\s+/g, '');
-        console.log(fileClicked , "file clicked");
+        //console.log(fileClicked , "file clicked");
         $(this).closest('p').remove();
         $.notify("Successfully removed file", "success");
         for (var i = 0; i < topics.length; i++) {
             var cat=topics[i];
-            console.log(cat);
+            //console.log(cat);
             for (var j = 0; j < cat.handouts.length; j++) {
                  
                 if
                     (topics[i].handouts[j].title.replace(/\s+/g, '').toLowerCase()==String(fileClicked).toLowerCase()){
-                    console.log("match", String(topics[i].handouts[j].title), String(fileClicked));
+                    //console.log("match", String(topics[i].handouts[j].title), String(fileClicked));
                     topics[i].handouts.splice(j,1);
                     break;
                 }
         }
+        }  
         }
-        console.log(topics);
     });
-
     
     $("#edit-btn").click(function() {
         isEditing = !isEditing; //toggles
@@ -181,7 +173,7 @@ $(document).ready(function() {
     document.getElementById('newTopic').onkeydown = function(e){
       if(e.keyCode == 13){
          
-      console.log("enter");
+      //console.log("enter");
         addTopic();
       }
     };
