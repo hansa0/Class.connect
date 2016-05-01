@@ -34,9 +34,10 @@ $(document).ready(function() {
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
     $('input[type=file]').on('change', prepareUpload);
 
-    // let users edit topic names by clicking them
+    // let users edit topic names by clicking them, only if NOT in editing mode
     $('.materials-panel-heading').on('click', function(event) {
-      console.log('clicked panel heading');
+        if (!isEditing){
+            console.log('clicked panel heading');
       event.stopPropagation();
       var target = event.target;
 
@@ -52,6 +53,8 @@ $(document).ready(function() {
       };
 
       change_topic_name(event);
+        }
+      
     });
 
     // close topic name input if user clicks anywhere outside of
@@ -69,20 +72,21 @@ $(document).ready(function() {
     });
 
 
-
-    // opens file upload window on clicking file upload
-    // $(".btn-add-materials").click(function() {
-    //     //console.log('clicked add materials');
-    //     var upload = document.getElementById("upload");
-    //     upload.click();
-    // });
-
-
-    $(".folder").on("click", function() {
-        console.log("deleting topic");
+    //remove a topic
+    //$(".folder").on("click", function() {
+    //    console.log("deleting topic");
+    //    $(this).closest('.col-md-5').remove();
+    //    $.notify("Successfully deleted topic", "success");
+   // });
+    
+    $('#topics').on("click", ".folder", function(e){
+        e.stopPropagation();
+        e.preventDefault();
         $(this).closest('.col-md-5').remove();
         $.notify("Successfully deleted topic", "success");
-    });
+    console.log("remove a topic")});
+    
+    
 
     $("#minusAssignmentTopic").on("click", function() {
         console.log("deleting assignment square");
@@ -133,8 +137,24 @@ $(document).ready(function() {
 
     $(".handout").on("click", function() {
         console.log("handout deleting");
+        var fileClicked=$(this).closest('p').text().replace(/\s+/g, '');
+        console.log(fileClicked , "file clicked");
         $(this).closest('p').remove();
         $.notify("Successfully removed file", "success");
+        for (var i = 0; i < topics.length; i++) {
+            var cat=topics[i];
+            console.log(cat);
+            for (var j = 0; j < cat.handouts.length; j++) {
+                 
+                if
+                    (topics[i].handouts[j].title.replace(/\s+/g, '').toLowerCase()==String(fileClicked).toLowerCase()){
+                    console.log("match", String(topics[i].handouts[j].title), String(fileClicked));
+                    topics[i].handouts.splice(j,1);
+                    break;
+                }
+        }
+        }
+        console.log(topics);
     });
 
     
@@ -197,9 +217,10 @@ var displayAllTopics = function() {
 
         var handouts = topic.handouts;
         for (var j = 0; j < handouts.length; j++) {
-            if ($.inArray(handouts[i], topic.handouts)) {
-                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ 'dog  "</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>');
-            };
+            //console.log(handouts[j]);
+           // if ($.inArray(handouts[j], topic.handouts)) {
+                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[j].title+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>');
+          //  };
 
         };
 
