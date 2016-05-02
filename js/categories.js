@@ -10,15 +10,21 @@ var editing_topic_name = false;
 $(document).ready(function() {
       
     $('#topics').on("click", ".btn-add-materials", function(e){
-        console.log("clicking upload");
         e.stopPropagation();
         e.preventDefault();
-    
-    var btn_id = e.target.parentNode.id;
+   if (e.target.className=="glyphicon glyphicon-plus"){
+       var btn_id = e.target.parentNode.id;
     var topic_name = btn_id.split("_")[2];
-    console.log(btn_id.split("_")[1]);
     var upload = document.getElementById("id_input_" + topic_name);
     upload.click();
+   } 
+        else{
+            var btn_id = e.target.id;
+    var topic_name = btn_id.split("_")[2];
+    var upload = document.getElementById("id_input_" + topic_name);
+    upload.click();
+        }
+    
 
     });
     
@@ -140,9 +146,8 @@ $(document).ready(function() {
     
     //delete a doc on click
     $('body').on("click", ".doc", function(){
-        if (isEditing){
-            
-          //$(this).css({'background' : '#B3E5FC' })  
+        if (isEditing){  
+        //$(this).css({'background' : '#B3E5FC' })  
         var fileClicked=$(this).closest('p').text().replace(/\s+/g, '');
         //console.log(fileClicked , "file clicked");
         $(this).closest('p').remove();
