@@ -7,8 +7,11 @@ var current_topic_h4_id;
 var current_panel_heading_id;
 var editing_topic_name = false;
 
+
+
 $(document).ready(function() {
       
+
     $('#topics').on("click", ".btn-add-materials", function(e){
         e.stopPropagation();
         e.preventDefault();
@@ -30,14 +33,14 @@ $(document).ready(function() {
 
     });
     
-    var day_to_display = "April 20th";
+    // day_to_display = "April 20th";
     var isEditing = false;
     // var add_materials_btn = document.createElement('button');
     // add_materials_btn.classList = ['btn', 'btn-default', 'btn-add-materials'];
     // $(add_materials_btn).append('<span class="glyphicon glyphicon-plus" aria-hidden="true"</span>');
     // = '<button class="btn btn-default btn-add-materials" type="button"></button>';
 
-    $("#selected-day").html(day_to_display);
+    $("#selected-day").html(localStorage.getItem("selectedDay"));
 
     // display topics with materials
     displayAllTopics();

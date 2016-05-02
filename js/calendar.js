@@ -1,5 +1,6 @@
 
 
+
 $(document).ready(function() {
 
   var old_event_color;
@@ -43,6 +44,9 @@ $(document).ready(function() {
     // goes to daily view for selected day
     dayClick: function(date, jsEvent, view) {
       selected_day = date.format();
+
+      localStorage.setItem("selectedDay", selected_day);
+
       var current_url = location.href;
 
       if ( current_url.indexOf('index') == -1 ) {
