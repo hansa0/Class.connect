@@ -54,7 +54,7 @@ $(document).ready(function() {
 
     // fetches file on file upload selection
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
-    $('body').on('change', 'input[type=file]', prepareUpload);
+    $('#topics').on('change', 'input[type=file]', prepareUpload);
 
 
     // let users edit topic names by clicking them, only if NOT in editing mode
