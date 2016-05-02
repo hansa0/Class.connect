@@ -91,10 +91,16 @@ $(document).ready(function() {
     $('#topics').on("click", ".folder", function(e){
         e.stopPropagation();
         e.preventDefault();
-        var top=$(this).closest('.col-md-5').children()[0];
+        var top=$(this).closest('.col-md-5').children().children()[0].innerHTML.split("<")[0];
         console.log(top,"topic to remove");
         $(this).closest('.col-md-5').remove();
         $.notify("Successfully deleted topic", "success");
+        for (var i = 0; i < topics.length; i++) {
+            var cat=topics[i];
+            if (cat.name==top){
+                topics.splice(i, 1);
+            }
+        }
     console.log("remove a topic")});
     
     
