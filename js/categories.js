@@ -14,8 +14,10 @@ $(document).ready(function() {
         e.preventDefault();
    if (e.target.className=="glyphicon glyphicon-plus"){
        var btn_id = e.target.parentNode.id;
+
     var topic_name = btn_id.split("_")[2];
     var upload = document.getElementById("id_input_" + topic_name);
+    
     upload.click();
    } 
         else{
@@ -49,8 +51,7 @@ $(document).ready(function() {
 
     // fetches file on file upload selection
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
-    $('input[type=file]').on('change', prepareUpload);
-    
+    $('body').on('change', 'input[type=file]', prepareUpload);
 
 
     // let users edit topic names by clicking them, only if NOT in editing mode
@@ -72,7 +73,7 @@ $(document).ready(function() {
       };
 
       change_topic_name(event);
-        }
+      }
       
     });
 
@@ -287,13 +288,11 @@ var displayAddNewTopic = function() {
 
 // grab the files and set them to our variable
 var prepareUpload = function(event) {
+  console.log('preparing upload');
   console.log(event.target);
   var topic_name = event.target.id.split("_")[2];
 
-  console.log(topic_name);
   var button_id = "id_btn_" + topic_name;
-
-  console.log(button_id);
 
   files = event.target.files;
   for (var i = 0; i < files.length; i++) {
