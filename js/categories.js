@@ -50,7 +50,7 @@ $(document).ready(function() {
 
 
     // let users edit topic names by clicking them, only if NOT in editing mode
-    $('.materials-panel-heading').on('click', function(event) {
+    $('body').on('click', '.materials-panel-heading', function(event) {
         if (!isEditing){
             console.log('clicked panel heading');
       event.stopPropagation();
