@@ -15,12 +15,10 @@ $(document).ready(function() {
         e.preventDefault();
     
     var btn_id = e.target.parentNode.id;
-    console.log(btn_id); //has button ID here
     var topic_name = btn_id.split("_")[2];
     console.log(btn_id.split("_")[1]);
-    console.log("id_input_" + topic_name)
     var upload = document.getElementById("id_input_" + topic_name);
-    //TODO: actually add the file here
+    upload.click();
 
     });
     
@@ -50,7 +48,7 @@ $(document).ready(function() {
 
 
     // let users edit topic names by clicking them, only if NOT in editing mode
-    $('.materials-panel-heading').on('click', function(event) {
+    $('body').on('click', '.materials-panel-heading', function(event) {
         if (!isEditing){
             console.log('clicked panel heading');
       event.stopPropagation();
