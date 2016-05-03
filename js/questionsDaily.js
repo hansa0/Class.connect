@@ -45,10 +45,7 @@ replyClick = function(e) {
 
 
     //show full question and hide show and hide buttons
-    var p_id =  "#"+ qDiv_id + "_description";
-    $(p_id).text(questions[question_index].question_description);
-    $("#"+ qDiv_id + "_hidebtn").hide()
-    $("#"+ qDiv_id + "_showbtn").hide()
+    
 
 
 
@@ -107,7 +104,7 @@ closeButtonAction = function(e){
 
     var replybtn_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_replybtn"
     $(replybtn_id).show();
-    hideDescription(e);
+    // hideDescription(e);
 
     e.target.parentNode.parentNode.removeChild(e.target.parentNode);
 
@@ -416,7 +413,7 @@ $(document).ready(function() {
     }
 
 });
-
+// 
 function showQuestion(event){
     event.preventDefault();
     var qDiv_id = event.data.param1
