@@ -272,7 +272,7 @@ hideButtonAction = function(e) {
 
 };
 
-var qDiv_array = new Array();
+var qDiv_show = new Array();
 
 $(document).ready(function() {
 
@@ -299,16 +299,16 @@ $(document).ready(function() {
         var question_description = questions[i].question_description;
 
 
-        qDiv_array[qDiv.id] = false;
+        qDiv_show[qDiv.id] = false;
 
         var question_header = document.createElement("div");
         question_header.classList.add("panel-heading");
-        question_header.classList.add("selectable");
 
+        // if (question_description.length > max_question_len) {
+        //     question_header.classList.add("expandable");
+        //     question_header.classList.add("selectable");
 
-        if (question_description.length > max_question_len) {
-            question_header.classList.add("expandable");
-        }
+        // }
         question_header.id = qDiv.id + "_panel-heading";
         var p_question = document.createElement("h4")
         var question = document.createTextNode(questions[i].question);
@@ -316,14 +316,14 @@ $(document).ready(function() {
 
         p_question.id = qDiv.id + "_question";
         p_question.className = "questionText";
-        if (question_description.length > max_question_len) {
-            var carrot_icon_span = document.createElement("span");
-            // carrot_icon_span.classList.add("ui-icon");
-            // carrot_icon_span.classList.add("ui-icon-carat-1-e");
-            carrot_icon_span.className="carrot_icon"
-            carrot_icon_span.id = qDiv.id + "_carrot_icon";
-            $(carrot_icon_span).append('&gt;')
-        }
+        // if (question_description.length > max_question_len) {
+        //     var carrot_icon_span = document.createElement("span");
+        //     // carrot_icon_span.classList.add("ui-icon");
+        //     // carrot_icon_span.classList.add("ui-icon-carat-1-e");
+        //     carrot_icon_span.className="carrot_icon"
+        //     carrot_icon_span.id = qDiv.id + "_carrot_icon";
+        //     $(carrot_icon_span).append('&gt;')
+        // }
 
 
         var author = document.createTextNode(questions[i].author);
@@ -333,9 +333,9 @@ $(document).ready(function() {
 
 
         $(question_header).append(p_question);
-        if (question_description.length > max_question_len) {
-            $(question_header).append(carrot_icon_span)
-        }
+        // if (question_description.length > max_question_len) {
+        //     $(question_header).append(carrot_icon_span)
+        // }
         // question_header.appendChild(p_author);
         $(qDiv).append(question_header);
 
@@ -349,7 +349,9 @@ $(document).ready(function() {
         var description = document.createElement("p");
         description.id = qDiv.id + "_description";
         if (question_description.length > max_question_len) {
-            question_description = question_description.substring(0, max_question_len) + "...";
+            see_more_link_id = qDiv.id + '_show'; 
+            question_description_1 = question_description.substring(0, max_question_len) + '... ';
+            question_description = question_description_1 +'<a href="" id="'+ see_more_link_id + '">See more</a>';
             more_to_show = true;
         }
         $(description).append(question_description);
@@ -401,7 +403,7 @@ $(document).ready(function() {
 
         mainDiv.appendChild(qDiv)
 
-        $("#"+question_header.id).click({param1: qDiv.id}, showQuestion);
+        if (more_to_show) { $("#"+see_more_link_id).click({param1: qDiv.id}, showQuestion);} 
 
 
         // if (more_to_show) { $("#"+hide_btn.id).hide(); }
@@ -416,19 +418,25 @@ $(document).ready(function() {
 });
 
 function showQuestion(event){
+    event.preventDefault();
     var qDiv_id = event.data.param1
-    if (qDiv_array[qDiv_id] == true) {
+    if (qDiv_show[qDiv_id] == true) {
         var question_id = "#"+ qDiv_id + "_question"
         var question = $(question_id).text();
         var question_index = getQuestionIndex(question)
         var p_id =  "#"+ qDiv_id+ "_description";
+        var see_more_link_id =  qDiv_id+ "_show";
         if (questions[question_index].question_description.length > max_question_len) {
-            $(p_id).text(questions[question_index].question_description.substring(0, max_question_len) + "...");
+            var t = questions[question_index].question_description.substring(0, max_question_len) + "... ";
+            $(p_id).text(t);
+            var show_t ='<a href="" id="'+ see_more_link_id + '">See more</a>';
+            $(p_id).append(show_t)
+            $("#"+see_more_link_id).click({param1: qDiv_id}, showQuestion);
         }
-        $("#"+qDiv_id+"_carrot_icon").text('>');
+        // $("#"+qDiv_id+"_carrot_icon").text('>');
         // $("#"+ qDiv_id+ "_showbtn").show()
         // $("#"+ qDiv_id + "_hidebtn").hide()
-        qDiv_array[qDiv_id] = false;
+        qDiv_show[qDiv_id] = false;
     } else {
         var question_id = "#"+ qDiv_id + "_question"
         var question = $(question_id).text();
@@ -436,13 +444,18 @@ function showQuestion(event){
         console.log("question text: ", question)
 
         var p_id =  "#"+ qDiv_id + "_description";
-        $(p_id).text(questions[question_index].question_description);
-        if (questions[question_index].question_description.length > max_question_len) {
-            $("#"+qDiv_id+"_carrot_icon").text('v');
-        }
+        var see_less_link_id = qDiv_id + "_hide"
+        var t = questions[question_index].question_description;
+        var show_t = '  <a href="" id="'+ see_less_link_id + '">See less</a>';
+        $(p_id).text(t);
+        $(p_id).append(show_t)
+        $("#"+see_less_link_id).click({param1: qDiv_id}, showQuestion);
+        // if (questions[question_index].question_description.length > max_question_len) {
+        //     $("#"+qDiv_id+"_carrot_icon").text('v');
+        // }
         // $("#"+ qDiv_id + "_showbtn").hide();
         // $("#"+ qDiv_id + "_hidebtn").show()
-        qDiv_array[qDiv_id] = true;
+        qDiv_show[qDiv_id] = true;
     }
 };
 

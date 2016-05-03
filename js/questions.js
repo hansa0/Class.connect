@@ -30,7 +30,6 @@ replyClick = function(e) {
     
     
     if (questions[question_index].hasReply) {
-        console.log("FUCK MY FUCKING LIFE")
         var textarea_id = "#"+e.target.parentNode.id+"_reply"+ g
         console.log(textarea_id)
         $(textarea_id).text(questions[question_index].reply)
