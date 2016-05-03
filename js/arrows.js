@@ -12,3 +12,24 @@ $(function() {
         text: false
     });
 });
+
+$(document).ready(function() {
+
+    $('body').on('click', '.leftarrow', function(e) {
+        console.log(e.target);
+
+        var date = new Date(localStorage.getItem("selectedDay"));
+        console.log(date);
+
+    });
+
+    $('body').on('click', '.rightarrow', function(e) {
+        console.log(e.target);
+
+
+        var date = new Date(localStorage.getItem("selectedDay"));
+        console.log(date);
+        
+    });
+
+});

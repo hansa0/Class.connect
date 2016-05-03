@@ -45,7 +45,7 @@ $(document).ready(function() {
     dayClick: function(date, jsEvent, view) {
       selected_day = date.format();
 
-      localStorage.setItem("selectedDay", selected_day);
+      localStorage.setItem("selectedDay", new Date(selected_day));
 
       var current_url = location.href;
 

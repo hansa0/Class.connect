@@ -47,14 +47,17 @@ $(document).ready(function() {
         }
     });
 
-    // day_to_display = "April 20th";
     var isEditing = false;
     // var add_materials_btn = document.createElement('button');
     // add_materials_btn.classList = ['btn', 'btn-default', 'btn-add-materials'];
     // $(add_materials_btn).append('<span class="glyphicon glyphicon-plus" aria-hidden="true"</span>');
     // = '<button class="btn btn-default btn-add-materials" type="button"></button>';
 
-    $("#selected-day").html(localStorage.getItem("selectedDay"));
+    // display day
+    var date = new Date(localStorage.getItem("selectedDay"));
+    var date_to_display = date.toISOString().substring(0, 10);
+    
+    $("#selected-day").html(date_to_display);
 
     // display topics with materials
     displayAllTopics();
