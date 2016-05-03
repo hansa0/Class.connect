@@ -15,21 +15,35 @@ $(function() {
 
 $(document).ready(function() {
 
+    // display day
+    displayDay();
+
     $('body').on('click', '.leftarrow', function(e) {
-        console.log(e.target);
-
         var date = new Date(localStorage.getItem("selectedDay"));
-        console.log(date);
-
+        var new_date = date.addDays(-1);
+        localStorage.setItem("selectedDay", new_date);
+        displayDay();
     });
 
     $('body').on('click', '.rightarrow', function(e) {
-        console.log(e.target);
-
-
         var date = new Date(localStorage.getItem("selectedDay"));
-        console.log(date);
-        
+        var new_date = date.addDays(1);
+        localStorage.setItem("selectedDay", new_date);
+        displayDay();
     });
 
 });
+
+var displayDay = function() {
+    var date = new Date(localStorage.getItem("selectedDay"));
+    var date_to_display = date.toISOString().substring(0, 10);
+    
+    $("#selected-day").html(date_to_display);
+}
+
+Date.prototype.addDays = function(days)
+{
+    var dat = new Date(this.valueOf());
+    dat.setDate(dat.getDate() + days);
+    return dat;
+};

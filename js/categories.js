@@ -8,6 +8,7 @@ var current_panel_heading_id;
 var editing_topic_name = false;
 var topicStack = new Array();
 var fileStack = new Array();
+
 function undoDeleteFile(){
     var parent = fileStack.pop();
     var child = fileStack.pop();
@@ -53,11 +54,7 @@ $(document).ready(function() {
     // $(add_materials_btn).append('<span class="glyphicon glyphicon-plus" aria-hidden="true"</span>');
     // = '<button class="btn btn-default btn-add-materials" type="button"></button>';
 
-    // display day
-    var date = new Date(localStorage.getItem("selectedDay"));
-    var date_to_display = date.toISOString().substring(0, 10);
-    
-    $("#selected-day").html(date_to_display);
+
 
     // display topics with materials
     displayAllTopics();
