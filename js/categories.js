@@ -28,16 +28,23 @@ function undoDeleteTopic(){ //udos to the notification
 $(document).ready(function() {
 
     $('#topics').on("click", ".btn-add-materials", function(e){
-        console.log("clicking upload");
         e.stopPropagation();
         e.preventDefault();
+    if (e.target.className=="glyphicon glyphicon-plus"){		
+        var btn_id = e.target.parentNode.id;
 
     var btn_id = e.target.parentNode.id;
     var topic_name = btn_id.split("_")[2];
     var upload = document.getElementById("id_input_" + topic_name);
+    upload.click();
+    }
+        else{		
+           var btn_id = e.target.id;		
+     var topic_name = btn_id.split("_")[2];		
+     var upload = document.getElementById("id_input_" + topic_name);
 
     upload.click();
-
+        }
     });
 
     // day_to_display = "April 20th";
@@ -61,7 +68,7 @@ $(document).ready(function() {
 
     // fetches file on file upload selection
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
-    $('body').on('change', 'input[type=file]', prepareUpload);
+    $('#topics').on('change', 'input[type=file]', prepareUpload);
 
 
     // let users edit topic names by clicking them, only if NOT in editing mode
