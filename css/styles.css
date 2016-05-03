@@ -71,6 +71,10 @@ body {
     float:right;
 }
 
+#leftbody, #rightbody {
+    padding: 20px;
+}
+
 
 #dailyViewDay{
     display: block;
@@ -172,11 +176,9 @@ body {
 
 /* Daily view -- Right-hand-side*/
 div.questionDiv{
-    /*border-style: solid;
-    border-width: 1px;*/
-    /*padding: 1em;*/
-    /*margin-bottom: 2em;*/
-    /*background-color: #e8eaf6;*/
+    margin-bottom: 2.5em;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 .list-group-item {
