@@ -8,7 +8,7 @@
 
 // always formatted 'yyyy-mm-dd'
 // for example '2016-04-20'
-var selected_day 
+var selected_day;
 
 var default_day = '2016-04-20';
 

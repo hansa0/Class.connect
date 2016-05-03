@@ -6,11 +6,14 @@ var new_file_name;
 var current_topic_h4_id;
 var current_panel_heading_id;
 var editing_topic_name = false;
-
-
+var cd;
+var currentDay;
+//SimpleDateFormat formatter=new SimpleDateFormat("DD-MMM-yyyy");  
 
 $(document).ready(function() {
-      
+     cd=new Date(localStorage.getItem("selectedDay"));
+    currentDay=formatter.format(cd);
+    console.log(currentDay, "current dayyyyyy")
 
     $('#topics').on("click", ".btn-add-materials", function(e){
         e.stopPropagation();
@@ -233,7 +236,10 @@ var displayAllTopics = function() {
         for (var j = 0; j < handouts.length; j++) {
             //console.log(handouts[j]);
            // if ($.inArray(handouts[j], topic.handouts)) {
-                $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[j].title+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>');
+            if (handouts[j].relevant_day==currentDay){
+               $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[j].title+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>'); 
+            }
+                
           //  };
 
         };
@@ -313,7 +319,7 @@ var prepareUpload = function(event) {
         topic: topic_name,
         file: 'N/A',
         text: 'Some description',
-        relevant_day: '2016-04-20'
+        relevant_day: selected_day
       }
       
       //actually adds it to the collections array:
@@ -368,19 +374,7 @@ var addTopic = function() {
     displayAddNewTopic();
 };
 
-var addMaterials = function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log($(this).closest('p'));
-    
-    //var btn_id = e.target.parentNode.id;
-    // console.log(btn_id);
-    //var topic_name = btn_id.split("_")[2];
-    // console.log(btn_id.split("_")[1]);
-    //console.log("id_input_" + topic_name)
-    //var upload = document.getElementById("id_input_" + topic_name);
-    //$(upload).click();
-};
+
 
 // acts on user topic name change
 var change_topic_name = function(event) {
