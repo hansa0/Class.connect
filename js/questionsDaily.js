@@ -275,6 +275,12 @@ $(document).ready(function() {
 
     mainDiv = document.getElementById("daily-questions");
 
+    var current_date = new Date(localStorage.getItem("selectedDay"));
+    curr_date_str = current_date.toISOString().substring(0, 10);
+    console.log("SELECTED DAY: ")
+    console.log(current_date)
+    console.log(typeof(current_date)) 
+
     if (questions.length == 0) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>")
         // var p = document.createElement("p");
@@ -287,129 +293,133 @@ $(document).ready(function() {
     // myArray["abc"] = 200; myArray["xyz"] = 300;
 
     for (var i=0; i < questions.length; i++ ){
-        var qDiv = document.createElement("div");
-        qDiv.id = "q" + i;
-        qDiv.classList.add("questionDiv");
-        qDiv.classList.add("panel");
-        qDiv.classList.add("panel-primary");
+        console.log(questions[i].date.toISOString().substring(0, 10) == curr_date_str)
+        console.log(questions[i].date.toISOString().substring(0, 10))
+        if (questions[i].date.toISOString().substring(0, 10) == curr_date_str) {
+            var qDiv = document.createElement("div");
+            qDiv.id = "q" + i;
+            qDiv.classList.add("questionDiv");
+            qDiv.classList.add("panel");
+            qDiv.classList.add("panel-primary");
 
-        var question_description = questions[i].question_description;
-
-
-        qDiv_show[qDiv.id] = false;
-
-        var question_header = document.createElement("div");
-        question_header.classList.add("panel-heading");
-
-        // if (question_description.length > max_question_len) {
-        //     question_header.classList.add("expandable");
-        //     question_header.classList.add("selectable");
-
-        // }
-        question_header.id = qDiv.id + "_panel-heading";
-        var p_question = document.createElement("h4")
-        var question = document.createTextNode(questions[i].question);
-        p_question.appendChild(question)
-
-        p_question.id = qDiv.id + "_question";
-        p_question.className = "questionText";
-        // if (question_description.length > max_question_len) {
-        //     var carrot_icon_span = document.createElement("span");
-        //     // carrot_icon_span.classList.add("ui-icon");
-        //     // carrot_icon_span.classList.add("ui-icon-carat-1-e");
-        //     carrot_icon_span.className="carrot_icon"
-        //     carrot_icon_span.id = qDiv.id + "_carrot_icon";
-        //     $(carrot_icon_span).append('&gt;')
-        // }
+            var question_description = questions[i].question_description;
 
 
-        var author = document.createTextNode(questions[i].author);
-        var p_author = document.createElement("p");
-        p_author.appendChild(author);
-        p_author.className = "questionAuthor";
+            qDiv_show[qDiv.id] = false;
+
+            var question_header = document.createElement("div");
+            question_header.classList.add("panel-heading");
+
+            // if (question_description.length > max_question_len) {
+            //     question_header.classList.add("expandable");
+            //     question_header.classList.add("selectable");
+
+            // }
+            question_header.id = qDiv.id + "_panel-heading";
+            var p_question = document.createElement("h4")
+            var question = document.createTextNode(questions[i].question);
+            p_question.appendChild(question)
+
+            p_question.id = qDiv.id + "_question";
+            p_question.className = "questionText";
+            // if (question_description.length > max_question_len) {
+            //     var carrot_icon_span = document.createElement("span");
+            //     // carrot_icon_span.classList.add("ui-icon");
+            //     // carrot_icon_span.classList.add("ui-icon-carat-1-e");
+            //     carrot_icon_span.className="carrot_icon"
+            //     carrot_icon_span.id = qDiv.id + "_carrot_icon";
+            //     $(carrot_icon_span).append('&gt;')
+            // }
 
 
-        $(question_header).append(p_question);
-        // if (question_description.length > max_question_len) {
-        //     $(question_header).append(carrot_icon_span)
-        // }
-        // question_header.appendChild(p_author);
-        $(qDiv).append(question_header);
+            var author = document.createTextNode(questions[i].author);
+            var p_author = document.createElement("p");
+            p_author.appendChild(author);
+            p_author.className = "questionAuthor";
 
-        // qDiv.appendChild(p_question);
 
-        var question_body = document.createElement("div");
-        question_body.className = "panel-body";
+            $(question_header).append(p_question);
+            // if (question_description.length > max_question_len) {
+            //     $(question_header).append(carrot_icon_span)
+            // }
+            // question_header.appendChild(p_author);
+            $(qDiv).append(question_header);
 
-        var more_to_show = false;
+            // qDiv.appendChild(p_question);
 
-        var description = document.createElement("p");
-        description.id = qDiv.id + "_description";
-        if (question_description.length > max_question_len) {
-            see_more_link_id = qDiv.id + '_show'; 
-            question_description_1 = question_description.substring(0, max_question_len) + '... ';
-            question_description = question_description_1 +'<a href="" id="'+ see_more_link_id + '">See more</a>';
-            more_to_show = true;
+            var question_body = document.createElement("div");
+            question_body.className = "panel-body";
+
+            var more_to_show = false;
+
+            var description = document.createElement("p");
+            description.id = qDiv.id + "_description";
+            if (question_description.length > max_question_len) {
+                see_more_link_id = qDiv.id + '_show'; 
+                question_description_1 = question_description.substring(0, max_question_len) + '... ';
+                question_description = question_description_1 +'<a href="" id="'+ see_more_link_id + '">See more</a>';
+                more_to_show = true;
+            }
+            $(description).append(question_description);
+            $(question_body).append(description);
+            $(qDiv).append(question_body);
+
+
+            // if (more_to_show){
+            //     var show_btn = document.createElement("button");        // Create a <button> element
+            //     buttonText = document.createTextNode("Show more");       // Create a text node
+            //     show_btn.classList.add('btn');
+            //     show_btn.classList.add('btn-default');
+            //     show_btn.classList.add('btn-show');
+            //     show_btn.id = qDiv.id + "_showbtn";
+            //     show_btn.appendChild(buttonText);
+            //     show_btn.onclick=function(){showButtonAction(event)};
+            //     qDiv.appendChild(show_btn)
+
+            //     var hide_btn = document.createElement("button");        // Create a <button> element
+            //     buttonText = document.createTextNode("Hide");       // Create a text node
+            //     hide_btn.classList.add('btn');
+            //     hide_btn.classList.add('btn-default');
+            //     hide_btn.classList.add('btn-hide');
+            //     hide_btn.id = qDiv.id + "_hidebtn";
+            //     hide_btn.appendChild(buttonText);
+            //     hide_btn.onclick=function(){hideButtonAction(event)};
+            //     qDiv.appendChild(hide_btn)
+            // }
+
+
+            var bottom_reply_div = document.createElement("ul");
+            bottom_reply_div.className = "list-group";
+
+
+            var bottom_line = document.createElement("li");
+            bottom_line.className = "list-group-item";
+            $(bottom_reply_div).append(bottom_line);
+            $(qDiv).append(bottom_reply_div);
+
+            var button = document.createElement("button");        // Create a <button> element
+            var buttonText = document.createTextNode("Reply");       // Create a text node
+            button.classList.add('btn');
+            button.classList.add('btn-default');
+            button.id = qDiv.id + "_replybtn";
+            button.appendChild(buttonText);
+            button.onclick=function(){replyClick(event)};
+            bottom_line.appendChild(button);
+
+
+            mainDiv.appendChild(qDiv)
+
+            if (more_to_show) { $("#"+see_more_link_id).click({param1: qDiv.id}, showQuestion);} 
+
+
+            // if (more_to_show) { $("#"+hide_btn.id).hide(); }
+
+            // $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
+            // for (var j=0; j<questions[i].topic_tags.length; j++) {
+            //     console.log(j)
+            //     $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
+            // }
         }
-        $(description).append(question_description);
-        $(question_body).append(description);
-        $(qDiv).append(question_body);
-
-
-        // if (more_to_show){
-        //     var show_btn = document.createElement("button");        // Create a <button> element
-        //     buttonText = document.createTextNode("Show more");       // Create a text node
-        //     show_btn.classList.add('btn');
-        //     show_btn.classList.add('btn-default');
-        //     show_btn.classList.add('btn-show');
-        //     show_btn.id = qDiv.id + "_showbtn";
-        //     show_btn.appendChild(buttonText);
-        //     show_btn.onclick=function(){showButtonAction(event)};
-        //     qDiv.appendChild(show_btn)
-
-        //     var hide_btn = document.createElement("button");        // Create a <button> element
-        //     buttonText = document.createTextNode("Hide");       // Create a text node
-        //     hide_btn.classList.add('btn');
-        //     hide_btn.classList.add('btn-default');
-        //     hide_btn.classList.add('btn-hide');
-        //     hide_btn.id = qDiv.id + "_hidebtn";
-        //     hide_btn.appendChild(buttonText);
-        //     hide_btn.onclick=function(){hideButtonAction(event)};
-        //     qDiv.appendChild(hide_btn)
-        // }
-
-
-        var bottom_reply_div = document.createElement("ul");
-        bottom_reply_div.className = "list-group";
-
-
-        var bottom_line = document.createElement("li");
-        bottom_line.className = "list-group-item";
-        $(bottom_reply_div).append(bottom_line);
-        $(qDiv).append(bottom_reply_div);
-
-        var button = document.createElement("button");        // Create a <button> element
-        var buttonText = document.createTextNode("Reply");       // Create a text node
-        button.classList.add('btn');
-        button.classList.add('btn-default');
-        button.id = qDiv.id + "_replybtn";
-        button.appendChild(buttonText);
-        button.onclick=function(){replyClick(event)};
-        bottom_line.appendChild(button);
-
-
-        mainDiv.appendChild(qDiv)
-
-        if (more_to_show) { $("#"+see_more_link_id).click({param1: qDiv.id}, showQuestion);} 
-
-
-        // if (more_to_show) { $("#"+hide_btn.id).hide(); }
-
-        // $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
-        // for (var j=0; j<questions[i].topic_tags.length; j++) {
-        //     console.log(j)
-        //     $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
-        // }
     }
 
 });
