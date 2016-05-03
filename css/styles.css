@@ -174,11 +174,6 @@ body {
     cursor: pointer;
 }
 
-div.panel-heading:hover{
-    background-color: #265a88;
-    border-color: #265a88;
-}
-
 
 
 /* Daily view -- Right-hand-side*/
@@ -267,5 +262,10 @@ a > span:hover {
 
 .selectable {
     cursor:pointer;
+}
+
+div.expandable:hover{
+    background-color: #265a88;
+    border-color: #265a88;
 }
 

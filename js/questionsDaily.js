@@ -284,11 +284,19 @@ $(document).ready(function() {
         qDiv.classList.add("panel");
         qDiv.classList.add("panel-primary");
 
+        var question_description = questions[i].question_description;
+
+
         qDiv_array[qDiv.id] = false;
 
         var question_header = document.createElement("div");
         question_header.classList.add("panel-heading");
         question_header.classList.add("selectable");
+
+
+        if (question_description.length > max_question_len) {
+            question_header.classList.add("expandable");
+        }
         question_header.id = qDiv.id + "_panel-heading";
         var p_question = document.createElement("h4")
         var question = document.createTextNode(questions[i].question);
@@ -296,13 +304,15 @@ $(document).ready(function() {
 
         p_question.id = qDiv.id + "_question";
         p_question.className = "questionText";
+        if (question_description.length > max_question_len) {
+            var carrot_icon_span = document.createElement("span");
+            // carrot_icon_span.classList.add("ui-icon");
+            // carrot_icon_span.classList.add("ui-icon-carat-1-e");
+            carrot_icon_span.className="carrot_icon"
+            carrot_icon_span.id = qDiv.id + "_carrot_icon";
+            $(carrot_icon_span).append('&gt;')
+        }
 
-        var carrot_icon_span = document.createElement("span");
-        // carrot_icon_span.classList.add("ui-icon");
-        // carrot_icon_span.classList.add("ui-icon-carat-1-e");
-        carrot_icon_span.className="carrot_icon"
-        carrot_icon_span.id = qDiv.id + "_carrot_icon";
-        $(carrot_icon_span).append('&gt;')
 
         var author = document.createTextNode(questions[i].author);
         var p_author = document.createElement("p");
@@ -311,7 +321,9 @@ $(document).ready(function() {
         
 
         $(question_header).append(p_question);
-        $(question_header).append(carrot_icon_span);
+        if (question_description.length > max_question_len) {
+            $(question_header).append(carrot_icon_span)
+        }
         // question_header.appendChild(p_author);
         $(qDiv).append(question_header);
 
@@ -324,7 +336,6 @@ $(document).ready(function() {
 
         var description = document.createElement("p");
         description.id = qDiv.id + "_description";
-        var question_description = questions[i].question_description;
         if (question_description.length > max_question_len) {
             question_description = question_description.substring(0, max_question_len) + "...";
             more_to_show = true;
