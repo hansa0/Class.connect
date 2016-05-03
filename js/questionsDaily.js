@@ -60,7 +60,7 @@ closeButtonAction = function(e){
 
     if (text.length > 0) {
         var question_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_question"
-        var description_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_description"
+        var author_id = e.target.parentNode.parentNode.parentNode.parentNode.id + "_author"
         // console.log("question_id ", question_id)
         var question = document.getElementById(question_id).firstChild.nodeValue;
         // console.log("QUestion: ", question)
@@ -76,7 +76,7 @@ closeButtonAction = function(e){
         questions[question_index].hasReply = true;
         var reply_html = ' <hr id="reply_divider" style ="border-top: 1px solid #D6DBDF " ><p id="'+ e.target.parentNode.parentNode.id + '_replyText' +'" class="replyText">Saved reply: '+'</p>'
         // console.log("REPLY HTML: ", reply_html)
-        $(reply_html).insertAfter(document.getElementById(description_id))
+        $(reply_html).insertAfter(document.getElementById(author_id))
         $(reply_text_id).append(text)
     }
 
@@ -226,6 +226,8 @@ $(document).ready(function() {
             var p_author = document.createElement("p");
             p_author.appendChild(author);
             p_author.className = "questionAuthor";
+            p_author.id = qDiv.id + "_author"
+            $(p_author).append(author)
 
 
             $(question_header).append(p_question);
@@ -247,6 +249,7 @@ $(document).ready(function() {
             }
             $(description).append(question_description);
             $(question_body).append(description);
+            $(question_body).append(p_author)
             $(qDiv).append(question_body);
 
             var bottom_reply_div = document.createElement("ul");
@@ -361,6 +364,8 @@ function questionUndo(){
             var p_author = document.createElement("p");
             p_author.appendChild(author);
             p_author.className = "questionAuthor";
+            p_author.id = qDiv.id + "_author"
+            $(p_author).append(author)
 
 
             $(question_header).append(p_question);
@@ -382,6 +387,7 @@ function questionUndo(){
             }
             $(description).append(question_description);
             $(question_body).append(description);
+            $(question_body).append(p_author)
             $(qDiv).append(question_body);
 
             var bottom_reply_div = document.createElement("ul");

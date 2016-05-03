@@ -70,7 +70,7 @@ var questions = [
     },
     {
       author: "JayZ",
-      question: "How do I conjugate the subjunctive ",
+      question: "How do I conjugate the subjunctive",
       question_description: "What are the conjucations for the subjunctive? Do we only have to know the present tense of the subjunctive?",
       date: default_day_2,
       hasReply: false,
