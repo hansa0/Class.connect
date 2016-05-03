@@ -5,6 +5,11 @@
 }
 
 
+.navbar-brand {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400px;
+}
+
 .sidenav {
     padding-top: 20px;
     background-color: #f1f1f1;
@@ -83,14 +88,10 @@ body {
 
 .header-day {
     margin: 10px;
-    /*background: #b3b3b3;*/
 }
 
 .daily-container {
- /*   border-style: solid;
-    border-width: 1px;*/
     padding: 2em;
-    /*background-color: #fff;*/
     background-color: #eee;
     height: 700px;
     margin-bottom: 50px !important; 
@@ -98,11 +99,8 @@ body {
 }
 
 #daily-questions {
- /*   border-style: solid;
-    border-width: 1px;*/
-    /*background-color: #fff;*/
     height: 550px;
-
+    margin-top: 1em;
 }
 
 .header-underline {
@@ -120,21 +118,17 @@ body {
     overflow: auto;
     height: 550px;
 
-
 }
 
-.topic-container {
-/*    border-style: solid;
-    border-width: 1px;*/
+.col-md-5.topic-container {
     margin: 1em;
-    padding: 10px;
-    background-color: #e8eaf6;
-
+    padding: 0px;
 }
 
-.topic-add {
+.col-md-5.topic-add {
     border-style: dashed;
     border-width: 1px;
+    padding: 1em;
 }
 
 .btn-add-topic {
@@ -180,8 +174,8 @@ body {
 div.questionDiv{
     /*border-style: solid;
     border-width: 1px;*/
-    padding: 1em;
-    margin-bottom: 2em;
+    /*padding: 1em;*/
+    /*margin-bottom: 2em;*/
     /*background-color: #e8eaf6;*/
 }
 
@@ -234,6 +228,20 @@ glyphicon.glyphicon-remove.handout{
 
 glyphicon.glyphicon-minus.folder{
     display: none
+}
+
+
+.panel {
+    padding: 0;
+}
+
+.panel-heading h4 {
+    margin: 0;
+}
+
+.topic-add {
+    padding: 2em;
+
 }
 
 
