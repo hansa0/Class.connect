@@ -6,33 +6,40 @@ var new_file_name;
 var current_topic_h4_id;
 var current_panel_heading_id;
 var editing_topic_name = false;
-
-
-
+var topicStack = new Array();
+var fileStack = new Array();
+function undoDeleteFile(){
+    var parent = fileStack.pop();
+    var child = fileStack.pop();
+    console.log(child);
+    console.log(child.lastChild);
+    parent.insertBefore(child, parent.firstChild);
+}
+function undoDeleteTopic(){ //udos to the notification
+    //For each time topic or whatever is added
+    //topicStack.push($(this).closest('.col-md-5').clone());
+    var poppedTopic = topicStack.pop();
+    console.log(poppedTopic);
+    topics.push(poppedTopic);
+    $('#topics').empty();
+    displayAllTopics();
+    displayAddNewTopic();
+}
 $(document).ready(function() {
-      
 
     $('#topics').on("click", ".btn-add-materials", function(e){
+        console.log("clicking upload");
         e.stopPropagation();
         e.preventDefault();
-   if (e.target.className=="glyphicon glyphicon-plus"){
-       var btn_id = e.target.parentNode.id;
 
+    var btn_id = e.target.parentNode.id;
     var topic_name = btn_id.split("_")[2];
     var upload = document.getElementById("id_input_" + topic_name);
-    
+
     upload.click();
-   } 
-        else{
-            var btn_id = e.target.id;
-    var topic_name = btn_id.split("_")[2];
-    var upload = document.getElementById("id_input_" + topic_name);
-    upload.click();
-        }
-    
 
     });
-    
+
     // day_to_display = "April 20th";
     var isEditing = false;
     // var add_materials_btn = document.createElement('button');
@@ -54,7 +61,7 @@ $(document).ready(function() {
 
     // fetches file on file upload selection
     // --> source: http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
-    $('#topics').on('change', 'input[type=file]', prepareUpload);
+    $('body').on('change', 'input[type=file]', prepareUpload);
 
 
     // let users edit topic names by clicking them, only if NOT in editing mode
@@ -77,7 +84,7 @@ $(document).ready(function() {
 
       change_topic_name(event);
       }
-      
+
     });
 
     // close topic name input if user clicks anywhere outside of
@@ -88,79 +95,106 @@ $(document).ready(function() {
 
     // act on enter click when inputing new topic name
     $('.materials-panel-heading').keypress(function(e) {
-      if(e.keyCode ==13) {            
+      if(e.keyCode ==13) {
         closeTopicNameInput(current_topic_h4_id);
         editing_topic_name = false;
       };
     });
 
 
-    
+
     $('#topics').on("click", ".folder", function(e){
         e.stopPropagation();
         e.preventDefault();
         var top=$(this).closest('.col-md-5').children().children()[0].innerHTML.split("<")[0];
         console.log(top,"topic to remove");
         $(this).closest('.col-md-5').remove();
-        $.notify("Successfully deleted topic", "success");
+        $.notify({
+            text: 'Topic Deleted',
+            html: '<button onclick="undoDeleteTopic()">Undo</button>'
+        }, {
+            style: 'bootstrap',
+            className: 'success',
+            autoHide: true,
+            clickToHide: true
+        });
+
         for (var i = 0; i < topics.length; i++) {
             var cat=topics[i];
             if (cat.name==top){
+                console.log(cat.name);
+                console.log(topics[i]);
+                topicStack.push(jQuery.extend(true, {}, topics[i]));
                 topics.splice(i, 1);
+                console.log(topicStack[topicStack.length - 1]);
             }
         }
     console.log("remove a topic")});
-    
-    
 
-    
+
+
+
     //delete x for a header shows up on hover
-    $('body').on("mouseover", ".panel-heading", function(){  
+    $('body').on("mouseover", ".panel-heading", function(){
         if (isEditing){
-        $(this).children('h4').children('span').css({'display' : 'inline' });   
+        $(this).children('h4').children('span').css({'display' : 'inline' });
         }
-        
+
     });
-    
+
     //delete x icon for a header leaves after hover leaving
-    $('body').on("mouseleave", ".panel-heading", function(){  
+    $('body').on("mouseleave", ".panel-heading", function(){
         if (isEditing){
-        $(this).children('h4').children('span').css({'display' : 'none' });   
+        $(this).children('h4').children('span').css({'display' : 'none' });
         }
-        
+
     });
-    
+
     //delete doc icon shows up on hover
     $('body').on("mouseover", ".doc", function(){
         if (isEditing){
-            
-          //$(this).css({'background' : '#B3E5FC' })  
-        $(this).children('span').css({'display' : 'inline' });   
+
+          //$(this).css({'background' : '#B3E5FC' })
+        $(this).children('span').css({'display' : 'inline' });
         }
     });
-    
+
     //delete x icon for a doc leaves after hover leaving
     $('body').on("mouseleave", ".doc", function(){
         if (isEditing){
-            
-          //$(this).css({'background' : '#B3E5FC' })  
-        $(this).children('span').css({'display' : 'none' });   
+
+          //$(this).css({'background' : '#B3E5FC' })
+        $(this).children('span').css({'display' : 'none' });
         }
     });
-    
+
     //delete a doc on click
     $('body').on("click", ".doc", function(){
-        if (isEditing){  
-        //$(this).css({'background' : '#B3E5FC' })  
+        if (isEditing){
+
+          //$(this).css({'background' : '#B3E5FC' })
         var fileClicked=$(this).closest('p').text().replace(/\s+/g, '');
         //console.log(fileClicked , "file clicked");
+            //first get rid of red x beside node
+            $(this).find('span').css('display', 'none');
+            fileStack.push(this.cloneNode(true));
+            fileStack.push(this.parentNode);
         $(this).closest('p').remove();
-        $.notify("Successfully removed file", "success");
+            $.notify({
+                text: 'File deleted',
+                html: '<button onclick="undoDeleteFile()">Undo</button>'
+            }, {
+                style: 'bootstrap',
+                className: 'success',
+                autoHide: true,
+                clickToHide: true
+            });
+
         for (var i = 0; i < topics.length; i++) {
             var cat=topics[i];
             //console.log(cat);
             for (var j = 0; j < cat.handouts.length; j++) {
-                 
+
                 if
                     (topics[i].handouts[j].title.replace(/\s+/g, '').toLowerCase()==String(fileClicked).toLowerCase()){
                     //console.log("match", String(topics[i].handouts[j].title), String(fileClicked));
@@ -168,10 +202,10 @@ $(document).ready(function() {
                     break;
                 }
         }
-        }  
+        }
         }
     });
-    
+
     $("#edit-btn").click(function() {
         isEditing = !isEditing; //toggles
 
@@ -190,11 +224,11 @@ $(document).ready(function() {
 
         }
     });
-    
+
     //press enter to add a new topic
     document.getElementById('newTopic').onkeydown = function(e){
       if(e.keyCode == 13){
-         
+
       //console.log("enter");
         addTopic();
       }
@@ -221,7 +255,7 @@ var displayAllTopics = function() {
 
         $(topic_header).append('<h4 id="topic_h4_' + topic.id + '">' + topic.name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>');
         $(topic_div).append(topic_header)
-        
+
         // add materials for that topic
         var topic_body = document.createElement('div');
         topic_body.className = "panel-body";
@@ -254,7 +288,7 @@ var displayAllTopics = function() {
         $(topic_materials).append(add_materials_btn);
         $(topic_body).append(topic_materials);
         $(topic_div).append(topic_body);
-        
+
         // add invisible input element for file upload
         var input = document.createElement('input');
         input.type = "file";
@@ -300,13 +334,13 @@ var prepareUpload = function(event) {
   files = event.target.files;
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
-    
+
     console.log(file);
     new_file_name = file.name;
     console.log(new_file_name, "file name");
-    
+
     var new_assignment = '<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + new_file_name+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none"></span> </p>';
-      
+
       //create the file to be added the collections array:
       var newHandoutArray={
         title: new_file_name,
@@ -315,7 +349,7 @@ var prepareUpload = function(event) {
         text: 'Some description',
         relevant_day: '2016-04-20'
       }
-      
+
       //actually adds it to the collections array:
     for (var j = 0; j < topics.length; j++) {
       if (topics[j].name == topic_name) {
@@ -324,7 +358,6 @@ var prepareUpload = function(event) {
      };
 
     $(new_assignment).insertBefore($('#'+button_id));
-    $.notify("Added new file", "success");    
     // return file.name;
     // TODO: add new material assignment here and add to topic
   };
@@ -335,7 +368,6 @@ var prepareUpload = function(event) {
 var addTopic = function() {
     console.log('adding topic');
     var new_topic_name = $("#newTopic").val();
-    $.notify("Topic \"" + new_topic_name + "\" added", "success");
 
     // if no typed name, don't add
     if (new_topic_name == "") {
@@ -348,9 +380,9 @@ var addTopic = function() {
         handouts: [],
         id: topics.length + 1
     };
-    
+
     topics.push(new_topic_obj);
-  
+
 
     // recreate divs to place new topic div in correct place
     $('#topics').empty();
@@ -372,7 +404,7 @@ var addMaterials = function(e) {
     e.stopPropagation();
     e.preventDefault();
     console.log($(this).closest('p'));
-    
+
     //var btn_id = e.target.parentNode.id;
     // console.log(btn_id);
     //var topic_name = btn_id.split("_")[2];
@@ -386,35 +418,35 @@ var addMaterials = function(e) {
 var change_topic_name = function(event) {
 
     editing_topic_name = true;
-    
+
     var target = event.target;
     var old_topic = target.textContent;
-    
+
     // create input element
     var input = document.createElement('input');
     input.type = "text";
     input.className = "materials-topic-name-input";
     input.value = old_topic;
 
-    
+
     var current_panel_heading;
     var current_topic_h4;
     // if selected h4 element inside panel-heading
     if (target.tagName == "H4") {
         current_panel_heading = target.parentNode;
         current_topic_h4 = target;
-    } 
+    }
     // or if selected panel-heading
     else {
         current_panel_heading = target;
-        current_topic_h4 = target.getElementsByTagName("H4")[0]; 
+        current_topic_h4 = target.getElementsByTagName("H4")[0];
     };
 
     current_topic_h4_id = current_topic_h4.id;
     current_panel_heading_id = current_panel_heading.id;
 
     current_topic_h4.style.display = "none";
-    $(current_panel_heading).append(input);     
+    $(current_panel_heading).append(input);
     input.focus();
 };
 
@@ -429,7 +461,7 @@ var closeTopicNameInput = function(topic_id) {
   // change visual look
   var parent = $('#' + current_topic_h4_id).parentNode;
   var topic_h4 = document.getElementById(current_topic_h4_id);
-  
+
   // insert html for new h4 tag with the same id but new topic name
   var new_html = '<h4 id="' + current_topic_h4_id +'"">' + new_topic_name + '<span class="glyphicon glyphicon-remove folder" aria-hidden="true" style="color:red; float:right" id="minusTopic"></span></h4>';
   $(topic_h4.parentNode).html(new_html);
