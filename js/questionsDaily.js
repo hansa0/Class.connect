@@ -151,14 +151,14 @@ replySubmit = function(e) {
     questions[question_index].reply = text;
     questions[question_index].hasReply = true;
 
-    var daily_q_div =  e.target.parentNode.parentNode.parentNode
+    var daily_q_div =  e.target.parentNode.parentNode.parentNode.parentNode.parentNode
+    qDiv.parentNode.removeChild(qDiv);
 
     //e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
     if (!daily_q_div.hasChildNodes()) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>");
     }
 
-    qDiv.parentNode.removeChild(qDiv);
 
     $.notify({
         text: 'Question submitted',
@@ -197,8 +197,8 @@ $(document).ready(function() {
     }
 
     for (var i=0; i < questions.length; i++ ){
-        console.log(questions[i].date.toISOString().substring(0, 10) == curr_date_str)
-        console.log(questions[i].date.toISOString().substring(0, 10))
+        // console.log(questions[i].date.toISOString().substring(0, 10) == curr_date_str)
+        // console.log(questions[i].date.toISOString().substring(0, 10))
         if (questions[i].date.toISOString().substring(0, 10) == curr_date_str) {
             var qDiv = document.createElement("div");
             qDiv.id = "q" + i;
@@ -335,8 +335,8 @@ function questionUndo(){
     }
 
     for (var i=0; i < questions.length; i++ ){
-        console.log(questions[i].date.toISOString().substring(0, 10) == curr_date_str)
-        console.log(questions[i].date.toISOString().substring(0, 10))
+        // console.log(questions[i].date.toISOString().substring(0, 10) == curr_date_str)
+        // console.log(questions[i].date.toISOString().substring(0, 10))
         if (questions[i].date.toISOString().substring(0, 10) == curr_date_str) {
             var qDiv = document.createElement("div");
             qDiv.id = "q" + i;
