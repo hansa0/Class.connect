@@ -1,5 +1,5 @@
 g = 0;
-
+var questionStack = new Array();
 max_question_len = 150;
 
 //
@@ -103,7 +103,6 @@ closeButtonAction = function(e){
         // console.log("REPLY HTML: ", reply_html)
         $(reply_html).insertAfter(document.getElementById(description_id))
         $(reply_text_id).append(text)
-        $.notify("draft saved", "success");
     }
 
     var replybtn_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_replybtn"
@@ -144,7 +143,6 @@ saveButtonAction = function(e){
         // console.log("REPLY HTML: ", reply_html)
         $(reply_html).insertAfter(document.getElementById(description_id))
         $(reply_text_id).append(text)
-        $.notify("draft saved", "success");
     }
 
     var replybtn_id = "#"+e.target.parentNode.parentNode.parentNode.parentNode.id + "_replybtn"
@@ -208,7 +206,11 @@ replySubmit = function(e) {
     console.log(document.getElementById(question_id));
     var question = document.getElementById(question_id).firstChild.nodeValue;
     // console.log("QUestion: ", question)
-    var question_index = getQuestionIndex(question)
+    var question_index = getQuestionIndex(question);
+    var pushedQuestion = jQuery.extend(true, [], questions);
+    console.log(pushedQuestion);
+    questionStack.push(pushedQuestion);
+    questions.splice(question_index, 1);
     questions[question_index].reply = text;
     questions[question_index].hasReply = true;
     // console.log("questions: ", questions)
@@ -216,13 +218,23 @@ replySubmit = function(e) {
     // console.log("TEXT AREA SAYS: ", text);
     var daily_q_div =  e.target.parentNode.parentNode.parentNode
 
-    e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
+    //e.target.parentNode.parentNode.parentNode.removeChild(e.target.parentNode.parentNode);
     if (!daily_q_div.hasChildNodes()) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>");
     }
+
     qDiv.parentNode.removeChild(qDiv);
 
-    $.notify("Question successfully answered", "success");
+    $.notify({
+        text: 'Question submitted',
+        html: '<button onclick="questionUndo()">Undo</button>'
+    }, {
+        style: 'bootstrap',
+        className: 'success',
+        autoHide: true,
+        clickToHide: true
+    });
+
 };
 
 getQuestionIndex = function(q) {
@@ -284,11 +296,19 @@ $(document).ready(function() {
         qDiv.classList.add("panel");
         qDiv.classList.add("panel-primary");
 
+        var question_description = questions[i].question_description;
+
+
         qDiv_array[qDiv.id] = false;
 
         var question_header = document.createElement("div");
         question_header.classList.add("panel-heading");
         question_header.classList.add("selectable");
+
+
+        if (question_description.length > max_question_len) {
+            question_header.classList.add("expandable");
+        }
         question_header.id = qDiv.id + "_panel-heading";
         var p_question = document.createElement("h4")
         var question = document.createTextNode(questions[i].question);
@@ -296,22 +316,26 @@ $(document).ready(function() {
 
         p_question.id = qDiv.id + "_question";
         p_question.className = "questionText";
+        if (question_description.length > max_question_len) {
+            var carrot_icon_span = document.createElement("span");
+            // carrot_icon_span.classList.add("ui-icon");
+            // carrot_icon_span.classList.add("ui-icon-carat-1-e");
+            carrot_icon_span.className="carrot_icon"
+            carrot_icon_span.id = qDiv.id + "_carrot_icon";
+            $(carrot_icon_span).append('&gt;')
+        }
 
-        var carrot_icon_span = document.createElement("span");
-        // carrot_icon_span.classList.add("ui-icon");
-        // carrot_icon_span.classList.add("ui-icon-carat-1-e");
-        carrot_icon_span.className="carrot_icon"
-        carrot_icon_span.id = qDiv.id + "_carrot_icon";
-        $(carrot_icon_span).append('&gt;')
 
         var author = document.createTextNode(questions[i].author);
         var p_author = document.createElement("p");
         p_author.appendChild(author);
         p_author.className = "questionAuthor";
-        
+
 
         $(question_header).append(p_question);
-        $(question_header).append(carrot_icon_span);
+        if (question_description.length > max_question_len) {
+            $(question_header).append(carrot_icon_span)
+        }
         // question_header.appendChild(p_author);
         $(qDiv).append(question_header);
 
@@ -324,7 +348,6 @@ $(document).ready(function() {
 
         var description = document.createElement("p");
         description.id = qDiv.id + "_description";
-        var question_description = questions[i].question_description;
         if (question_description.length > max_question_len) {
             question_description = question_description.substring(0, max_question_len) + "...";
             more_to_show = true;
@@ -332,7 +355,7 @@ $(document).ready(function() {
         $(description).append(question_description);
         $(question_body).append(description);
         $(qDiv).append(question_body);
-        
+
 
         // if (more_to_show){
         //     var show_btn = document.createElement("button");        // Create a <button> element
@@ -359,7 +382,7 @@ $(document).ready(function() {
 
         var bottom_reply_div = document.createElement("ul");
         bottom_reply_div.className = "list-group";
-        
+
 
         var bottom_line = document.createElement("li");
         bottom_line.className = "list-group-item";
@@ -422,3 +445,133 @@ function showQuestion(event){
         qDiv_array[qDiv_id] = true;
     }
 };
+
+function questionUndo(){
+    questions = questionStack.pop();
+    mainDiv = document.getElementById("daily-questions");
+    mainDiv.innerHTML = "";
+
+    if (questions.length == 0) {
+        $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>");
+        // var p = document.createElement("p");
+        // var text = document.createTextNode("No questions from students right now!");
+        // p.appendChild(text)
+        // mainDiv.appendChild(p)
+    }
+
+    // var qDiv_array = new Array();
+    // myArray["abc"] = 200; myArray["xyz"] = 300;
+
+    for (var i=0; i < questions.length; i++ ){
+        var qDiv = document.createElement("div");
+        qDiv.id = "q" + i;
+        qDiv.classList.add("questionDiv");
+        qDiv.classList.add("panel");
+        qDiv.classList.add("panel-primary");
+
+        qDiv_array[qDiv.id] = false;
+
+        var question_header = document.createElement("div");
+        question_header.classList.add("panel-heading");
+        question_header.classList.add("selectable");
+        question_header.id = qDiv.id + "_panel-heading";
+        var p_question = document.createElement("h4");
+        var question = document.createTextNode(questions[i].question);
+        p_question.appendChild(question);
+
+        p_question.id = qDiv.id + "_question";
+        p_question.className = "questionText";
+
+        var carrot_icon_span = document.createElement("span");
+        // carrot_icon_span.classList.add("ui-icon");
+        // carrot_icon_span.classList.add("ui-icon-carat-1-e");
+        carrot_icon_span.className="carrot_icon";
+        carrot_icon_span.id = qDiv.id + "_carrot_icon";
+        $(carrot_icon_span).append('&gt;');
+
+        var author = document.createTextNode(questions[i].author);
+        var p_author = document.createElement("p");
+        p_author.appendChild(author);
+        p_author.className = "questionAuthor";
+
+
+        $(question_header).append(p_question);
+        $(question_header).append(carrot_icon_span);
+        // question_header.appendChild(p_author);
+        $(qDiv).append(question_header);
+
+        // qDiv.appendChild(p_question);
+
+        var question_body = document.createElement("div");
+        question_body.className = "panel-body";
+
+        var more_to_show = false;
+
+        var description = document.createElement("p");
+        description.id = qDiv.id + "_description";
+        var question_description = questions[i].question_description;
+        if (question_description.length > max_question_len) {
+            question_description = question_description.substring(0, max_question_len) + "...";
+            more_to_show = true;
+        }
+        $(description).append(question_description);
+        $(question_body).append(description);
+        $(qDiv).append(question_body);
+
+
+        // if (more_to_show){
+        //     var show_btn = document.createElement("button");        // Create a <button> element
+        //     buttonText = document.createTextNode("Show more");       // Create a text node
+        //     show_btn.classList.add('btn');
+        //     show_btn.classList.add('btn-default');
+        //     show_btn.classList.add('btn-show');
+        //     show_btn.id = qDiv.id + "_showbtn";
+        //     show_btn.appendChild(buttonText);
+        //     show_btn.onclick=function(){showButtonAction(event)};
+        //     qDiv.appendChild(show_btn)
+
+        //     var hide_btn = document.createElement("button");        // Create a <button> element
+        //     buttonText = document.createTextNode("Hide");       // Create a text node
+        //     hide_btn.classList.add('btn');
+        //     hide_btn.classList.add('btn-default');
+        //     hide_btn.classList.add('btn-hide');
+        //     hide_btn.id = qDiv.id + "_hidebtn";
+        //     hide_btn.appendChild(buttonText);
+        //     hide_btn.onclick=function(){hideButtonAction(event)};
+        //     qDiv.appendChild(hide_btn)
+        // }
+
+
+        var bottom_reply_div = document.createElement("ul");
+        bottom_reply_div.className = "list-group";
+
+
+        var bottom_line = document.createElement("li");
+        bottom_line.className = "list-group-item";
+        $(bottom_reply_div).append(bottom_line);
+        $(qDiv).append(bottom_reply_div);
+
+        var button = document.createElement("button");        // Create a <button> element
+        var buttonText = document.createTextNode("Reply");       // Create a text node
+        button.classList.add('btn');
+        button.classList.add('btn-default');
+        button.id = qDiv.id + "_replybtn";
+        button.appendChild(buttonText);
+        button.onclick=function(){replyClick(event)};
+        bottom_line.appendChild(button);
+
+
+        mainDiv.appendChild(qDiv);
+
+        $("#"+question_header.id).click({param1: qDiv.id}, showQuestion);
+
+
+        // if (more_to_show) { $("#"+hide_btn.id).hide(); }
+
+        // $("#"+qDiv.id).append("<div id='" + qDiv.id + "_tag_row' class='row'></div>")
+        // for (var j=0; j<questions[i].topic_tags.length; j++) {
+        //     console.log(j)
+        //     $("#"+ qDiv.id +"_tag_row").append("<div class='tag'>"+ questions[i].topic_tags[j] +"</div>")
+        // }
+    }
+}
