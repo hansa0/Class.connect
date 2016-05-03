@@ -23,6 +23,7 @@ $(document).ready(function() {
         var new_date = date.addDays(-1);
         localStorage.setItem("selectedDay", new_date);
         displayDay();
+        window.location.reload();
     });
 
     $('body').on('click', '.rightarrow', function(e) {
@@ -30,6 +31,8 @@ $(document).ready(function() {
         var new_date = date.addDays(1);
         localStorage.setItem("selectedDay", new_date);
         displayDay();
+        window.location.reload();
+
     });
 
 });

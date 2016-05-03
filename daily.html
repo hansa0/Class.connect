@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -83,8 +84,8 @@
         </div>
         <div class="row">
             <hr class="header-underline">
-
         </div>
+        
         <div class="row" id="topics">
         </div>
         <!-- <input type="file" style="display:none" id="upload" name="upload" style="visibility: hidden; width: 1px; height: 1px" multiple />         -->
@@ -94,9 +95,15 @@
     <!-- right-hand-side -->
     <div class="col-md-6" id="rightbody">
       <div class="daily-container">
-        <h3 class="text-center">Questions</h3>
-        <hr class="header-underline">
-        <div id="daily-questions" style="overflow: auto;"></div>
+        <div class="row">
+          <h3 class="text-center">Student Questions</h3>
+        </div>
+        <div class="row">
+          <hr class="header-underline">
+        </div>
+        
+        <div id="daily-questions" class="row" style="overflow: auto;">
+        </div>
       </div>
     </div> <!-- end of right-hand-side -->
 
