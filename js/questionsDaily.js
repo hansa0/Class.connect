@@ -330,7 +330,7 @@ var displayQuestions = function() {
     curr_date_str = current_date.toISOString().substring(0, 10);
     
 
-    if (questions.length == 0) {
+    if (questions.length <2) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>")
     };
 
