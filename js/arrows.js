@@ -23,7 +23,11 @@ $(document).ready(function() {
         var new_date = date.addDays(-1);
         localStorage.setItem("selectedDay", new_date);
         displayDay();
-        window.location.reload();
+
+        // redisplay all topic stuff
+        $('#topics').empty();
+        displayAllTopics();
+        displayAddNewTopic();        
     });
 
     $('body').on('click', '.rightarrow', function(e) {
@@ -31,10 +35,12 @@ $(document).ready(function() {
         var new_date = date.addDays(1);
         localStorage.setItem("selectedDay", new_date);
         displayDay();
-        window.location.reload();
-
+        
+        // redisplay all topic stuff
+        $('#topics').empty();
+        displayAllTopics();
+        displayAddNewTopic();               
     });
-
 });
 
 var displayDay = function() {
