@@ -16,7 +16,7 @@ var default_day =  new Date('Tue May 3 2016 20:00:00 GMT-0400 (EDT)')//'2016-04-
 // console.log(typeof(default_day))
 var default_day_2 =  new Date('Thu May 05 2016 20:00:00 GMT-0400 (EDT)')//'2016-04-20';
 
-
+var default_wrong =  new Date('Thu May 05 2015 20:00:00 GMT-0400 (EDT)')
 
 var questions = [
     {
@@ -81,6 +81,14 @@ var questions = [
       question: "No se como escribir mi composicion",
       question_description: "Lorem ipsum dolor sit amet, zril melius epicuri mel an, impedit commune cum cu, falli delenit liberavisse pri at. Ad menandri rationibus comprehensam quo, eam no nulla dolore mnesarchum. Ea tibique torquatos est, case consul cu sed. Vidit sonet efficiantur eu usu, ex mei brute aperiam, ea has propriae mediocritatem. Pri ea stet meis. Dolores antiopam ea ius, qui ei novum iudicabit, his eu propriae dissentias. Mei ei graeci singulis.",
       date: default_day_2,
+      hasReply: false,
+      reply: null
+    },
+    {
+      author: "Ryan",
+      question: "No se como se dice algo",
+      question_description: "Lorem ipsum dolor sit amet, zril melius epicuri mel an, impedit commune cum cu, falli delenit liberavisse pri at. Ad menandri rationibus comprehensam quo, eam no nulla dolore mnesarchum. Ea tibique torquatos est, case consul cu sed. Vidit sonet efficiantur eu usu, ex mei brute aperiam, ea has propriae mediocritatem. Pri ea stet meis. Dolores antiopam ea ius, qui ei novum iudicabit, his eu propriae dissentias. Mei ei graeci singulis.",
+      date: default_wrong,
       hasReply: false,
       reply: null
     }
