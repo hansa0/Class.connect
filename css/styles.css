@@ -172,7 +172,10 @@ body {
     cursor: pointer;
 }
 
-
+.materials-panel-heading:hover {
+    cursor: pointer;
+    background-color: #265a88 !important;
+}
 
 /* Daily view -- Right-hand-side*/
 div.questionDiv{

@@ -14,7 +14,7 @@ replyClick = function(e) {
     var question = document.getElementById(question_id).firstChild.nodeValue;
     var question_index = getQuestionIndex(question)
 
-   var textAreaHtml = '<div class="replyDiv"><textarea id="'+ qDiv_id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
+    var textAreaHtml = '<div class="replyDiv"><textarea id="'+ qDiv_id+"_reply"+ g+ '"'+sp+ ' ></textarea>';
     textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_submit' + '">Submit</button>';
     textAreaHtml = textAreaHtml + '<button type="button" class="btn btn-default submit-btn" id="'+ qDiv_id+'_close' + '">Close</button>';
 

@@ -22,10 +22,10 @@ $(document).ready(function() {
       };
 
       if (topic.name == "Assignments") {
-        material_event.color = '#3399ff';
+        material_event.color = '#EA6A2A';
       }
       else {
-        material_event.color = '#6600ff';
+        material_event.color = '#337ab7';
       };
       all_materials.push(material_event);      
     };    
