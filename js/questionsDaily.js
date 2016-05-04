@@ -183,107 +183,10 @@ getQuestionIndex = function(q) {
 var qDiv_show = new Array();
 
 $(document).ready(function() {
-
-    mainDiv = document.getElementById("daily-questions");
-
-    var current_date = new Date(localStorage.getItem("selectedDay"));
-    curr_date_str = current_date.toISOString().substring(0, 10);
-    console.log("SELECTED DAY: ")
-    console.log(current_date)
-    console.log(typeof(current_date)) 
-
-    if (questions.length == 0) {
-        $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>")
-    }
-
-    for (var i=0; i < questions.length; i++ ){
-        // console.log(questions[i].date.toISOString().substring(0, 10) == curr_date_str)
-        // console.log(questions[i].date.toISOString().substring(0, 10))
-        if (questions[i].date.toISOString().substring(0, 10) == curr_date_str) {
-            var qDiv = document.createElement("div");
-            qDiv.id = "q" + i;
-            qDiv.classList.add("questionDiv");
-            qDiv.classList.add("panel");
-            qDiv.classList.add("panel-primary");
-
-            var question_description = questions[i].question_description;
-
-
-            qDiv_show[qDiv.id] = false;
-
-            var question_header = document.createElement("div");
-            question_header.classList.add("panel-heading");
-
-            question_header.id = qDiv.id + "_panel-heading";
-            var p_question = document.createElement("h4")
-            var question = document.createTextNode(questions[i].question);
-            p_question.appendChild(question)
-
-            p_question.id = qDiv.id + "_question";
-            p_question.className = "questionText";
-
-            var author = document.createTextNode(questions[i].author);
-            var p_author = document.createElement("p");
-            p_author.appendChild(author);
-            p_author.className = "questionAuthor";
-            p_author.id = qDiv.id + "_author"
-            $(p_author).append(author)
-
-
-            $(question_header).append(p_question);
-            $(qDiv).append(question_header);
-
-
-            var question_body = document.createElement("div");
-            question_body.className = "panel-body";
-
-            var more_to_show = false;
-
-            var description = document.createElement("p");
-            description.id = qDiv.id + "_description";
-            if (question_description.length > max_question_len) {
-                see_more_link_id = qDiv.id + '_show'; 
-                question_description_1 = question_description.substring(0, max_question_len) + '... ';
-                question_description = question_description_1 +'<a href="" id="'+ see_more_link_id + '">See more</a>';
-                more_to_show = true;
-            }
-            $(description).append(question_description);
-            $(question_body).append(description);
-            $(question_body).append(p_author)
-            $(qDiv).append(question_body);
-
-            var bottom_reply_div = document.createElement("ul");
-            bottom_reply_div.className = "list-group";
-
-
-            var bottom_line = document.createElement("li");
-            bottom_line.className = "list-group-item";
-            $(bottom_reply_div).append(bottom_line);
-            $(qDiv).append(bottom_reply_div);
-
-            var button = document.createElement("button");        // Create a <button> element
-            var buttonText = document.createTextNode("Reply");       // Create a text node
-            button.classList.add('btn');
-            button.classList.add('btn-default');
-            button.id = qDiv.id + "_replybtn";
-            button.appendChild(buttonText);
-            button.onclick=function(){replyClick(event)};
-            bottom_line.appendChild(button);
-
-
-            mainDiv.appendChild(qDiv)
-
-            if (more_to_show) { $("#"+see_more_link_id).click({param1: qDiv.id}, showQuestion);} 
-        }
-        
-
-    }
-
-    if (!mainDiv.hasChildNodes()) {
-        $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>")
-    }
-
+    displayQuestions();
 });
+
+
 // 
 function showQuestion(event){
     event.preventDefault();
@@ -409,15 +312,112 @@ function questionUndo(){
             bottom_line.appendChild(button);
 
 
-            mainDiv.appendChild(qDiv)
+            mainDiv.appendChild(qDiv);
 
             if (more_to_show) { $("#"+see_more_link_id).click({param1: qDiv.id}, showQuestion);} 
-        }
-        
-
-    }
+        };
+    };
 
     if (!mainDiv.hasChildNodes()) {
         $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>")
-    }
-}
+    };
+};
+
+var displayQuestions = function() {
+    mainDiv = document.getElementById("daily-questions");
+
+    var current_date = new Date(localStorage.getItem("selectedDay"));
+    curr_date_str = current_date.toISOString().substring(0, 10);
+    
+
+    if (questions.length == 0) {
+        $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>")
+    };
+
+    for (var i=0; i < questions.length; i++ ){
+        // console.log(questions[i].date.toISOString().substring(0, 10) == curr_date_str)
+        // console.log(questions[i].date.toISOString().substring(0, 10))
+        if (questions[i].date.toISOString().substring(0, 10) == curr_date_str) {
+            var qDiv = document.createElement("div");
+            qDiv.id = "q" + i;
+            qDiv.classList.add("questionDiv");
+            qDiv.classList.add("panel");
+            qDiv.classList.add("panel-primary");
+
+            var question_description = questions[i].question_description;
+
+
+            qDiv_show[qDiv.id] = false;
+
+            var question_header = document.createElement("div");
+            question_header.classList.add("panel-heading");
+
+            question_header.id = qDiv.id + "_panel-heading";
+            var p_question = document.createElement("h4")
+            var question = document.createTextNode(questions[i].question);
+            p_question.appendChild(question)
+
+            p_question.id = qDiv.id + "_question";
+            p_question.className = "questionText";
+
+            var author = document.createTextNode(questions[i].author);
+            var p_author = document.createElement("p");
+            p_author.appendChild(author);
+            p_author.className = "questionAuthor";
+            p_author.id = qDiv.id + "_author"
+            $(p_author).append(author)
+
+
+            $(question_header).append(p_question);
+            $(qDiv).append(question_header);
+
+
+            var question_body = document.createElement("div");
+            question_body.className = "panel-body";
+
+            var more_to_show = false;
+
+            var description = document.createElement("p");
+            description.id = qDiv.id + "_description";
+            if (question_description.length > max_question_len) {
+                see_more_link_id = qDiv.id + '_show'; 
+                question_description_1 = question_description.substring(0, max_question_len) + '... ';
+                question_description = question_description_1 +'<a href="" id="'+ see_more_link_id + '">See more</a>';
+                more_to_show = true;
+            }
+            $(description).append(question_description);
+            $(question_body).append(description);
+            $(question_body).append(p_author)
+            $(qDiv).append(question_body);
+
+            var bottom_reply_div = document.createElement("ul");
+            bottom_reply_div.className = "list-group";
+
+
+            var bottom_line = document.createElement("li");
+            bottom_line.className = "list-group-item";
+            $(bottom_reply_div).append(bottom_line);
+            $(qDiv).append(bottom_reply_div);
+
+            var button = document.createElement("button");        // Create a <button> element
+            var buttonText = document.createTextNode("Reply");       // Create a text node
+            button.classList.add('btn');
+            button.classList.add('btn-default');
+            button.id = qDiv.id + "_replybtn";
+            button.appendChild(buttonText);
+            button.onclick=function(){replyClick(event)};
+            bottom_line.appendChild(button);
+
+
+            mainDiv.appendChild(qDiv);
+
+            if (more_to_show) { $("#"+see_more_link_id).click({param1: qDiv.id}, showQuestion);} 
+        };
+    };
+
+    if (!mainDiv.hasChildNodes()) {
+        $("#daily-questions").append("<p style='text-align: center;'>No questions from students right now!</p>")
+    };
+};
+
+

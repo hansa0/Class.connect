@@ -45,7 +45,9 @@ $(document).ready(function() {
     dayClick: function(date, jsEvent, view) {
       selected_day = date.format();
 
-      localStorage.setItem("selectedDay", new Date(selected_day));
+      var selectedDay = new Date(selected_day);
+      selectedDay = selectedDay.addDays(1);
+      localStorage.setItem("selectedDay", new Date(selectedDay));
 
       var current_url = location.href;
 
@@ -65,5 +67,13 @@ $(document).ready(function() {
 
   });
 });
+
+Date.prototype.addDays = function(days)
+{
+    var dat = new Date(this.valueOf());
+    dat.setDate(dat.getDate() + days);
+    return dat;
+};
+
 
 

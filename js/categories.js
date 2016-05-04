@@ -6,20 +6,22 @@ var new_file_name;
 var current_topic_h4_id;
 var current_panel_heading_id;
 var editing_topic_name = false;
-var cd;
-var currentDay;
+// var cd;
+// var currentDay;
+
 //SimpleDateFormat formatter=new SimpleDateFormat("DD-MMM-yyyy");  
- cd=new Date(localStorage.getItem("selectedDay"));
+ // cd=new Date(localStorage.getItem("selectedDay"));
 
 var topicStack = new Array();
 var fileStack = new Array();
-function dayToString(day){
-    var yyyy = day.getFullYear().toString();
-   var mm = (day.getMonth()+1).toString(); // getMonth() is zero-based
-   var dd  = (day.getDate()+1).toString();
-    var stringDay=yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]);
-   return  stringDay
-}
+
+// function dayToString(day){
+//     var yyyy = day.getFullYear().toString();
+//    var mm = (day.getMonth()+1).toString(); // getMonth() is zero-based
+//    var dd  = (day.getDate()+1).toString();
+//     var stringDay=yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]);
+//    return  stringDay
+// }
 
 function undoDeleteFile(){
     var parent = fileStack.pop();
@@ -40,26 +42,23 @@ function undoDeleteTopic(){ //udos to the notification
 }
 $(document).ready(function() {
     
-    currentDay=dayToString(cd);
-    console.log(currentDay);
+    // currentDay=dayToString(cd);
+    // console.log(currentDay);
     $('#topics').on("click", ".btn-add-materials", function(e){
         e.stopPropagation();
         e.preventDefault();
-    if (e.target.className=="glyphicon glyphicon-plus"){		
-        var btn_id = e.target.parentNode.id;
-
-    var btn_id = e.target.parentNode.id;
-    var topic_name = btn_id.split("_")[2];
-    var upload = document.getElementById("id_input_" + topic_name);
-    upload.click();
-    }
-        else{		
-           var btn_id = e.target.id;		
-     var topic_name = btn_id.split("_")[2];		
-     var upload = document.getElementById("id_input_" + topic_name);
-
-    upload.click();
-        }
+        if (e.target.className == "glyphicon glyphicon-plus") {		
+            var btn_id = e.target.parentNode.id;
+            var btn_id = e.target.parentNode.id;
+            var topic_name = btn_id.split("_")[2];
+            var upload = document.getElementById("id_input_" + topic_name);
+            upload.click();
+        } else {		
+            var btn_id = e.target.id;		
+            var topic_name = btn_id.split("_")[2];		
+            var upload = document.getElementById("id_input_" + topic_name);
+            upload.click();
+        };
     });
 
     var isEditing = false;
@@ -287,10 +286,17 @@ var displayAllTopics = function() {
         for (var j = 0; j < handouts.length; j++) {
             //console.log(handouts[j]);
            // if ($.inArray(handouts[j], topic.handouts)) {
-            if (handouts[j].relevant_day==currentDay){
-               $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[j].title+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>'); 
-            }
+            var current_date = new Date(localStorage.getItem("selectedDay"));
+            curr_date_str = current_date.toISOString().substring(0, 10);
+            
+            console.log(current_date);
+            console.log('current date: ' + curr_date_str);
+            console.log('handout ' + handouts[j].relevant_day.toISOString().substring(0, 10));
+            if (handouts[j].relevant_day.toISOString().substring(0, 10) == curr_date_str) {
                 
+               $(topic_materials).append('<p class="doc"><a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">'+ handouts[j].title+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none" ></span> </p>'); 
+            };
+          
           //  };
 
         };
@@ -364,14 +370,16 @@ var prepareUpload = function(event) {
 
     var new_assignment = '<p class="doc"> <a href="http://ptchanculto.binhoster.com/books/-Lit-%20Recommended%20Reading/Japanese%20Literature/Murakami,%20Haruki/Murakami,%20Haruki%20-%20The%20Elephant%20Vanishes.pdf">' + new_file_name+ '</a> <span class="glyphicon glyphicon-remove handout" aria-hidden="true" style="color:red; float:right; display:none"></span> </p>';
 
-      //create the file to be added the collections array:
-      var newHandoutArray={
+    // create the file to be added the collections array:
+    var date = new Date(localStorage.getItem("selectedDay"));
+
+    var newHandoutArray = {
         title: new_file_name,
         topic: topic_name,
         file: 'N/A',
         text: 'Some description',
-        relevant_day: selected_day
-      }
+        relevant_day: date
+    };
 
       //actually adds it to the collections array:
     for (var j = 0; j < topics.length; j++) {
@@ -410,6 +418,9 @@ var addTopic = function() {
     // recreate divs to place new topic div in correct place
     $('#topics').empty();
     displayAllTopics();
+    displayAddNewTopic();
+    
+
     // displayAssignments();
 
     // add new topic
@@ -501,3 +512,6 @@ var closeTopicNameInput = function(topic_id) {
   // enable clicking new topic names to edit again
   editing_topic_name = false;
 };
+
+
+

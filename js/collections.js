@@ -97,14 +97,14 @@ var topics = [
         topic: 'Verbs',
         file: 'N/A',
         text: 'Some description',
-        relevant_day: '2016-04-20'
+        relevant_day: default_day
       },
       {
         title: 'IR Verbs',
         topic: 'Verbs',
         file: 'N/A',
         text: 'Some description',
-        relevant_day: '2016-04-18'
+        relevant_day: default_day_2
       },
     ],
     id: 1
@@ -118,14 +118,14 @@ var topics = [
         topic: 'Nouns',
         file: 'N/A',
         text: 'Some description',
-        relevant_day: '2016-04-20'
+        relevant_day: default_day
       },
       {
         title: 'Nouns 2',
         topic: 'Nouns',
         file: 'N/A',
         text: 'Some description',
-        relevant_day: '2016-04-18'
+        relevant_day: default_day_2
       },
     ],
     id: 2
@@ -139,14 +139,14 @@ var topics = [
         topic: 'Assignments',
         file: 'N/A',
         text: 'Write ten sentences in present tense about your day.',
-        relevant_day: '2016-04-17'
+        relevant_day: default_day
       },
       {
         title: 'Assignment 2',
         topic: 'Assignments',
         file: 'N/A',
         text: 'Complete the homework sheet.',
-        relevant_day: '2016-04-20'
+        relevant_day: default_day_2
       }  
     ],
     id: 3

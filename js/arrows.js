@@ -24,10 +24,14 @@ $(document).ready(function() {
         localStorage.setItem("selectedDay", new_date);
         displayDay();
 
+
         // redisplay all topic stuff
         $('#topics').empty();
         displayAllTopics();
         displayAddNewTopic();        
+
+        $('#daily-questions').empty();
+        displayQuestions();
     });
 
     $('body').on('click', '.rightarrow', function(e) {
@@ -40,11 +44,15 @@ $(document).ready(function() {
         $('#topics').empty();
         displayAllTopics();
         displayAddNewTopic();               
+
+        $('#daily-questions').empty();
+        displayQuestions();
     });
 });
 
 var displayDay = function() {
     var date = new Date(localStorage.getItem("selectedDay"));
+    var date = date.addDays(-1);
     var date_to_display = date.toISOString().substring(0, 10);
     
     $("#selected-day").html(date_to_display);
