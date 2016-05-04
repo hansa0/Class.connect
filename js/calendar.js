@@ -37,6 +37,7 @@ $(document).ready(function() {
     // weekends: false,
     
     fixedWeekCount: false,
+    displayEventTime: false,
 
     // includes all materials as events
     events: all_materials, 
